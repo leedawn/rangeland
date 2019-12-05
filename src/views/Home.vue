@@ -3,6 +3,8 @@
     <vuetable
       ref="vuetable"
       :api-mode="false"
+      :css="css.table"
+      :show-sort-icons="true"
       :fields="fields"
       :per-page="perPage"
       :data-manager="dataManager"
@@ -21,8 +23,12 @@
         </button>
       </div> -->
     </vuetable>
-    <div style="padding-top:10px">
-      <vuetable-pagination ref="pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
+    <div style="margin-top:10px">
+      <vuetable-pagination ref="pagination"
+       :css="css.pagination"
+       class="pull-right"
+       @vuetable-pagination:change-page="onChangePage"
+      ></vuetable-pagination>
     </div>
   </div>
 </template>
@@ -40,7 +46,9 @@
 // }
 
 import Vuetable from 'vuetable-2'
-import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+// import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+import VuetablePagination from '@/components/VuetablePaginationBootstrap4.vue'
+import CssConfig from './VuetableBootstrap4Config.js'
 import FieldsDef from './FieldsDef.js'
 import axios from 'axios'
 import _ from 'lodash'
@@ -55,8 +63,9 @@ export default {
 
   data () {
     return {
+      css: CssConfig,
       fields: FieldsDef,
-      perPage: 20,
+      perPage: 10,
       data: []
     }
   },
@@ -89,7 +98,7 @@ export default {
 
       // sortOrder can be empty, so we have to check for that as well
       if (sortOrder.length > 0) {
-        console.log('orderBy:', sortOrder[0].sortField, sortOrder[0].direction)
+        // console.log('orderBy:', sortOrder[0].sortField, sortOrder[0].direction)
         local = _.orderBy(
           local,
           sortOrder[0].sortField,
@@ -102,7 +111,7 @@ export default {
         this.perPage
       )
 
-      console.log('pagination:', pagination)
+      // console.log('pagination:', pagination)
       let from = pagination.from - 1
       let to = from + this.perPage
 
@@ -110,10 +119,10 @@ export default {
         pagination: pagination,
         data: _.slice(local, from, to)
       }
-    },
-    onActionClicked (action, data) {
-      console.log('slot actions: on-click', data.name)
     }
+    // onActionClicked (action, data) {
+    //   console.log('slot actions: on-click', data.name)
+    // }
   }
 }
 </script>
@@ -124,7 +133,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 button.ui.button {
   padding: 8px 3px 8px 10px;
