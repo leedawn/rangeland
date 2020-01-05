@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="ui container">
+  <div id="home" class="ui bottom attached tab segment active" data-tab="home">
     <vuetable
       ref="vuetable"
       :api-mode="false"
@@ -11,17 +11,6 @@
       pagination-path="pagination"
       @vuetable:pagination-data="onPaginationData"
     >
-      <!-- <div slot="actions" slot-scope="props">
-        <button class="ui small button" @click="onActionClicked('view-item', props.rowData)">
-          <i class="zoom icon"></i>
-        </button>
-        <button class="ui small button" @click="onActionClicked('edit-item', props.rowData)">
-          <i class="edit icon"></i>
-        </button>
-        <button class="ui small button" @click="onActionClicked('delete-item', props.rowData)">
-          <i class="delete icon"></i>
-        </button>
-      </div> -->
     </vuetable>
     <div style="margin-top:10px">
       <vuetable-pagination ref="pagination"
@@ -34,22 +23,11 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-// import Vuetable from 'vuetable-2'
-// export default {
-//   name: 'home',
-//   components: {
-//     // HelloWorld,
-//     Vuetable
-//   }
-// }
-
 import Vuetable from 'vuetable-2'
-// import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
-import VuetablePagination from '@/components/VuetablePaginationBootstrap4.vue'
-import CssConfig from './VuetableBootstrap4Config.js'
-import FieldsDef from './FieldsDef.js'
+import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
+// import VuetablePagination from '@/components/VuetablePaginationBootstrap4.vue'
+import CssConfig from '../util/VuetableStyleConfig.js'
+import FieldsDef from '../util/FieldsDef.js'
 import axios from 'axios'
 import _ from 'lodash'
 
@@ -133,7 +111,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin-top: 0px;
+  margin-top: 20px;
 }
 button.ui.button {
   padding: 8px 3px 8px 10px;
