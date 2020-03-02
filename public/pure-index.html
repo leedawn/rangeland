@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>test vue</title>
+    <style>
+        /* plan A */
+        /* .fade-enter-active,.fade-leave-active {
+            transition:opacity .5s
+        }
+        .fade-enter,.fade-leave-to {
+            opacity:0
+        } */
+
+        /* plan B 
+        .fade-enter-active {
+            transition: all .3s ease;
+        }
+        .fade-leave-active {
+            transition: all .8s cubic-bezier(1.0,0.5,0.8,1.0)
+        }
+        .fade-enter,.fade-leave-to {
+            transform: translateX(10px);
+            opacity:0;
+
+        } */
+
+        /* plan C */
+        .fade-enter-active {
+            animation: fade-in .5s
+        }
+        .fade-leave-active {
+            animation: fade-in .5s reverse
+        }
+        @keyframes fade-in {
+            0% {
+                transform: scale(0)
+            }
+            50% {
+                transform: scale(1.5)
+            }
+            100% {
+                transform: scale(1)
+            }
+        }
+
+    
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+        <input v-model="message">
+        <button v-on:click="reverseMessage">反转消息</button>
+        <button @click="reverseMessage">反转消息</button>
+        <span v-bind:title="datetime">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+        <span :title="datetime">
+            鼠标悬停几秒钟查看此处动态绑定的提示信息！
+        </span>
+        <p v-if="seen">现在可以看到我了</p>
+        <p v-else>现在看不到我了</p>
+        <p v-for="todo in todos">
+            {{todo.text}}
+        </p>
+        <ol>
+            <!--
+              现在我们为每个 todo-item 提供 todo 对象
+              todo 对象是变量，即其内容可以是动态的。
+              我们也需要为每个组件提供一个“key”，稍后再
+              作详细解释。
+            -->
+            <todo-item v-for="item in groceryList" v-bind:test="item" v-bind:key="item.id"></todo-item>
+        </ol>
+        <todo-item test="blogging with vue"></todo-item>
+        <todo-item test="why vue is so fun!"></todo-item>
+
+        <!-- 模板语法 -->
+        <span v-once>这个 message 不会变化 {{message}}</span>
+        <p>{{rawHtml}}</p>
+        <p v-html="rawHtml"></p>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+        {{isButtonDisabled ? 'yes' : 'no'}}
+
+        <!-- 计算属性和侦听器 -->
+        {{reversedMessage}}
+        <p>
+            Ask a yes/no question:
+            <input v-model="question">
+        </p>
+        <p>{{answer}}</p>
+
+        <!-- class 与 style 绑定 -->
+        <div v-bind:class="classObject">classObject</div>
+        <div v-bind:style="styleObject">styleObject</div>
+
+        <!-- 列表渲染 -->
+        <li v-for="n in even(numbers)">{{n}}</li>
+
+        <!-- 事件处理 -->
+        <button @click="greet">Greet</button>
+        <button @click="warn('Form cannot be submitted yet.',$event)">Submit</button>
+
+        <!-- 进入/离开&列表过渡 -->
+        <button @click="show=!show">Toggle</button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script type="text/javascript">
+        Vue.component('todo-item', {
+            props: ['test'],
+            template: '<li>{{ test.text }}</li>'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                datetime: '页面加载于' + new Date().toLocaleString(),
+                seen: false,
+                todos: [
+                    { text: '学习第一课' },
+                    { text: '学习第二课' },
+                    { text: '学习第三课' }
+                ],
+                isButtonDisabled: true,
+                groceryList: [
+                    { id: 0, text: '蔬菜' },
+                    { id: 1, text: '奶酪' },
+                    { id: 2, text: '随便其它什么人吃的东西' }
+                ],
+                rawHtml: '<span style="color:red">this should be red.</span>',
+
+                question: '',
+                answer: 'I cannot give you an answer until you ask a question!',
+
+                isActive: true,
+                error: null,
+
+                styleObject: {
+                    color:'red',
+                    fontSize: '13px'
+                },
+
+                numbers: [1,2,3,4,5],
+
+                name:'Vue.js',
+
+                show:true
+            },
+            watch: {
+                // 如果 `question` 发生改变，这个函数就会运行
+                question: function (newQuestion, oldQuestion) {
+                    this.answer = 'Waiting for you to stop typing...'
+                    this.debouncedGetAnswer()
+                }
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.message = this.message.split('').reverse().join('')
+                },
+
+                getAnswer: function () {
+                    if (this.question.indexOf('?') === -1) {
+                        this.answer = 'Questions usually contain a question mark. ;-)'
+                        return
+                    }
+                    this.answer = 'Thinking...'
+                    var vm = this
+                    axios.get('https://yesno.wtf/api')
+                        .then(function (response) {
+                            vm.answer = _.capitalize(response.data.answer)
+                        })
+                        .catch(function (error) {
+                            vm.answer = 'Error! Could not reach the API. ' + error
+                        })
+                },
+
+                even: function(numbers) {
+                    return numbers.filter(function(number){
+                        return number%2===0
+                    })
+                },
+                greet: function(event) {
+                    alert('hello'+this.name+'!')
+                    if(event){
+                        alert(event.target.tagName)
+                    }
+                },
+                warn: function(message,event) {
+                    if(event){
+                        event.preventDefault()
+                    }
+                    alert(message)
+                }
+            },
+            created: function () {
+                console.log('message is:' + this.message),
+
+                this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+            },
+            computed: {
+                reversedMessage: function () {
+                    return this.message.split('').reverse().join('')
+                },
+                classObject: function () {
+                    return {
+                        active: this.isActive && !this.error,'text-danger':this.error && this.error.type==='fatal'
+                    }
+                }
+            }
+        })
+        // console.log(app.$el)
+        // Vue.component('todo-item', {
+        //     template: '<li>这是个代办项</li>'
+        // })
+        // var app = new Vue()
+    </script>
+</body>
+
+</html>

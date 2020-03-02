@@ -57,6 +57,7 @@ export default {
   mounted () {
     for (var i = 0; i < 201; i += 20) {
       axios.get('https://cain-api.gameyw.netease.com/cain/site/config?app=3&code=eval_new&start=' + i).then(response => {
+        console.log(response.data)
         this.data.push.apply(this.data, response.data)
       })
     }
@@ -90,8 +91,8 @@ export default {
       )
 
       // console.log('pagination:', pagination)
-      let from = pagination.from - 1
-      let to = from + this.perPage
+      const from = pagination.from - 1
+      const to = from + this.perPage
 
       return {
         pagination: pagination,
