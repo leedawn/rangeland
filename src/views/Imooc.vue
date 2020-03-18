@@ -1,13 +1,18 @@
 <template>
-  <div class="content">
-    <div class="ui tabular menu">
-      <router-link class="item" to="/imooc/login">login</router-link>
-      <router-link class="item" to="/imooc/reg">Reg</router-link>
-    </div>
-
+  <div class="app">
+    <imooc-header></imooc-header>
     <router-view></router-view>
   </div>
 </template>
+<script>
+import Header from '../components/Header'
+export default {
+  name: 'app',
+  components: {
+    'imooc-header': Header
+  }
+}
+</script>
 <style>
 /* .Content {
   display: flex;

@@ -31,7 +31,7 @@ export default {
     success: {
       type: Function,
       default: () => {
-        console.log('点击了 success')
+        console.log('点击了 success！')
       }
     },
     cancel: {

@@ -123,16 +123,20 @@ export default {
       }).then((res) => {
         console.log(res.code)
         if (res.code === 200) {
+          this.$store.commit('setUserInfo', res.data)
+          this.$store.commit('setIsLogin', true)
+          this.$store.commit('setToken', res.token)
           this.username = ''
           this.password = ''
           this.code = ''
           requestAnimationFrame(() => {
             this.$refs.observer.reset()
           })
+          this.$router.push({ name: 'index' })
 
-          setTimeout(() => {
-            this.$router.push('/imooc')
-          }, 1000)
+          // setTimeout(() => {
+          //   this.$router.push('/imooc')
+          // }, 1000)
         } else if (res.code === 401) {
           this.$refs.codefield.setErrors([res.msg])
         } else if (res.code === 404) { // 觉得复制的代码有问题，因为这个状态服务端有返回

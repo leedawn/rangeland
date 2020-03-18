@@ -22,7 +22,7 @@ Alert.install = (Vue) => {
       instance.success = success
     }
     if (typeof success !== 'undefined') {
-      instance.success = cancel
+      instance.cancel = cancel
     }
   }
 }

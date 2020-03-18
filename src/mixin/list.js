@@ -20,6 +20,7 @@ export default {
     const catalog = this.$route.params.catalog
     if (typeof catalog !== 'undefined' && catalog !== '') {
       this.catalog = catalog
+      console.log('mounted -> catalog', catalog)
     }
     this._getLists()
   },
@@ -45,7 +46,6 @@ export default {
       }
       getList(options).then((res) => {
         this.isRepeat = false
-        console.log(res)
 
         if (res.code === 200) {
           if (res.data.length < this.limit) {

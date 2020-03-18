@@ -19,7 +19,7 @@
         </ValidationProvider>
       </div>
       <div class="field">
-        <ValidationProvider name="name" rules="regex:/^[0-9]+$/ " v-slot="{ errors }">
+        <ValidationProvider name="name" rules="required" v-slot="{ errors }">
         <label class="field-name">昵称</label>
          <div class="row">
           <div class="col">
@@ -144,7 +144,6 @@ export default {
       if (!isValid) {
         return
       }
-      console.log('submit')
       reg({
         username: this.username,
         password: this.password,

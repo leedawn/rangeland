@@ -19,7 +19,7 @@ import axios from '@/util/request'
 // }
 
 const getCode = (sid) => {
-  return axios.get('./public/getCaptcha', {
+  return axios.get('/public/getCaptcha', {
     params: {
       sid: sid
     }

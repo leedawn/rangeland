@@ -1,10 +1,14 @@
 import axios from 'axios'
 import errorHandle from './errorHandle'
-// import config from '@/config/index'
+import publicConfig from '@/config/index'
+import store from '@/store'
+
+const CancelToken = axios.CancelToken
 
 class HttpRequest {
   constructor (baseUrl) {
     this.baseUrl = baseUrl
+    this.pending = {}
   }
 
   getInsideConfig () {
@@ -18,9 +22,28 @@ class HttpRequest {
     return config
   }
 
+  removePending (key, isRequest = false) {
+    if (this.pending[key] && isRequest) {
+      this.pending[key]('取消重复请求')
+    }
+    delete this.pending[key]
+  }
+
   interceptors (instance) {
     instance.interceptors.request.use((config) => {
-      console.log('config:' + config)
+      let isPublic = false
+      publicConfig.publicPath.map((path) => {
+        isPublic = isPublic || path.test(config.url)
+      })
+      const token = store.state.token
+      if (!isPublic && token) {
+        config.headers.Authorization = 'Bearer ' + token
+      }
+      const key = config.url + '&' + config.method
+      this.removePending(key, false)
+      config.cancelToken = new CancelToken((c) => {
+        this.pending[key] = c
+      })
       return config
     }, (err) => {
       errorHandle(err)
@@ -28,14 +51,14 @@ class HttpRequest {
     })
 
     instance.interceptors.response.use((res) => {
-      console.log('res is: ' + res)
+      const key = res.config.url + '&' + res.config.method
+      this.removePending(key)
       if (res.status === 200) {
         return Promise.resolve(res.data)
       } else {
         return Promise.reject(res)
       }
     }, (err) => {
-      debugger
       errorHandle(err)
       return Promise.reject(err)
     })
@@ -44,7 +67,6 @@ class HttpRequest {
   request (options) {
     const instance = axios.create()
     const newOptions = Object.assign(this.getInsideConfig(), options)
-    console.log(newOptions)
     this.interceptors(instance)
     return instance(newOptions)
   }
@@ -54,7 +76,6 @@ class HttpRequest {
       method: 'get',
       url: url
     }, config)
-    console.log(options)
     return this.request(options)
   }
 
