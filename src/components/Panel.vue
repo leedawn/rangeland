@@ -17,10 +17,17 @@
             </div>
           </div>
           <div class="post-new-post">
-            <button class="ui positive basic button">发表新帖</button>
+            <button class="ui positive basic button">
+              <router-link :to="{name:'add'}" class="post-button">发表新帖</router-link>
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style scoped>
+.post-button {
+  color:#21ba45;
+}
+</style>

@@ -121,7 +121,8 @@ export default {
         code: this.code,
         sid: this.$store.state.sid
       }).then((res) => {
-        console.log(res.code)
+        console.log(res.data)
+        debugger
         if (res.code === 200) {
           this.$store.commit('setUserInfo', res.data)
           this.$store.commit('setIsLogin', true)

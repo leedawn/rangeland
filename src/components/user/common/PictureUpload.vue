@@ -12,7 +12,7 @@
     </label>
 
     <p class="advise">建议尺寸168*168，支持jpg,png,gif,最大不能超过50KB</p>
-    <img class="ui small rounded image" :src="pic" />
+    <img  :src="pic" class="ui small circular image head_photo" />
   </div>
 </template>
 <script>
@@ -21,10 +21,10 @@ import config from '../../../config/index'
 import { updateUserInfo } from '@/api/user'
 export default {
   name: 'image-upload',
-  date () {
+  data () {
     return {
       pic:
-        this.$store.state.userInfo && this.$store.state.userInfo.pic
+        (this.$store.state.userInfo && this.$store.state.userInfo.pic)
           ? this.$store.state.userInfo.pic
           : '../../../assets/logo.png',
       formData: ''
@@ -92,5 +92,10 @@ export default {
   position: relative;
   top: 30%;
   left: 25%;
+}
+.head_photo {
+    position:relative;
+    top:90px;
+    left:90px;
 }
 </style>

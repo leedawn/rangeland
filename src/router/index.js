@@ -36,7 +36,7 @@ Vue.use(VueRouter)
 
 const myRoutes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: Home
   },
@@ -49,7 +49,7 @@ const myRoutes = [
   //   component: () => import(/* webpackChunkName: "about" */ '../views/Imooc.vue')
   // },
   {
-    path: '/imooc', // 嵌套路由需要两级router-view
+    path: '/', // 嵌套路由需要两级router-view
     name: 'imooc',
     component: Imooc,
     children: [
@@ -68,10 +68,10 @@ const myRoutes = [
         component: ImoocRegister,
         beforeEnter: (to, from, next) => {
           console.log(from)
-          if (from.path === '/imooc/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
+          if (from.path === '/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
             next()
           } else {
-            next('/imooc/login')
+            next('/login')
           }
         }
       },

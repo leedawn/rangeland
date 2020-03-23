@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <div class="ui tabular menu">
+  <div class="ui inverted segment">
+    <div class="ui inverted secondary menu">
       <template v-if="!isShow">
-        <router-link class="item" to="/imooc/login">login</router-link>
-        <router-link class="item" to="/imooc/reg">Reg</router-link>
+        <router-link class="right item" to="/login">login</router-link>
+        <router-link class="item" to="/reg">Reg</router-link>
       </template>
       <template v-else>
         <div class="login-status">
-          <div class="ui right dropdown item">
+          <div class="ui dropdown right item">
             <div class="text">
               {{userInfo.name}}
               {{userInfo.isVip}}
@@ -79,6 +79,9 @@ export default {
 }
 </script>
 <style scoped>
+.ui.inverted.segment{
+  background-color: #393d49
+}
 .login-status {
   float: right;
 }

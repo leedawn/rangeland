@@ -36,7 +36,7 @@ export default {
       tag: '',
       sort: 'created',
       page: 0,
-      limit: 20,
+      limit: 5,
       catalog: '',
       isEnd: false,
       isRepeat: false,

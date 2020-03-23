@@ -126,13 +126,11 @@ export default {
       localStorage.setItem('sid', sid)
     }
     this.$store.commit('setSid', sid)
-    console.log(sid)
     this._getCode()
   },
   methods: {
     _getCode () {
       const sid = this.$store.state.sid
-      console.log(sid)
       getCode(sid).then(res => {
         if (res.code === 200) {
           this.svg = res.data
@@ -164,7 +162,6 @@ export default {
           setTimeout(() => {
             this.$router.push('/imooc/login')
           }, 1000)
-          console.log(res)
         } else {
           this.$refs.observer.setErrors(res.msg)
         }

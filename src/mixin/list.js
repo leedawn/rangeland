@@ -7,7 +7,7 @@ export default {
       tag: '',
       sort: 'created',
       page: 0,
-      limit: 20,
+      limit: 5,
       isTop: 0,
       catalog: '',
       isEnd: false,
@@ -51,6 +51,8 @@ export default {
           if (res.data.length < this.limit) {
             this.isEnd = true
           }
+          console.log('_getLists -> res.data.length', res.data.length)
+          console.log('_getLists -> this.limit', this.limit)
           if (this.lists.length === 0) {
             this.lists = res.data
           } else {

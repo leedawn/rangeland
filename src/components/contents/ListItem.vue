@@ -7,21 +7,21 @@
         </div>
         <div class="content_wrapper">
           <div class="header">
-            <button class="mini ui positive basic button">{{item.catalog}}</button>
-            <p>{{item.title}}</p>
+            <p class="ui green basic label">{{item.catalog}}</p>
+            <p class="title">{{item.title}}</p>
           </div>
           <div class="description">
-            <a href="user/home.html" link>
-              <cite>{{item.uid.name}}</cite>
+            <a href="" link>
+              <cite class="name">{{item.uid.name}}</cite>
               <i v-if="item.uid.isVip!=='0'">{{'VIP' + item.uid.isVip}}</i>
             </a>
-            <span>{{item.created | moment}}</span>
-            <span>{{item.fav}}</span>
+            <span class="time">{{item.created | moment}}</span>
+            <span class="fav">积分：{{item.fav}}</span>
             <span v-show="item.status !== '0'">已结</span>
-            <span>{{item.answer}}</span>
+            <span class="answer">{{item.answer}}</span>
           </div>
           <div class="tag" v-show="item.tags.length>0">
-            <span v-for="(tag,index) in item.tags" :key="'tag'+index">{{tag.name}}</span>
+            <span class="ui red label" v-for="(tag,index) in item.tags" :key="'tag'+index">{{tag.name}}</span>
           </div>
         </div>
       </div>
@@ -42,15 +42,19 @@ import 'moment/locale/zh-cn'
 import _ from 'lodash'
 export default {
   name: 'listitem',
+  data () {
+    return { isShow: true }
+  },
   props: {
     lists: {
       default: () => [],
       type: Array
     },
-    isShow: {
-      default: true,
-      type: Boolean
-    },
+    // 不是父组件传递的值，所以把它放到 data 了
+    // isShow: {
+    //   default: true,
+    //   type: Boolean
+    // },
     isEnd: {
       default: false,
       type: Boolean
@@ -106,8 +110,8 @@ export default {
 
 <style lang='scss' scoped>
 .list_item {
-  position:relative;
-  top:20px;
+  position: relative;
+  top: 20px;
 }
 .item_pic {
   position: absolute;
@@ -115,11 +119,33 @@ export default {
 .content_wrapper {
   position: relative;
   left: 50px;
-
+}
+.title {
+  position:absolute;
+  left:50px;
+  top:5px;
+}
+.name {
+  position: relative;
+  color:gray;
+}
+.time {
+  position: relative;
+  left:8px;
 }
 .tag {
-  position:relative;
-  top:-30px;
-  left:83%;
+  position: relative;
+  top: -30px;
+  left: 83%;
+}
+.fav {
+  position: absolute;
+  left: 140px;
+  color:red;
+}
+.answer {
+  position: relative;
+  top: 10px;
+  left: 460px;
 }
 </style>

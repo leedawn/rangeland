@@ -85,6 +85,7 @@ export default {
       gender,
       regmark
     } = this.$store.state.userInfo
+    console.log('mounted -> this.$store.state.userInfo', this.$store.state.userInfo)
     this.username = username || ''
     this.name = name || ''
     this.location = location || ''

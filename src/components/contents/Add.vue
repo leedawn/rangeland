@@ -1,120 +1,149 @@
 <template>
-  <div class="add_post">
+  <div class="add-post">
     <div class="container">
-      <div class="add_tab">发表新帖</div>
-      <hr />
-      <div class="ui form">
-        <label class="special_column">所在专栏</label>
-        <select class="ui dropdown">
-          <option value>请选择</option>
-          <option value="1">提问</option>
-          <option value="0">分享</option>
-          <option value="0">讨论</option>
-          <option value="0">建议</option>
-        </select>
-        <div class="inline field title">
-          <label>标题</label>
-          <input type="text" placeholder="请输入标题" />
-        </div>
-        <div class="editor">
-          <div class="editor_icon">
-            <i class="meh outline icon"></i>
-          </div>
-          <textarea></textarea>
-        </div>
-
-        <!-- <div class="kiss">
-          <label class="special_column two">悬赏飞吻</label>
-          <select class="ui dropdown two">
-            <option value>20</option>
-            <option value>30</option>
-            <option value>50</option>
-            <option value>60</option>
-            <option value>80</option>
+      <div class="top-menu">
+        <div class="post-tab">发表新帖</div>
+      </div>
+      <hr class="selected-line" />
+      <hr class="cutting-line" />
+      <div class="classify">
+        <div class="special-column">
+          <div class="text">所在专栏</div>
+          <select class="ui dropdown special">
+            <option value>请选择</option>
+            <option value="提问">提问</option>
+            <option value="分享">分享</option>
+            <option value="分享">讨论</option>
+            <option value="建议">建议</option>
           </select>
         </div>
-        <div class="code"></div>
-        <button class="ui green button">立即发布</button> -->
+        <div class="title">
+          <div class="text">标题</div>
+          <input class="title-input" />
+        </div>
       </div>
+     <editor></editor>
+      <div class="kiss">
+        <div class="text">悬赏飞吻</div>
+        <select class="ui dropdown kiss">
+          <option value="20">20</option>
+          <option value="30">30</option>
+          <option value="50">50</option>
+          <option value="60">60</option>
+          <option value="80">80</option>
+        </select>
+        <div class="description">发表后无法更改飞吻</div>
+      </div>
+      <div class="code">
+        <div class="text">验证码</div>
+        <input class="code-input" />
+      </div>
+      <button class="publish">立即发布</button>
     </div>
   </div>
 </template>
+<script>
+import Editor from '../modules/editor/Index'
+export default {
+  components: {
+    Editor
+  }
+}
+</script>
 <style scoped>
-.add_post {
+.add-post {
   width: 2560px;
   height: 3000px;
-  background-color: #f0f5f5;
+  background-color: #fbfbfb;
 }
 .container {
   position: absolute;
   left: 5%;
   top: 25%;
   width: 90%;
-  height: 100%;
-
-  background-color: white;
-
-  text-align: left;
+  height: 800px;
+  background-color: #fff;
+  padding: 50px;
 }
-
-.add_tab {
+.post-tab {
   position: relative;
-  top: 5%;
-  left: 4%;
-  color: green;
-  font-size: 16px;
+  left: 10px;
+  color: #009688;
+  font-size: 18px;
+  padding: 4px;
 }
-
-hr {
-  position: relative;
-  top: 7%;
-  left: -1%;
-  width: 90%;
-}
-
-.ui.form {
-  position: relative;
-  top: 10%;
-  left: 4%;
-}
-.special_column {
-  position: relative;
-  font-weight: bold;
-  font-size: 13px;
-  float: left;
-  padding: 9px 0; /*垂直居中*/
-}
-.ui.dropdown {
-  position: relative;
-  left: 2%;
-  width: 18%;
-  background-color: white;
-  float:left;
-}
-.inline.field.title {
+.selected-line {
   position: absolute;
-  left: 40%;
-
+  width: 100px;
+  border: 1px solid #009688;
+  z-index: 1000;
 }
-.editor {
+.cutting-line {
   position: relative;
+  z-index: 0;
 }
- .editor_icon {
-  position:relative;
-  top:40%;
-  padding: 3px;
-  border: 0.5px solid #f2f2f2;
+.special-column {
+  position: absolute;
+  top: 100px;
 }
-/*
-.special_column.two {
+.text {
+  position: absolute;
+  border: 1px solid #e6e6e6;
+  background-color: #fbfbfb;
+  width: 120px;
+  font-size: 15px;
+  padding: 10px 18px;
+  text-align: center;
+}
+.ui.dropdown.special {
+  position: absolute;
+  top: 2px;
+  left: 120px;
+  width: 150px;
+  background-color: white;
+}
+.title {
+  position: absolute;
+  top: 96px;
+  left: 400px;
+}
+.title-input {
+  position: absolute;
+  top: -10px;
+  left: 110px;
+  width: 400px;
+}
+.kiss {
   position: relative;
-  top: 100%;
+  top: 100px;
 }
-.ui.dropdown.two {
+.ui.dropdown.kiss {
+  position: absolute;
+  top: 2px;
+  left: 120px;
+  width: 150px;
+  background-color: white;
 }
-.ui.green.button {
-  /* position: absolute;
-  top: 70%;
-} */
-
+.description {
+  position: absolute;
+  top: 13px;
+  left: 290px;
+  color: #999;
+}
+.code {
+  position: relative;
+  top: 170px;
+}
+.code-input {
+  position: absolute;
+  top: -10px;
+  left: 110px;
+}
+.publish {
+  position: relative;
+  top: 270px;
+  background-color: #009688;
+  padding: 15px;
+  color: white;
+}
 </style>
