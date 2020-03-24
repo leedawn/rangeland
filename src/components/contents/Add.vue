@@ -22,7 +22,7 @@
           <input class="title-input" />
         </div>
       </div>
-     <editor></editor>
+      <editor></editor>
       <div class="kiss">
         <div class="text">悬赏飞吻</div>
         <select class="ui dropdown kiss">
@@ -47,6 +47,42 @@ import Editor from '../modules/editor/Index'
 export default {
   components: {
     Editor
+  },
+  data () {
+    return {
+      isSelect: false,
+      isSelect_fav: false,
+      cataIndex: 0,
+      favIndex: 0,
+      catalogs: [
+        {
+          text: '请选择',
+          value: ''
+        },
+        {
+          text: '提问',
+          value: 'ask'
+        },
+        {
+          text: '分享',
+          value: 'share'
+        },
+        {
+          text: '讨论',
+          value: 'discuss'
+        },
+        {
+          text: '建议',
+          value: 'advise'
+        }
+      ],
+      favlist: [20, 30, 50, 60, 80],
+      content: '',
+      title: ''
+    }
+  },
+  mounted () {
+    // const saveData = localStorage.getItem(addData)
   }
 }
 </script>

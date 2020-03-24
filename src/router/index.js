@@ -22,6 +22,7 @@ import Others from '../components/user/Others'
 import Posts from '../components/user/Posts'
 import Setting from '../components/user/Setting.vue'
 import Add from '../components/contents/Add.vue'
+import Detail from '../components/contents/Detail'
 
 import MyInfo from '../components/user/common/MyInfo'
 import PictureUpload from '../components/user/common/PictureUpload'
@@ -60,6 +61,7 @@ const myRoutes = [
       },
       {
         path: 'login',
+        name: 'login',
         component: ImoocLogin
       },
       {
@@ -83,6 +85,12 @@ const myRoutes = [
         path: '/add',
         name: 'add',
         component: Add
+      },
+      {
+        path: '/detail/:tid',
+        name: 'detail',
+        props: true,
+        component: Detail
       }
     ]
   },

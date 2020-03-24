@@ -1,29 +1,34 @@
 <template>
-  <div class="ui inverted segment">
-    <div class="ui inverted secondary menu">
-      <template v-if="!isShow">
-        <router-link class="right item" to="/login">login</router-link>
-        <router-link class="item" to="/reg">Reg</router-link>
-      </template>
-      <template v-else>
-        <div class="login-status">
-          <div class="ui dropdown right item">
-            <div class="text">
-              {{userInfo.name}}
-              {{userInfo.isVip}}
-              <img :src="userInfo.pic" />
-            </div>
-            <div class="menu">
-              <div class="item">个人设置</div>
-              <div class="item">我的消息</div>
-              <div class="item">我的主页</div>
-              <div class="ui divider"></div>
-              <div class="item" href="javascript: void(0)" @click="logout()">退出</div>
-            </div>
+  <div class="menu-wrapper">
+    <template v-if="!isShow">
+      <router-link class="right item" to="/login">login</router-link>
+      <router-link class="item" to="/reg">Reg</router-link>
+    </template>
+    <template v-else>
+      <div class="login-status">
+        <div class="login-info">
+          <div class="user-info">
+            {{userInfo.name}}
+            {{userInfo.isVip}}
           </div>
+          <img :src="userInfo.pic" class="image" />
         </div>
-      </template>
-    </div>
+        <div class="dropdown-menu">
+          <div class="item">
+            <i class="cog icon"></i>个人设置
+          </div>
+          <div class="item">
+            <i class="bell outline icon"></i>我的消息
+          </div>
+          <div class="item">
+            <i class="home icon"></i>
+            <router-link :to="{name:'center'}" class="my-page">我的主页</router-link>
+          </div>
+          <div class="ui divider"></div>
+          <div class="item" href="javascript: void(0)" @click="logout()">退出</div>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 <script>
@@ -79,13 +84,68 @@ export default {
 }
 </script>
 <style scoped>
-.ui.inverted.segment{
-  background-color: #393d49
+.menu-wrapper {
+  position: fixed;
+  top: 0px;
+  height: 60px;
+  width: 100%;
+  background-color: #3d3d49;
+}
+
+.login-status {
+  position: absolute;
+  top: 5px;
+  right: 40px;
+}
+.user-info {
+  display: inline-block;
+  position: relative;
+  right: 20px;
+  top: -7px;
+  color: white;
+}
+.image {
+  position: relative;
+  top: 5px;
+  padding: 2px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.dropdown-menu {
+  position: relative;
+  top: 20px;
+  right: 20px;
+  border: 1px solid #e2e2e2;
+  text-align: center;
+  box-shadow: 2px 2px 0.2px #e2e2e2;
+  visibility: hidden;
+}
+.login-info:hover {
+  color: red;
+}
+.item {
+  position: relative;
+  position: relative;
+  top: 5px;
+  padding: 10px 18px;
+  font-size: 15px;
+}
+.item:hover {
+  background-color: #e2e2e2;
+}
+/* .ui.inverted.segment {
+  background-color: #393d49;
 }
 .login-status {
   float: right;
 }
-.ui.right.dropdown.item:hover .menu {
+
+.login-status:hover .menu {
   display: block;
 }
+.my-page {
+  color: black;
+} */
 </style>

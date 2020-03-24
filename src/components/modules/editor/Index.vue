@@ -10,7 +10,7 @@
         <span class="hr" @click="choose(0)">hr</span>
         <i class="eye icon"></i>
       </div>
-      <textarea class="textarea"></textarea>
+      <textarea id="edit" v-model="content" class="textarea"></textarea>
     </div>
     <div class="model">
       <face :isShow="current===0" @closeEvent="closeModal()" @addEvent="addFace"></face>
@@ -36,6 +36,8 @@ import Face from './Face'
 // import CodeInput from './CodeInput'
 // import Preview from './Preview'
 export default {
+  name: 'Editor',
+  props: ['initContent'],
   components: {
     Face
     // ImgUpload,
@@ -53,9 +55,35 @@ export default {
       pos: ''
     }
   },
+  watch: {
+    initContent (newval, oldval) {
+      this.content = newval
+    }
+  },
+  updated () {
+    this.$emit('changeContent', this.content)
+  },
   methods: {
     closeModal () {
       this.current = ''
+    },
+    focusEvent () {
+      this.getPos()
+    },
+    blurEvent () {
+      this.getpos()
+    },
+    getPos () {
+      let cursorPos = 0
+      const elem = document.getElementById('edit')
+      if (document.selection) {
+        const selectRange = document.selection.createRange()
+        selectRange.moveStart('character', -elem.value.length)
+        cursorPos = selectRange.text.length
+      } else if (elem.selectionStart || elem.selectionStart === '0') {
+        cursorPos = elem.selectionStart
+      }
+      this.pos = cursorPos
     },
     addFace (item) {
       const insertContent = `face${item}`
@@ -63,12 +91,30 @@ export default {
       this.pos += insertContent.length
     },
     choose (index) {
-      debugger
       if (index === this.current) {
         this.closeModal()
       } else {
         this.current = index
       }
+    },
+    handleBodyClick (e) {
+      e.stopPropagation()
+      if (
+        !(
+          this.$refs.icons.contains(e.target) ||
+          this.$refs.modal.contains(e.target)
+        )
+      ) {
+        this.closeModal()
+      }
+    },
+    insert (val) {
+      if (typeof this.content === 'undefined') {
+        return
+      }
+      const tmp = this.content.split('')
+      tmp.splice(this.pos, 0, val)
+      this.content = tmp.join('')
     }
   }
 }
