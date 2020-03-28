@@ -1,7 +1,11 @@
 <template>
   <div class="app">
+    <div class="header">
     <imooc-header></imooc-header>
+    </div>
+    <div class="content">
     <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -14,8 +18,10 @@ export default {
 }
 </script>
 <style>
-/* .Content {
-  display: flex;
-  flex-flow: column nowrap;
-} */
+.header{
+  z-index:100;
+}
+.content{
+  z-index:-1;
+}
 </style>

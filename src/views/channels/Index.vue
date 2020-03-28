@@ -2,19 +2,17 @@
   <div class="detail">
     <imooc-panel></imooc-panel>
     <div class="post-content">
-      <div class="ui stackable two column grid">
-        <div class="column">
+      <div class="main-content">
+        <div class="post-list">
           <!-- <imooc-top></imooc-top> -->
           <imooc-list></imooc-list>
         </div>
-        <div class="column sidebar">
-          <div class="sidebar">
-            <imooc-tips></imooc-tips>
-            <imooc-sign></imooc-sign>
-            <imooc-hotlist></imooc-hotlist>
-            <imooc-ads></imooc-ads>
-            <imooc-links></imooc-links>
-          </div>
+        <div class="sidebar">
+          <imooc-tips></imooc-tips>
+          <imooc-sign></imooc-sign>
+          <imooc-hotlist></imooc-hotlist>
+          <imooc-ads></imooc-ads>
+          <imooc-links></imooc-links>
         </div>
       </div>
     </div>
@@ -48,23 +46,36 @@ export default {
 </script>
 <style>
 .detail {
+  position: relative;
+  height: 1000px;
+  background-color: #e6e6e6;
+}
+.post-content {
+  position: absolute;
+  top: 135px;
+  width: 95%;
+  left: 2.5%;
+}
+.post-list {
+  position: absolute;
+  width: 60%;
+}
+.sidebar {
+  position: absolute;
+  width: 29%;
+  right: 0%;
+  background-color:white;
+}
+
+/* .detail {
   width: 100%;
   background-color: #999;
   height: 2000px;
 }
-.topbar {
-  background-color: white;
-  padding-left: 40px;
-  padding-right: 40px;
-}
-.post-new-post {
-  margin-right: 30px;
-  margin-top: 5px;
-}
 .post-content {
   width: 90%;
-  margin-left: auto; /*设置浏览器边距*/
-  margin-right: auto;
+  margin-left: auto; 设置浏览器边距 */
+/* margin-right: auto;
   margin-top: 20px;
 }
 .post-list {
@@ -111,5 +122,5 @@ export default {
   background-color: white;
   padding: 7px;
   margin-bottom: 15px;
-}
+} */
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="register-wrapper">
-    <div class="register-content">
+  <div class="reset-wrapper">
+    <div class="reset-content">
       <div class="tab">
         <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
-        <router-link :to="{name:'regin'}" class="tab-regin">注册</router-link>
+        <router-link :to="{name:'reset'}" class="tab-reset">重置密码</router-link>
         <hr class="selected-line" />
         <hr class="normal-line" />
       </div>
@@ -13,17 +13,6 @@
             <div class="field">
               <label>用户名</label>
               <input type="text" v-model="username" placeholder="请输入用户名" />
-            </div>
-            <div class="error-message extra-length">
-              <p>{{ errors[0] }}</p>
-            </div>
-            <div class="extra-message">该用户名作为唯一登录名</div>
-          </ValidationProvider>
-
-          <ValidationProvider name="name" rules="required" v-slot="{ errors }">
-            <div class="field">
-              <label>昵称</label>
-              <input type="text" v-model="name" placeholder="请输入昵称" />
             </div>
             <div class="error-message">
               <p>{{ errors[0] }}</p>
@@ -67,7 +56,7 @@
           >
             <div class="field">
               <label>验证码</label>
-              <input type="text" v-model="code" placeholder="请再次验证码" />
+              <input type="text" v-model="code" placeholder="请输入验证码" />
             </div>
             <div class="error-message extra-length">
               <p>{{ errors[0] }}</p>
@@ -75,39 +64,35 @@
             <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
           </ValidationProvider>
 
-          <button type="button" class="ui green button" @click="validate().then(submit)">立即注册</button>
+          <button type="button" class="ui green button" @click="validate().then(submit)">提交</button>
         </form>
       </ValidationObserver>
     </div>
   </div>
 </template>
 <script>
-import { getCode, reg } from '@/api/login'
+import { getCode, reset } from '@/api/login'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
-// import Alert from '@/components/modules/alert/Alert'
 import uuid from 'uuid/v4'
 
 export default {
-  name: 'imooc',
+  name: 'reset',
   components: {
     ValidationProvider,
     ValidationObserver
-    // Alert
   },
   data () {
     return {
       svg: '',
-      name: '',
-      password: '',
       code: '',
       errorMsg: [],
       value: '',
       username: '',
+      password: '',
       passwordConfirmation: ''
     }
   },
   mounted () {
-    // window.vue = this
     let sid = ''
     if (localStorage.getItem('sid')) {
       sid = localStorage.getItem('sid')
@@ -132,28 +117,31 @@ export default {
       if (!isValid) {
         return
       }
-      reg({
+      reset({
         username: this.username,
         password: this.password,
-        name: this.name,
         code: this.code,
         sid: this.$store.state.sid
       }).then(res => {
         if (res.code === 200) {
+          this.$store.commit('setUserInfo', res.data)
+          this.$store.commit('setIsLogin', true)
+          this.$store.commit('setToken', res.token)
           this.username = ''
-          this.name = ''
           this.password = ''
-          this.repassword = ''
+          this.passwordConfirmation = ''
           this.code = ''
           requestAnimationFrame(() => {
             this.$refs.observer.reset()
           })
-          this.$alert('注册成功')
+          this.$alert('密码重置成功')
           setTimeout(() => {
-            this.$router.push('/imooc/login')
-          }, 1000)
-        } else {
-          this.$refs.observer.setErrors(res.msg)
+            this.$router.push({ name: 'index' })
+          }, 3000) // 如果时间是 1000 的话，会出现 $store.commit 来不及操作的问题
+        } else if (res.code === 401) {
+          this.$alert('验证码错误，请检查！')
+        } else if (res.code === 500) {
+          this.$alert('该邮箱未注册，请检查！')
         }
       })
     }
@@ -163,14 +151,14 @@ export default {
 </script>
 
 <style scoped>
-.register-wrapper {
+.reset-wrapper {
   position: absolute;
   top: 60px;
   background-color: #e6e6e6;
   width: 100%;
   height: 750px;
 }
-.register-content {
+.reset-content {
   position: absolute;
   top: 40px;
   left: 5%;
@@ -190,9 +178,9 @@ export default {
   color: black;
   left: 18px;
 }
-.tab-regin {
+.tab-reset {
   position: relative;
-  left: 80px;
+  left: 63px;
   color: #009688;
 }
 .selected-line {

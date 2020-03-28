@@ -1,8 +1,10 @@
 <template>
   <div class="menu-wrapper">
     <template v-if="!isShow">
-      <router-link class="right item" to="/login">login</router-link>
-      <router-link class="item" to="/reg">Reg</router-link>
+      <div class="default-status">
+        <router-link class="item" to="/login">登录</router-link>
+        <router-link class="item" to="/reg">注册</router-link>
+      </div>
     </template>
     <template v-else>
       <div class="login-status">
@@ -83,19 +85,33 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style >
 .menu-wrapper {
   position: fixed;
   top: 0px;
   height: 60px;
   width: 100%;
   background-color: #3d3d49;
+  z-index: 100;
+}
+.default-status {
+  position: absolute;
+  top: 13px;
+  right: 130px;
+  color: #e6e6e6;
+}
+.default-status .item {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .login-status {
   position: absolute;
   top: 5px;
   right: 40px;
+  display: block;
+}
+.login-info {
+  transition: all 10s;
 }
 .user-info {
   display: inline-block;
@@ -120,13 +136,13 @@ export default {
   border: 1px solid #e2e2e2;
   text-align: center;
   box-shadow: 2px 2px 0.2px #e2e2e2;
-  visibility: hidden;
+  visibility: visible;
 }
-.login-info:hover {
-  color: red;
-}
+/* .login-info:hover + .dropdown-menu {
+  visibility: visible;
+  transform:scale(1.1)
+} */
 .item {
-  position: relative;
   position: relative;
   top: 5px;
   padding: 10px 18px;
@@ -134,18 +150,6 @@ export default {
 }
 .item:hover {
   background-color: #e2e2e2;
+  transition: all 5s;
 }
-/* .ui.inverted.segment {
-  background-color: #393d49;
-}
-.login-status {
-  float: right;
-}
-
-.login-status:hover .menu {
-  display: block;
-}
-.my-page {
-  color: black;
-} */
 </style>

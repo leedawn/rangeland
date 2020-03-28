@@ -3,18 +3,18 @@
     <div class="editor">
       <div class="function">
         <i class="smile outline icon" @click="choose(0)"></i>
-        <i class="image outline icon"></i>
-        <i class="linkify icon"></i>
-        <i class="quote left icon"></i>
-        <i class="code icon"></i>
-        <span class="hr" @click="choose(0)">hr</span>
-        <i class="eye icon"></i>
+        <i class="image outline icon" @click="choose(1)"></i>
+        <i class="linkify icon" @click="choose(2)"></i>
+        <i class="quote left icon" @click="choose(3)"></i>
+        <i class="code icon" @click="choose(4)"></i>
+        <span class="hr" @click="addHr()">hr</span>
+        <i class="eye icon" @click="choose(6)"></i>
       </div>
-      <textarea id="edit" v-model="content" class="textarea"></textarea>
+      <textarea id="edit" v-model="content" class="textarea" @focus="focusEvent" @blur="blurEvent"></textarea>
     </div>
     <div class="model">
       <face :isShow="current===0" @closeEvent="closeModal()" @addEvent="addFace"></face>
-      <!-- <img-upload :isShow="current===1" @closeEvent="closeModal()" @addEvent="addPic"></img-upload>
+      <img-upload :isShow="current===1" @closeEvent="closeModal()" @addEvent="addPic"></img-upload>
       <link-add :isShow="current===2" @closeEvent="closeModal()" @addEvent="addLink"></link-add>
       <quote :isShow="current===3" @closeEvent="closeModal()" @addEvent="addQuote"></quote>
       <code-input
@@ -24,27 +24,27 @@
         @closeEvent="closeModal()"
         @addEvent="addCode"
       ></code-input>
-      <preview :isShow="current===5" :content="content" @closeEvent="closeModal()"></preview>-->
+      <preview :isShow="current===6" :content="content" @closeEvent="closeModal()"></preview>
     </div>
   </div>
 </template>
 <script>
 import Face from './Face'
-// import ImgUpload from './ImgUpload'
-// import LinkAdd from './LinkAdd'
-// import Quote from './Quote'
-// import CodeInput from './CodeInput'
-// import Preview from './Preview'
+import ImgUpload from './ImgUpload'
+import LinkAdd from './LinkAdd'
+import Quote from './Quote'
+import CodeInput from './CodeInput'
+import Preview from './Preview'
 export default {
   name: 'Editor',
   props: ['initContent'],
   components: {
-    Face
-    // ImgUpload,
-    // LinkAdd,
-    // Quote,
-    // CodeInput,
-    // Preview
+    Face,
+    ImgUpload,
+    LinkAdd,
+    Quote,
+    CodeInput,
+    Preview
   },
   data () {
     return {
@@ -71,7 +71,7 @@ export default {
       this.getPos()
     },
     blurEvent () {
-      this.getpos()
+      this.getPos()
     },
     getPos () {
       let cursorPos = 0
@@ -89,6 +89,30 @@ export default {
       const insertContent = `face${item}`
       this.insert(insertContent)
       this.pos += insertContent.length
+    },
+    addPic (item) {
+      const insertContent = ` img[${item}]`
+      this.insert(insertContent)
+      this.pos += insertContent.length
+    },
+    addLink (item) {
+      const insertContent = ` a(${item})[${item}]`
+      this.insert(insertContent)
+      this.pos += insertContent.length
+    },
+    addCode (item) {
+      const insertContent = ` \n[pre]\n${item}\n[/pre]`
+      this.insert(insertContent)
+      this.pos += insertContent.length
+    },
+    addQuote (item) {
+      const insertContent = ` \n[quote]\n${item}\n[/quote]`
+      this.inseert(insertContent)
+      this.pos += insertContent.length
+    },
+    addHr () {
+      this.insert('\n[hr]')
+      this.pos += 5
     },
     choose (index) {
       if (index === this.current) {

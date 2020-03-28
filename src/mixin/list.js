@@ -46,7 +46,6 @@ export default {
       }
       getList(options).then((res) => {
         this.isRepeat = false
-
         if (res.code === 200) {
           if (res.data.length < this.limit) {
             this.isEnd = true

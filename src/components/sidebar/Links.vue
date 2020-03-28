@@ -2,31 +2,25 @@
   <div class="friendly-link">
     <h3>项目链接</h3>
     <div class="ui divider"></div>
-    <table class="ui basic table">
-      <tr>
-        <td>
-          <router-link :to="{name:'home'}">游戏评分信息</router-link>
-        </td>
-        <td>
-          <router-link :to="{name:'demo'}">Vue Demo</router-link>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <router-link :to="{name:'ulikecam'}">剪映</router-link>
-        </td>
-        <td>
-          <router-link :to="{name:'semantic'}">semantic</router-link>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <router-link :to="{name:'blog-home'}">Blog</router-link>
-        </td>
-        <td>
-          <router-link :to="{name:'blog-home'}">fever</router-link>
-        </td>
-      </tr>
-    </table>
+    <div>
+      <router-link :to="{name:'home'}" class="link-info">游戏评分信息</router-link>
+      <router-link :to="{name:'demo'}" class="link-info">Vue Demo</router-link>
+      <router-link :to="{name:'ulikecam'}" class="link-info">剪映</router-link>
+      <router-link :to="{name:'semantic'}" class="link-info">semantic</router-link>
+      <router-link :to="{name:'blog-home'}" class="link-info">Blog</router-link>
+      <router-link :to="{name:'blog-home'}" class="link-info">fever</router-link>
+    </div>
   </div>
 </template>
+<style scoped>
+.friendly-link {
+  position: absolute;
+  top: 300px;
+  background-color: white;
+  width: 100%;
+  padding: 15px;
+}
+.link-info {
+  margin-right:10px;
+}
+</style>

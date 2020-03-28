@@ -1,6 +1,6 @@
 import axios from 'axios'
 import errorHandle from './errorHandle'
-import publicConfig from '@/config/index'
+import publicConfig from '@/config'
 import store from '@/store'
 
 const CancelToken = axios.CancelToken
@@ -31,6 +31,7 @@ class HttpRequest {
 
   interceptors (instance) {
     instance.interceptors.request.use((config) => {
+      console.log('HttpRequest -> interceptors -> config', config)
       let isPublic = false
       publicConfig.publicPath.map((path) => {
         isPublic = isPublic || path.test(config.url)
@@ -40,7 +41,7 @@ class HttpRequest {
         config.headers.Authorization = 'Bearer ' + token
       }
       const key = config.url + '&' + config.method
-      this.removePending(key, false)
+      this.removePending(key, true)
       config.cancelToken = new CancelToken((c) => {
         this.pending[key] = c
       })
@@ -76,10 +77,12 @@ class HttpRequest {
       method: 'get',
       url: url
     }, config)
+    console.log('HttpRequest -> get -> options', options)
     return this.request(options)
   }
 
   post (url, data) {
+    debugger
     return this.request({
       method: 'post',
       url: url,

@@ -1,66 +1,44 @@
 <template>
-  <div class="ui bottom attached tab segment active" data-tab="imooc">
-    <!-- <alert :isShow="true"></alert>  :msg="这个是弹窗" -->
-    <ValidationObserver ref="observer" v-slot="{ validate }">
-    <form class="ui form imooc" method="post">
-      <div class="field">
-        <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
-        <label class="field-name">用户名</label>
-         <div class="row">
-          <div class="col">
-          <input v-model="username" type="text" class="form-control" placeholder="请输入用户名"/>
-          </div>
-          <div class="col">
-            <label class="error form-check-label">
-              {{ errors[0] }}
-              <!-- <ul><li v-for="error in errors" :key="error.id">{{ error }}</li></ul> -->
-            </label>
-          </div>
-         </div>
-        </ValidationProvider>
+  <div class="login-wrapper">
+    <div class="login-content">
+      <div class="tab">
+        <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
+        <router-link :to="{name:'regin'}" class="tab-regin">注册</router-link>
+        <hr class="selected-line" />
+        <hr class="normal-line" />
       </div>
-      <div class="field">
-        <ValidationProvider name="password" rules="required" v-slot="{ errors }">
-        <label class="field-name">密码</label>
-        <div class="row">
-          <div class="col">
-        <input type="password" class="form-control" v-model="password" placeholder="请输入密码"/>
+      <ValidationObserver ref="observer" v-slot="{ validate }">
+        <form method="post">
+          <div class="field">
+            <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
+              <label class="field-name">用户名</label>
+              <input v-model="username" type="text" class="form-input" placeholder="请输入用户名" />
+              <label class="error-info">
+                {{ errors[0] }}
+                <!-- <ul><li v-for="error in errors" :key="error.id">{{ error }}</li></ul> -->
+              </label>
+            </ValidationProvider>
           </div>
-          <div class="col">
-            <label class="error form-check-label">
-              {{errors[0]}}
-            </label>
+          <div class="field">
+            <ValidationProvider name="password" rules="required" v-slot="{ errors }">
+              <label class="field-name password-label">密码</label>
+              <input type="password" class="form-input" v-model="password" placeholder="请输入密码" />
+              <label class="error-info">{{errors[0]}}</label>
+            </ValidationProvider>
           </div>
-        </div>
-        </ValidationProvider>
-      </div>
-      <div class="field">
-        <ValidationProvider name="code" ref="codefield" rules="required" v-slot="{ errors }">
-        <label class="field-name">验证码</label>
-        <div class="inline fields row">
-          <div class="col code">
-            <input
-              type="text"
-              class="form-control"
-              v-model="code"
-              placeholder="请输入验证码"
-            />
+          <div class="field">
+            <ValidationProvider name="code" ref="codefield" rules="required" v-slot="{ errors }">
+              <label class="field-name">验证码</label>
+              <input type="text" class="form-input" v-model="code" placeholder="请输入验证码" />
+              <label class="code" @click="_getCode()" v-html="svg">{{svg}}</label>
+              <label class="error-info error-code">{{errors[0]}}</label>
+            </ValidationProvider>
           </div>
-          <div class="col">
-            <label class="" @click="_getCode()"  v-html="svg">{{svg}}</label>
-          </div>
-          <div class="col">
-            <label class="error form-check-label">
-              {{errors[0]}}
-            </label>
-          </div>
-        </div>
-        </ValidationProvider>
-      </div>
-      <button type="button" class="btn btn-primary" @click="validate().then(submit)">登录</button>
-      <button type="button" class="btn btn-link"><router-link to="/imooc/forget">忘记密码</router-link></button>
-    </form>
-    </ValidationObserver>
+          <button type="button" class="login-button" @click="validate().then(submit)">立即登录</button>
+          <router-link :to="{name:'forget'}" class="forget-password">忘记密码</router-link>
+        </form>
+      </ValidationObserver>
+    </div>
   </div>
 </template>
 <script>
@@ -114,44 +92,47 @@ export default {
       if (!isValid) {
         return
       }
-      console.log('submit')
       login({
         username: this.username,
         password: this.password,
         code: this.code,
         sid: this.$store.state.sid
-      }).then((res) => {
-        console.log(res.data)
-        if (res.code === 200) {
-          this.$store.commit('setUserInfo', res.data)
-          this.$store.commit('setIsLogin', true)
-          this.$store.commit('setToken', res.token)
-          this.username = ''
-          this.password = ''
-          this.code = ''
-          requestAnimationFrame(() => {
-            this.$refs.observer.reset()
-          })
-          this.$router.push({ name: 'index' })
-
-          // setTimeout(() => {
-          //   this.$router.push('/imooc')
-          // }, 1000)
-        } else if (res.code === 401) {
-          this.$refs.codefield.setErrors([res.msg])
-        } else if (res.code === 404) { // 觉得复制的代码有问题，因为这个状态服务端有返回
-          this.$alert('用户名或密码错误')
-        }
-      }).catch((err) => {
-        const data = err.response.data
-        console.log(data)
-        if (data.code === 404) { // it was 500
-          this.$alert('用户名密码校验失败，请检查')
-        } else {
-          this.$alert('服务器错误')
-        }
-        console.log(err.response)
       })
+        .then(res => {
+          console.log(res.data)
+          if (res.code === 200) {
+            this.$store.commit('setUserInfo', res.data)
+            this.$store.commit('setIsLogin', true)
+            this.$store.commit('setToken', res.token)
+            this.username = ''
+            this.password = ''
+            this.code = ''
+            requestAnimationFrame(() => {
+              this.$refs.observer.reset()
+            })
+            this.$router.push({ name: 'index' })
+
+            // setTimeout(() => {
+            //   this.$router.push('/imooc')
+            // }, 1000)
+          } else if (res.code === 401) {
+            this.$refs.codefield.setErrors([res.msg])
+          } else if (res.code === 404) {
+            // 觉得复制的代码有问题，因为这个状态服务端有返回
+            this.$alert('用户名或密码错误')
+          }
+        })
+        .catch(err => {
+          const data = err.response.data
+          console.log(data)
+          if (data.code === 404) {
+            // it was 500
+            this.$alert('用户名密码校验失败，请检查')
+          } else {
+            this.$alert('服务器错误')
+          }
+          console.log(err.response)
+        })
     }
   },
   created () {
@@ -160,42 +141,97 @@ export default {
 }
 </script>
 
-<style>
- .imooc {
-  background: #f2f2f2;
-  width: 600px;
-  margin-top:40px;
-  padding:10px;
-  margin-left: 20px;
-  border:4px;
+<style scoped>
+.login-wrapper {
+  position: absolute;
+  top: 60px;
+  background-color: #e6e6e6;
+  width: 100%;
+  height: 900px;
 }
-input {
-  margin: 10px;
+.login-content {
+  position: absolute;
+  top: 40px;
+  left: 5%;
+  background-color: white;
+  width: 90%;
   padding: 10px;
+  height: 420px;
 }
-.code {
-  width: 150px;
-}
-/* .about input {
-  width: 190px;
-  margin-left: 70px;
-}
-.about label {
-  margin-left: -400px;
-}
-
-.svg {
+.tab {
   position: relative;
-  top: -15px;
+  padding: 14px 20px;
+  color: black;
+  font-size: 17px;
 }
-label.error {
+.tab-login {
   position: relative;
-  margin-right: -150px;
-  top: 10px;
-  color:#000000
+  color: #009688;
+  left: 18px;
+}
+.tab-regin {
+  position: relative;
+  left: 80px;
+  color: black;
+}
+.selected-line {
+  position: absolute;
+  top: 45px;
+  width: 70px;
+  border: 1px solid #009688;
+  z-index: 1;
+  cursor: default;
+}
+.normal-line {
+  position: relative;
+  top: 12px;
+  border: 1px solid #e6e6e6;
+}
+.field {
+  position: relative;
+  top: 20px;
+  left: 20px;
 }
 .field-name {
-  color:#000000;
-} */
-
+  position: relative;
+  border: 1px solid #e6e6e6;
+  padding: 9px 35px 10px;
+  background-color: #fbfbfb;
+  width: 120px;
+  text-align: center;
+}
+.form-input {
+  position: relative;
+  top: 0px;
+  left: -11px;
+  border: 1px solid #e6e6e6;
+  width: 189px;
+}
+.error-info {
+  color: red;
+}
+.password-label {
+  padding: 9px 43px 10px;
+}
+.code {
+  position: absolute;
+}
+.error-code {
+  position: relative;
+  left: 180px;
+}
+.login-button {
+  position: relative;
+  top: 60px;
+  left: 40px;
+  background-color: #009688;
+  color: white;
+  padding: 7px 15px;
+}
+.forget-password {
+  position: relative;
+  top: 60px;
+  left: 70px;
+  color: black;
+}
 </style>

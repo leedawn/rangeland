@@ -11,7 +11,8 @@ import ImoocIndex from '../views/channels/Index'
 import ImoocLogin from '../views/ImoocLogin'
 import Imooc from '../views/Imooc'
 import ImoocRegister from '../views/ImoocRegister'
-import ImoocForgetPassword from '../views/ImoocForgetPassword'
+import ImoocForget from '../views/ImoocForget'
+import Reset from '../views/Reset'
 import Ulikecam from '../views/Ulikecam'
 import SemanticHomePage from '../views/SemanticHomePage'
 
@@ -65,8 +66,8 @@ const myRoutes = [
         component: ImoocLogin
       },
       {
-        path: 'reg',
-        name: 'reg',
+        path: 'regin',
+        name: 'regin',
         component: ImoocRegister,
         beforeEnter: (to, from, next) => {
           console.log(from)
@@ -79,7 +80,13 @@ const myRoutes = [
       },
       {
         path: 'forget',
-        component: ImoocForgetPassword
+        name: 'forget',
+        component: ImoocForget
+      },
+      {
+        path: 'reset',
+        name: 'reset',
+        component: Reset
       },
       {
         path: '/add',

@@ -44,4 +44,10 @@ const reg = (regInfo) => {
   })
 }
 
-export { getCode, forget, login, reg }
+const reset = (option) => {
+  return axios.post('/login/reset', {
+    ...option
+  })
+}
+
+export { getCode, forget, login, reg, reset }
