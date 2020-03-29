@@ -1,9 +1,10 @@
 <template>
-  <div v-show="lists.length > 0">
-    <div>
-      <a>置顶</a>
-      <a href="#signin">去签到</a>
+  <div class="top-wrapper" v-show="lists.length > 0">
+    <div class="menu">
+      <label>置顶</label>
+      <!-- <a href="#signin">去签到</a> -->
     </div>
+    <div class="ui divider"></div>
     <list-item :lists="lists" :isShow="false"></list-item>
   </div>
 </template>
@@ -23,3 +24,20 @@ export default {
   }
 }
 </script>
+<style scoped>
+.top-wrapper {
+  position: relative;
+  background-color: white;
+  width: 100%;
+}
+.menu {
+  position: relative;
+  top: 12px;
+  font-size: 15px;
+  margin-left: 20px;
+}
+.ui.divider {
+  position: relative;
+  top: 13px;
+}
+</style>

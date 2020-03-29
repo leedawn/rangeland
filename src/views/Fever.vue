@@ -86,7 +86,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .homepage {
   background-color: black;
   color: white;

@@ -5,9 +5,13 @@
 </template>
 <style scoped>
 .hot-discussion {
-  position: absolute;
+  position: relative;
+  top: 40px;
+  padding: 10px 0px;
   background-color: white;
-  padding: 15px;
   width: 100%;
+}
+.hot-discussion h3 {
+  margin: 4px 15px;
 }
 </style>

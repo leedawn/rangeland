@@ -2,7 +2,7 @@
   <div class="friendly-link">
     <h3>项目链接</h3>
     <div class="ui divider"></div>
-    <div>
+    <div class="links">
       <router-link :to="{name:'home'}" class="link-info">游戏评分信息</router-link>
       <router-link :to="{name:'demo'}" class="link-info">Vue Demo</router-link>
       <router-link :to="{name:'ulikecam'}" class="link-info">剪映</router-link>
@@ -14,13 +14,19 @@
 </template>
 <style scoped>
 .friendly-link {
-  position: absolute;
-  top: 300px;
+  position: relative;
+  top: 80px;
+  padding: 10px 0px;
   background-color: white;
   width: 100%;
-  padding: 15px;
+}
+.friendly-link h3 {
+  margin: 4px 15px;
+}
+.links {
+  margin: 4px 15px;
 }
 .link-info {
-  margin-right:10px;
+  margin-right: 10px;
 }
 </style>

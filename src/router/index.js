@@ -167,10 +167,11 @@ const myRoutes = [
         path: 'setting',
         name: 'setting',
         component: Setting,
+        redirect: { name: 'myInfo' },
         linkActiveClass: 'active',
         children: [
           {
-            path: '',
+            path: '/',
             name: 'myInfo',
             component: MyInfo
           },
@@ -228,7 +229,7 @@ router.beforeEach((to, from, next) => {
     if (isLogin) {
       next()
     } else {
-      next('/imooc/login')
+      next('/login')
     }
   } else {
     next()

@@ -82,7 +82,6 @@ class HttpRequest {
   }
 
   post (url, data) {
-    debugger
     return this.request({
       method: 'post',
       url: url,

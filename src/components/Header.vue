@@ -85,7 +85,7 @@ export default {
   }
 }
 </script>
-<style >
+<style>
 .menu-wrapper {
   position: fixed;
   top: 0px;

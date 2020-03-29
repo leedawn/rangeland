@@ -4,7 +4,7 @@
     <div class="post-content">
       <div class="main-content">
         <div class="post-list">
-          <!-- <imooc-top></imooc-top> -->
+          <imooc-top></imooc-top>
           <imooc-list></imooc-list>
         </div>
         <div class="sidebar">
@@ -26,7 +26,7 @@ import Links from '../../components/sidebar/Links'
 import Sign from '../../components/sidebar/Sign'
 import Tips from '../../components/sidebar/Tips'
 
-// import Top from '../../components/contents/Top'
+import Top from '../../components/contents/Top'
 import List from '../../components/contents/List'
 export default {
   name: 'detail',
@@ -37,7 +37,7 @@ export default {
     'imooc-links': Links,
     'imooc-sign': Sign,
     'imooc-tips': Tips,
-    // 'imooc-top': Top,
+    'imooc-top': Top,
     'imooc-list': List
   },
   computed: {},
@@ -53,18 +53,18 @@ export default {
 .post-content {
   position: absolute;
   top: 135px;
-  width: 95%;
+  width: 86%;
   left: 2.5%;
 }
 .post-list {
   position: absolute;
-  width: 60%;
+  left: 5%;
+  width: 56%;
 }
 .sidebar {
   position: absolute;
-  width: 29%;
   right: 0%;
-  background-color:white;
+  width: 36%;
 }
 
 /* .detail {

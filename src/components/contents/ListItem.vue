@@ -1,36 +1,44 @@
 <template>
-  <div class="list_item">
-    <div class="ui relaxed divided list">
-      <div class="item" v-for="(item,index) in items" :key="'listitem'+index">
-        <div class="item_pic">
-          <img :src="item.uid.pic" alt="贤心" />
-        </div>
-        <div class="content_wrapper">
-          <div class="header">
-            <p class="ui green basic label">{{item.catalog}}</p>
-            <p class="title">{{item.title}}</p>
-          </div>
-          <div class="description">
-            <a href="" link>
-              <cite class="name">{{item.uid.name}}</cite>
-              <i v-if="item.uid.isVip!=='0'">{{'VIP' + item.uid.isVip}}</i>
-            </a>
-            <span class="time">{{item.created | moment}}</span>
-            <span class="fav">积分：{{item.fav}}</span>
-            <span v-show="item.status !== '0'">已结</span>
-            <span class="answer">{{item.answer}}</span>
-          </div>
+  <div class="list-item">
+    <div class="post-wrapper" v-for="(item,index) in items" :key="'listitem'+index">
+      <div class="item-pic">
+        <img :src="item.uid.pic" alt="贤心" />
+      </div>
+      <div class="content-wrapper">
+        <div class="header">
+          <p class="post-catalog">{{item.catalog}}</p>
+          <p class="post-title">{{item.title}}</p>
           <div class="tag" v-show="item.tags.length>0">
-            <span class="ui red label" v-for="(tag,index) in item.tags" :key="'tag'+index">{{tag.name}}</span>
+            <span
+              class="ui red label"
+              v-for="(tag,index) in item.tags"
+              :key="'tag'+index"
+            >{{tag.name}}</span>
           </div>
         </div>
-      </div>
-      <div v-show="isShow">
-        <div v-if="!isEnd">
-          <a @click.prevent="more()">更多求解</a>
+        <div class="description">
+          <a href link>
+            <cite class="name">{{item.uid.name}}</cite>
+            <i v-if="item.uid.isVip!=='0'">{{'VIP' + item.uid.isVip}}</i>
+          </a>
+          <span class="time">{{item.created | moment}}</span>
+          <span class="fav">
+            <i class="heart outline icon"></i>
+            {{item.fav}}
+          </span>
+          <span v-show="item.status !== '0'">已结</span>
+          <span class="answer">
+            <i class="comment outline icon"></i>
+            {{item.answer}}
+          </span>
         </div>
-        <div v-else>没有更多了</div>
       </div>
+    </div>
+    <div v-show="isShow">
+      <div v-if="!isEnd">
+        <a @click.prevent="more()">更多求解</a>
+      </div>
+      <div v-else>没有更多了</div>
     </div>
   </div>
 </template>
@@ -43,18 +51,17 @@ import _ from 'lodash'
 export default {
   name: 'listitem',
   data () {
-    return { isShow: true }
+    return {}
   },
   props: {
     lists: {
       default: () => [],
       type: Array
     },
-    // 不是父组件传递的值，所以把它放到 data 了
-    // isShow: {
-    //   default: true,
-    //   type: Boolean
-    // },
+    isShow: {
+      default: true,
+      type: Boolean
+    },
     isEnd: {
       default: false,
       type: Boolean
@@ -113,25 +120,48 @@ export default {
   position: relative;
   top: 20px;
 }
-.item_pic {
-  position: absolute;
-}
-.content_wrapper {
+.item-pic {
   position: relative;
-  left: 50px;
+  padding: 10px;
 }
-.title {
-  position:absolute;
-  left:50px;
-  top:5px;
+.item-pic img {
+  width: 50px;
+}
+
+.content-wrapper {
+  position: absolute;
+  top: 60px;
+  left: 80px;
+  width: 100%;
+}
+.header {
+  position: relative;
+}
+.post-catalog {
+  position: relative;
+  color: #5fb878;
+  border: 1px solid #5fb878;
+  width: 40px;
+  padding: 2px 5px;
+}
+.post-title {
+  position: absolute;
+  top: 1px;
+  left: 60px;
+  font-size: 15px;
+}
+.description {
+  position: relative;
+  top: 9px;
 }
 .name {
   position: relative;
-  color:gray;
+  color: gray;
 }
 .time {
   position: relative;
-  left:8px;
+  left: 8px;
+  color: #999;
 }
 .tag {
   position: relative;
@@ -140,12 +170,13 @@ export default {
 }
 .fav {
   position: absolute;
-  left: 140px;
-  color:red;
+  left: 110px;
+  color: red;
 }
 .answer {
-  position: relative;
-  top: 10px;
-  left: 460px;
+  position: absolute;
+  top: 2px;
+  left: 440px;
+  color: #999;
 }
 </style>

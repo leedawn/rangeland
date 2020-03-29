@@ -29,8 +29,8 @@
   position: absolute;
   background-color: white;
   top: 60px;
-  left: 2.5%;
-  width: 95%;
+  left: 0%;
+  width: 100%;
   height: 60px;
   padding: 0px 15px;
 }
@@ -42,7 +42,7 @@
   position: relative;
   top: 8px;
 }
-.ui.positive.basic.button a{
-  color:#21ba45
+.ui.positive.basic.button a {
+  color: #21ba45;
 }
 </style>

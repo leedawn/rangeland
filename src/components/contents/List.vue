@@ -1,25 +1,30 @@
 <template>
   <div class="container">
-    <div class="ui top attached tabular menu">
+    <div class="top-menu">
       <div class="item">
         <a :class="{'layui-this': status ==='' && tag === ''}" @click.prevent="search()">综合</a>
       </div>
+      <div class="divider-line"></div>
       <div class="item">
         <a :class="{'layui-this': status === '0'}" @click.prevent="search(0)">未结</a>
       </div>
+      <div class="divider-line"></div>
       <div class="item">
         <a :class="{'layui-this': status === '1'}" @click.prevent="search(1)">已结</a>
       </div>
+      <div class="divider-line"></div>
       <div class="item">
         <a :class="{'layui-this': status === '' && tag === '精华'}" @click.prevent="search(2)">精华</a>
       </div>
-      <div class="right item">
+      <div class="item extra-position">
         <a :class="{'layui-this': sort === 'created'}" @click.prevent="search(3)">按最新</a>
       </div>
-      <div class="item">
+      <div class="divider-line"></div>
+      <div class="item extra-position">
         <a :class="{'layui-this': sort === 'answer'}" @click.prevent="search(4)">按热议</a>
       </div>
     </div>
+    <div class="ui divider"></div>
     <list-item :lists="lists" :isEnd="isEnd" @nextpage="nextPage()"></list-item>
   </div>
 </template>
@@ -94,11 +99,12 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .container {
   background-color: white;
-  width: 115%;
+  position: relative;
+  top: 15px;
+  width: 100%;
   height: 100%;
-  padding: 25px;
 }
 </style>
