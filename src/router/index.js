@@ -27,7 +27,7 @@ import Detail from '../components/contents/Detail'
 
 import MyInfo from '../components/user/common/MyInfo'
 import PictureUpload from '../components/user/common/PictureUpload'
-import PasswordChange from '../components/user/common/PasswordChange'
+import ChangePassword from '../components/user/common/ChangePassword'
 import AccountBinding from '../components/user/common/AccountBinding'
 
 import NotFound from '../views/NotFound'
@@ -171,7 +171,7 @@ const myRoutes = [
         linkActiveClass: 'active',
         children: [
           {
-            path: '/',
+            path: 'myInfo',
             name: 'myInfo',
             component: MyInfo
           },
@@ -181,9 +181,9 @@ const myRoutes = [
             component: PictureUpload
           },
           {
-            path: 'passwordChange',
-            name: 'passwordChange',
-            component: PasswordChange
+            path: 'changePassword',
+            name: 'changePassword',
+            component: ChangePassword
           },
           {
             path: 'accountBinding',

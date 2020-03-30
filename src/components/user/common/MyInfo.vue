@@ -94,7 +94,6 @@ export default {
         gender: this.gender,
         regmark: this.regmark
       }).then(res => {
-        debugger
         if (res.code === 200) {
           this.$store.commit('setUserInfo', {
             ...this.$store.state.userInfo,
@@ -106,10 +105,7 @@ export default {
               regmark: this.regmark
             }
           })
-          debugger
-          // setTimeout(() => {
           this.$alert('更新成功！')
-          // }, 1000)
         }
       })
     }

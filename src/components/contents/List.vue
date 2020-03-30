@@ -1,26 +1,27 @@
 <template>
   <div class="container">
     <div class="top-menu">
-      <div class="item">
-        <a :class="{'layui-this': status ==='' && tag === ''}" @click.prevent="search()">综合</a>
+      <div class="tag">
+        <a @click.prevent="search()">综合</a>
       </div>
-      <div class="divider-line"></div>
-      <div class="item">
+      <div class="tag divider-line"></div>
+
+      <div class="tag">
         <a :class="{'layui-this': status === '0'}" @click.prevent="search(0)">未结</a>
       </div>
-      <div class="divider-line"></div>
-      <div class="item">
+      <div class="tag divider-line"></div>
+      <div class="tag">
         <a :class="{'layui-this': status === '1'}" @click.prevent="search(1)">已结</a>
       </div>
-      <div class="divider-line"></div>
-      <div class="item">
+      <div class="tag divider-line"></div>
+      <div class="tag">
         <a :class="{'layui-this': status === '' && tag === '精华'}" @click.prevent="search(2)">精华</a>
       </div>
-      <div class="item extra-position">
+      <div class="right-tag">
         <a :class="{'layui-this': sort === 'created'}" @click.prevent="search(3)">按最新</a>
       </div>
-      <div class="divider-line"></div>
-      <div class="item extra-position">
+      <div class="right-tag divider-line"></div>
+      <div class="right-tag">
         <a :class="{'layui-this': sort === 'answer'}" @click.prevent="search(4)">按热议</a>
       </div>
     </div>
@@ -105,6 +106,24 @@ export default {
   position: relative;
   top: 15px;
   width: 100%;
-  height: 100%;
+}
+.top-menu {
+  position: relative;
+  padding: 20px;
+}
+.tag {
+  float: left;
+  margin-left: 9px;
+  cursor: pointer;
+}
+.divider-line {
+  background-color: #999;
+  height: 18px;
+  width: 1px;
+}
+.right-tag {
+  float: right;
+  margin-left: 9px;
+  cursor: pointer;
 }
 </style>

@@ -7,17 +7,17 @@
       <hr class="selected-line" />
       <hr class="cutting-line" />
       <validation-observer ref="observer" v-slot="{validate}">
-        <form>
+        <form class="ui form form-wrapper">
           <div class="classify">
             <!-- <validation-provider name="catalog" rules="is_not:请选择" v-slot="{errors}"> -->
             <div class="special-column">
               <div class="text">所在专栏</div>
-              <select class="ui dropdown special">
-                <option value="none">请选择</option>
-                <option value="提问">提问</option>
-                <option value="分享">分享</option>
-                <option value="分享">讨论</option>
-                <option value="建议">建议</option>
+              <select class="ui dropdown special" v-model="catalogs[cataIndex].text">
+                <option
+                  v-for="(catalog,index) in catalogs"
+                  :key="'catalog'+index"
+                  :value="catalog.value"
+                >{{catalog.text}}</option>
               </select>
               <!-- <span>{{errors[0]}}</span> -->
             </div>
@@ -33,12 +33,8 @@
           <editor @changeContent="add" :initContent="content"></editor>
           <div class="kiss">
             <div class="text">悬赏飞吻</div>
-            <select class="ui dropdown kiss">
-              <option value="20">20</option>
-              <option value="30">30</option>
-              <option value="50">50</option>
-              <option value="60">60</option>
-              <option value="80">80</option>
+            <select class="ui dropdown kiss" v-model="favlist[favIndex]">
+              <option v-for="(fav,index) in favlist" :key="'fav'+index" :value="fav">{{fav}}</option>
             </select>
             <div class="description">发表后无法更改飞吻</div>
           </div>
@@ -57,7 +53,7 @@
           <!-- </validation-provider> -->
           <button class="publish" @click="validate().then(submit)">立即发布</button>
 
-          <div class="dropdown-wrapper" @click="changeSelect()">
+          <!-- <div class="dropdown-wrapper" @click="changeSelect()">
             <div class="dropdown-input">
               <input type="text" placeholder="请选择" readonly v-model="catalogs[cataIndex].text" />
             </div>
@@ -68,7 +64,7 @@
                 @click="chooseCatalog(item,index)"
               >{{item.text}}</dd>
             </dl>
-          </div>
+          </div>-->
         </form>
       </validation-observer>
     </div>
@@ -93,7 +89,7 @@ export default {
       catalogs: [
         {
           text: '请选择',
-          value: ''
+          value: '请选择'
         },
         {
           text: '提问',
@@ -178,25 +174,24 @@ export default {
       )
       addPost({
         title: this.title,
-
-        // catalog: this.catalogs[this.cataIndex].value,
-        // content: this.content,
-        // fav: this.favList(this.favIndex),
+        catalog: this.catalogs[this.cataIndex].value,
+        content: this.content,
+        fav: this.favList(this.favIndex),
         code: this.code,
         sid: this.$store.state.sid
       })
         .then(res => {
           console.log('submit -> res', res)
           debugger
-          // if (res.code === 200) {
-          //   localStorage.setItem('addData', '')
-          //   this.$alert('发帖成功～2s后跳转')
-          //   setTimeout(() => {
-          //     this.$router.push({ name: 'index' })
-          //   }, 2000)
-          // } else {
-          //   this.$alert(res.msg)
-          // }
+          if (res.code === 200) {
+            localStorage.setItem('addData', '')
+            this.$alert('发帖成功～2s后跳转')
+            setTimeout(() => {
+              this.$router.push({ name: 'index' })
+            }, 2000)
+          } else {
+            this.$alert(res.msg)
+          }
         })
         .catch(err => {
           const data = err.response.data
@@ -221,11 +216,11 @@ export default {
 .container {
   position: absolute;
   left: 5%;
-  top: 25%;
+  top: 90px;
+  padding: 30px 20px;
   width: 90%;
   height: 800px;
   background-color: #fff;
-  padding: 50px;
 }
 .post-tab {
   position: relative;
@@ -244,9 +239,17 @@ export default {
   position: relative;
   z-index: 0;
 }
+/* form style */
+.form-position {
+  position: relative;
+}
+.classify {
+  position: relative;
+  top: 10px;
+}
 .special-column {
-  position: absolute;
-  top: 100px;
+  position: relative;
+  top: 15px;
 }
 .text {
   position: absolute;
@@ -266,14 +269,14 @@ export default {
 }
 .title {
   position: absolute;
-  top: 96px;
+  top: 15px;
   left: 400px;
+  width: 30%;
 }
 .title-input {
   position: absolute;
-  top: -10px;
-  left: 110px;
-  width: 400px;
+  top: 1px;
+  left: 120px;
 }
 .kiss {
   position: relative;
@@ -295,16 +298,17 @@ export default {
 .code {
   position: relative;
   top: 170px;
+  width: 160px;
 }
 .code-input {
   position: absolute;
-  top: -10px;
-  left: 110px;
+  top: 1px;
+  left: 119px;
 }
 .svg {
   position: absolute;
   top: -10px;
-  left: 300px;
+  left: 280px;
 }
 .publish {
   position: relative;

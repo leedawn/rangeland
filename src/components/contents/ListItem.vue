@@ -8,7 +8,7 @@
         <div class="header">
           <p class="post-catalog">{{item.catalog}}</p>
           <p class="post-title">{{item.title}}</p>
-          <div class="tag" v-show="item.tags.length>0">
+          <div class="red-tag" v-show="item.tags.length>0">
             <span
               class="ui red label"
               v-for="(tag,index) in item.tags"
@@ -36,9 +36,9 @@
     </div>
     <div v-show="isShow">
       <div v-if="!isEnd">
-        <a @click.prevent="more()">更多求解</a>
+        <a class="more-answer" @click.prevent="more()">更多求解</a>
       </div>
-      <div v-else>没有更多了</div>
+      <div class="no-more" v-else>没有更多了</div>
     </div>
   </div>
 </template>
@@ -120,6 +120,9 @@ export default {
   position: relative;
   top: 20px;
 }
+.post-wrapper {
+  position: relative;
+}
 .item-pic {
   position: relative;
   padding: 10px;
@@ -130,7 +133,7 @@ export default {
 
 .content-wrapper {
   position: absolute;
-  top: 60px;
+  top: 10px;
   left: 80px;
   width: 100%;
 }
@@ -149,6 +152,11 @@ export default {
   top: 1px;
   left: 60px;
   font-size: 15px;
+}
+.red-tag {
+  position: absolute;
+  top: 1px;
+  right: 18%;
 }
 .description {
   position: relative;
@@ -170,13 +178,29 @@ export default {
 }
 .fav {
   position: absolute;
-  left: 110px;
+  left: 160px;
   color: red;
 }
 .answer {
   position: absolute;
   top: 2px;
   left: 440px;
+  color: #999;
+}
+.more-answer {
+  position: relative;
+  left: 45%;
+  top: 15px;
+  padding: 10px;
+  border: 1px solid #009e94;
+  color: black;
+  cursor: pointer;
+}
+.no-more {
+  position: relative;
+  left: 45%;
+  top: 15px;
+  padding: 10px;
   color: #999;
 }
 </style>

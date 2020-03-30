@@ -177,7 +177,7 @@ export default {
   background-color: white;
   width: 90%;
   padding: 10px;
-  height: 650px;
+  height: 0px;
 }
 .tab {
   position: relative;
