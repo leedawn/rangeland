@@ -3,38 +3,49 @@
     <div class="login-content">
       <div class="tab">
         <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
-        <router-link :to="{name:'regin'}" class="tab-regin">注册</router-link>
+        <router-link :to="{name:'register'}" class="tab-register">注册</router-link>
         <hr class="selected-line" />
         <hr class="normal-line" />
       </div>
       <ValidationObserver ref="observer" v-slot="{ validate }">
-        <form method="post">
-          <div class="field">
-            <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
-              <label class="field-name">用户名</label>
-              <input v-model="username" type="text" class="form-input" placeholder="请输入用户名" />
-              <label class="error-info">
-                {{ errors[0] }}
-                <!-- <ul><li v-for="error in errors" :key="error.id">{{ error }}</li></ul> -->
-              </label>
-            </ValidationProvider>
-          </div>
-          <div class="field">
-            <ValidationProvider name="password" rules="required" v-slot="{ errors }">
-              <label class="field-name password-label">密码</label>
-              <input type="password" class="form-input" v-model="password" placeholder="请输入密码" />
-              <label class="error-info">{{errors[0]}}</label>
-            </ValidationProvider>
-          </div>
-          <div class="field">
-            <ValidationProvider name="code" ref="codefield" rules="required" v-slot="{ errors }">
-              <label class="field-name">验证码</label>
-              <input type="text" class="form-input" v-model="code" placeholder="请输入验证码" />
-              <label class="code" @click="_getCode()" v-html="svg">{{svg}}</label>
-              <label class="error-info error-code">{{errors[0]}}</label>
-            </ValidationProvider>
-          </div>
-          <button type="button" class="login-button" @click="validate().then(submit)">立即登录</button>
+        <form method="post" class="ui form">
+          <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
+            <div class="field">
+              <label>用户名</label>
+              <input type="text" v-model="username" placeholder="请输入用户名" />
+            </div>
+            <div class="error-message">
+              <p>{{ errors[0] }}</p>
+            </div>
+          </ValidationProvider>
+
+          <ValidationProvider name="password" rules="required|max:16|min:6" v-slot="{ errors }">
+            <div class="field">
+              <label>密码</label>
+              <input type="password" v-model="password" placeholder="请输入密码" />
+            </div>
+            <div class="error-message">
+              <p>{{ errors[0] }}</p>
+            </div>
+          </ValidationProvider>
+
+          <ValidationProvider
+            name="code"
+            ref="codefield"
+            rules="required|length:4"
+            v-slot="{ errors }"
+          >
+            <div class="field">
+              <label>验证码</label>
+              <input type="text" v-model="code" placeholder="请再次验证码" />
+            </div>
+            <div class="error-message extra-length">
+              <p>{{ errors[0] }}</p>
+            </div>
+            <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
+          </ValidationProvider>
+
+          <button type="button" class="ui green button" @click="validate().then(submit)">立即登录</button>
           <router-link :to="{name:'forget'}" class="forget-password">忘记密码</router-link>
         </form>
       </ValidationObserver>
@@ -147,7 +158,7 @@ export default {
   top: 60px;
   background-color: #e6e6e6;
   width: 100%;
-  height: 900px;
+  height: 100%;
 }
 .login-content {
   position: absolute;
@@ -169,7 +180,7 @@ export default {
   color: #009688;
   left: 18px;
 }
-.tab-regin {
+.tab-register {
   position: relative;
   left: 80px;
   color: black;
@@ -189,49 +200,38 @@ export default {
 }
 .field {
   position: relative;
-  top: 20px;
-  left: 20px;
+  top: 40px;
+  left: 40px;
+  width: 300px;
 }
-.field-name {
-  position: relative;
-  border: 1px solid #e6e6e6;
-  padding: 9px 35px 10px;
-  background-color: #fbfbfb;
-  width: 120px;
-  text-align: center;
-}
-.form-input {
-  position: relative;
-  top: 0px;
-  left: -11px;
-  border: 1px solid #e6e6e6;
-  width: 189px;
-}
-.error-info {
+.error-message {
+  position: absolute;
+  left: 380px;
   color: red;
 }
-.password-label {
-  padding: 9px 43px 10px;
+.extra-length {
+  left: 540px;
 }
-.code {
+
+.extra-message {
   position: absolute;
+  top: 75px;
+  left: 360px;
 }
-.error-code {
+.code-message {
   position: relative;
-  left: 180px;
+  top: -20px;
+  left: 350px;
 }
-.login-button {
+.ui.green.button {
   position: relative;
-  top: 60px;
-  left: 40px;
-  background-color: #009688;
-  color: white;
-  padding: 7px 15px;
+  top: 40px;
+  padding: 15px;
 }
 .forget-password {
   position: relative;
-  top: 60px;
-  left: 70px;
+  top: 40px;
+  left: 60px;
   color: black;
 }
 </style>

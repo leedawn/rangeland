@@ -1,6 +1,6 @@
 <template>
-  <div class="register-wrapper">
-    <div class="register-content">
+  <div class="forget-wrapper">
+    <div class="forget-content">
       <div class="tab">
         <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
         <router-link :to="{name:'forget'}" class="tab-forget">找回密码</router-link>
@@ -113,21 +113,21 @@ export default {
 </script>
 
 <style scoped>
-.register-wrapper {
+.forget-wrapper {
   position: absolute;
   top: 60px;
   background-color: #e6e6e6;
   width: 100%;
-  height: 750px;
+  height: 100%;
 }
-.register-content {
+.forget-content {
   position: absolute;
   top: 40px;
   left: 5%;
   background-color: white;
   width: 90%;
   padding: 10px;
-  height: 650px;
+  height: 400px;
 }
 .tab {
   position: relative;

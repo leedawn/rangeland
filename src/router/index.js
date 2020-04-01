@@ -66,8 +66,8 @@ const myRoutes = [
         component: ImoocLogin
       },
       {
-        path: 'regin',
-        name: 'regin',
+        path: 'register',
+        name: 'register',
         component: ImoocRegister,
         beforeEnter: (to, from, next) => {
           console.log(from)

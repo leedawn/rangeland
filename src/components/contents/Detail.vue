@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <imooc-panel></imooc-panel>
+    <panel></panel>
     <div class="detail-info">
       <div class="post-left">
         <div class="post-detail">
@@ -49,6 +49,36 @@
           </div>
           <div class="post-content" v-html="content"></div>
         </div>
+        <!-- 回帖模块 -->
+        <div class="comments">
+          <div class="comments-divider-line"></div>
+          <div class="comments-title">回帖</div>
+          <form class="ui form">
+            <ValidationObserver ref="observer" v-slot="{ validate }">
+              <editor @changeContent="add" :initContent="content"></editor>
+              <ValidationProvider
+                name="code"
+                ref="codefield"
+                rules="required|length:4"
+                v-slot="{ errors }"
+              >
+                <div class="code">
+                  <div class="code-text">验证码</div>
+                  <input
+                    class="code-input"
+                    type="text"
+                    name="code"
+                    v-model="code"
+                    placeholder="请输入验证码"
+                  />
+                  <span class="code-svg" @click="_getCode()" v-html="svg"></span>
+                  <span class="error-message">{{errors[0]}}</span>
+                </div>
+              </ValidationProvider>
+              <button class="submit" @click="validate().then(submit)">提交回复</button>
+            </ValidationObserver>
+          </form>
+        </div>
       </div>
       <!-- 回帖相关模块 -->
       <!-- <div>
@@ -79,9 +109,9 @@
           </ul>
       </div>-->
       <div class="post-right">
-        <imooc-hotlist></imooc-hotlist>
-        <imooc-ads></imooc-ads>
-        <imooc-links></imooc-links>
+        <hotlist></hotlist>
+        <ads></ads>
+        <links></links>
         <!-- <imooc-edit></imooc-edit> -->
         <!-- <imooc-page></imooc-page> -->
       </div>
@@ -89,13 +119,14 @@
   </div>
 </template>
 <script>
+import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { getDetail } from '@/api/content'
 import { getComents, addComment } from '@/api/comments'
-import HotList from '@/components/sidebar/HotList'
+import Hotlist from '@/components/sidebar/HotList'
 import Ads from '@/components/sidebar/Ads'
 import Links from '@/components/sidebar/Links'
 import Panel from '@/components/Panel'
-// import Editor from '../modules/editor/Index'
+import Editor from '../modules/editor/Index'
 import CodeMix from '@/mixin/code'
 // import Pagination from '@/components/modules/pagination/Index'
 import { escapeHtml } from '@/util/escapeHtml'
@@ -105,11 +136,13 @@ export default {
   mixins: [CodeMix],
   props: ['tid'],
   components: {
-    'imooc-hotlist': HotList,
-    'imooc-ads': Ads,
-    'imooc-links': Links,
-    'imooc-panel': Panel
-    // 'imooc-edit': Editor,
+    ValidationObserver,
+    ValidationProvider,
+    Hotlist,
+    Ads,
+    Links,
+    Panel,
+    Editor
     // 'imooc-page': Pagination
   },
   data () {
@@ -140,7 +173,6 @@ export default {
       this.getCommentsList()
     },
     getPostDetail () {
-      debugger
       getDetail(this.tid).then(res => {
         if (res.code === 200) {
           this.page = res.data
@@ -166,6 +198,7 @@ export default {
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
+        debugger
         return
       }
       const isLogin = this.$store.state.isLogin
@@ -231,7 +264,7 @@ export default {
 <style scoped>
 .container {
   width: 100%;
-  height: 1000px;
+  height: 1200px;
   background-color: #e6e6e6;
 }
 .detail-info {
@@ -239,11 +272,9 @@ export default {
   top: 130px;
   left: 2.5%;
   width: 95%;
-  background-color: white;
 }
 .post-left {
   position: absolute;
-  background-color: white;
   width: 66%;
   padding: 15px;
 }
@@ -253,7 +284,9 @@ export default {
   width: 33%;
 }
 .post-detail {
-  height: 600px;
+  height: 450px;
+  background-color: white;
+  padding: 15px;
 }
 .title {
   position: relative;
@@ -365,5 +398,67 @@ export default {
   position: relative;
   top: 65px;
   width: 100%;
+}
+/* 回帖模块 */
+.comments {
+  position: relative;
+  top: 25px;
+  background-color: white;
+  padding: 15px;
+}
+.comments-divider-line {
+  position: relative;
+  top: 20px;
+  background-color: #e6e6e6;
+  height: 1px;
+}
+.comments-title {
+  position: absolute;
+  top: 25px;
+  left: 45%;
+  padding: 1px 10px;
+  background-color: white;
+  font-size: 22px;
+  color: #999;
+}
+.code {
+  position: relative;
+  top: 100px;
+  width: 100%;
+}
+.code-text {
+  position: absolute;
+  border: 1px solid #e6e6e6;
+  background-color: #fbfbfb;
+  width: 120px;
+  font-size: 15px;
+  padding: 10px 18px;
+  text-align: center;
+}
+.ui.form input {
+  position: absolute;
+  top: 1px;
+  left: 119px;
+  width: 20%;
+}
+.code-svg {
+  position: absolute;
+  top: -10px;
+  left: 280px;
+}
+.submit {
+  position: relative;
+  top: 150px;
+  background-color: #009688;
+  padding: 15px;
+  color: white;
+  margin: 30px 0px 200px;
+}
+.error-message {
+  position: absolute;
+  top: 10px;
+  left: 450px;
+  color: red;
+  font-size: 16px;
 }
 </style>

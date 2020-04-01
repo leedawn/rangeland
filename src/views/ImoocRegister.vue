@@ -3,7 +3,7 @@
     <div class="register-content">
       <div class="tab">
         <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
-        <router-link :to="{name:'regin'}" class="tab-regin">注册</router-link>
+        <router-link :to="{name:'register'}" class="tab-register">注册</router-link>
         <hr class="selected-line" />
         <hr class="normal-line" />
       </div>
@@ -107,7 +107,6 @@ export default {
     }
   },
   mounted () {
-    // window.vue = this
     let sid = ''
     if (localStorage.getItem('sid')) {
       sid = localStorage.getItem('sid')
@@ -168,7 +167,7 @@ export default {
   top: 60px;
   background-color: #e6e6e6;
   width: 100%;
-  height: 750px;
+  height: 730px;
 }
 .register-content {
   position: absolute;
@@ -177,7 +176,7 @@ export default {
   background-color: white;
   width: 90%;
   padding: 10px;
-  height: 0px;
+  height: 600px;
 }
 .tab {
   position: relative;
@@ -190,7 +189,7 @@ export default {
   color: black;
   left: 18px;
 }
-.tab-regin {
+.tab-register {
   position: relative;
   left: 80px;
   color: #009688;

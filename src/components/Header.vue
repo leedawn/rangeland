@@ -3,11 +3,11 @@
     <template v-if="!isShow">
       <div class="default-status">
         <router-link class="item" to="/login">登录</router-link>
-        <router-link class="item" to="/reg">注册</router-link>
+        <router-link class="item" to="/register">注册</router-link>
       </div>
     </template>
     <template v-else>
-      <div class="login-status">
+      <div class="login-status" @mouseover="show()" @mouseleave="hide()">
         <div class="login-info">
           <div class="user-info">
             {{userInfo.name}}
@@ -15,19 +15,19 @@
           </div>
           <img :src="userInfo.pic" class="image" />
         </div>
-        <div class="dropdown-menu">
-          <div class="item">
+        <div class="dropdown-menu" v-show="isHover">
+          <div class="item hover-style">
             <i class="cog icon"></i>个人设置
           </div>
-          <div class="item">
+          <div class="item hover-style">
             <i class="bell outline icon"></i>我的消息
           </div>
-          <div class="item">
+          <div class="item hover-style">
             <i class="home icon"></i>
             <router-link :to="{name:'center'}" class="my-page">我的主页</router-link>
           </div>
-          <div class="ui divider"></div>
-          <div class="item" href="javascript: void(0)" @click="logout()">退出</div>
+          <div class="divider-line"></div>
+          <div class="item hover-style" href="javascript: void(0)" @click="logout()">退出</div>
         </div>
       </div>
     </template>
@@ -116,27 +116,34 @@ export default {
 .user-info {
   display: inline-block;
   position: relative;
-  right: 20px;
+  right: 2px;
   top: -7px;
   color: white;
 }
 .image {
   position: relative;
   top: 5px;
+  right: -20px;
   padding: 2px;
   width: 40px;
   height: 40px;
   border-radius: 20px;
 }
+.divider-line {
+  position: relative;
+  top: 6px;
+  height: 1px;
+  background-color: #e6e6e6;
+}
 
 .dropdown-menu {
   position: relative;
   top: 20px;
-  right: 20px;
+  right: 2px;
   border: 1px solid #e2e2e2;
   text-align: center;
-  box-shadow: 2px 2px 0.2px #e2e2e2;
-  visibility: visible;
+  background-color: white;
+  width: 140px;
 }
 /* .login-info:hover + .dropdown-menu {
   visibility: visible;
@@ -151,5 +158,8 @@ export default {
 .item:hover {
   background-color: #e2e2e2;
   transition: all 5s;
+}
+.hover-style {
+  cursor: pointer;
 }
 </style>

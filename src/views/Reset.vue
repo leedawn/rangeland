@@ -156,7 +156,7 @@ export default {
   top: 60px;
   background-color: #e6e6e6;
   width: 100%;
-  height: 750px;
+  height: 680px;
 }
 .reset-content {
   position: absolute;
@@ -165,7 +165,7 @@ export default {
   background-color: white;
   width: 90%;
   padding: 10px;
-  height: 650px;
+  height: 550px;
 }
 .tab {
   position: relative;
