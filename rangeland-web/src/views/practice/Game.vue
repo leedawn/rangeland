@@ -26,8 +26,8 @@
 import Vuetable from 'vuetable-2'
 import VuetablePagination from 'vuetable-2/src/components/VuetablePagination'
 // import VuetablePagination from '@/components/VuetablePaginationBootstrap4.vue'
-import CssConfig from '../util/VuetableStyleConfig.js'
-import FieldsDef from '../util/FieldsDef.js'
+import CssConfig from '../../util/VuetableStyleConfig.js'
+import FieldsDef from '../../util/FieldsDef.js'
 import axios from 'axios'
 import _ from 'lodash'
 

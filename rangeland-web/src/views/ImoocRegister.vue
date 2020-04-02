@@ -149,7 +149,7 @@ export default {
           })
           this.$alert('注册成功')
           setTimeout(() => {
-            this.$router.push('/imooc/login')
+            this.$router.push({ name: 'login' })
           }, 1000)
         } else {
           this.$refs.observer.setErrors(res.msg)

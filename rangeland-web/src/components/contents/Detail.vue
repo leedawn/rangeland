@@ -196,6 +196,18 @@ export default {
     addContent (val) {
       this.editInfo.content = val
     },
+    add (val) {
+      this.content = val
+      const saveData = {
+        title: this.title,
+        cataIndex: this.cataIndex,
+        content: this.content,
+        favIndex: this.favIndex
+      }
+      if (this.title.trim() !== '' && this.content.trim() !== '') {
+        localStorage.setItem('addData', JSON.stringify(saveData))
+      }
+    },
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {

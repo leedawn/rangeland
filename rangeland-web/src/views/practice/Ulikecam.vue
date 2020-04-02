@@ -1,7 +1,7 @@
 <template>
   <div class="ulikecam">
     <div class="section_common section_top">
-      <img src="../assets/ulikecam/bg_img_1.jpg" alt />
+      <img src="../../assets/ulikecam/bg_img_1.jpg" alt />
       <div class="logo"></div>
       <p class="title">
         <span>剪映 轻而易剪 全能免费抖音官方剪辑工具 帮你剪出美好生活</span>
@@ -13,13 +13,13 @@
       </div>
     </div>
     <div class="section_common">
-      <img src="../assets/ulikecam/bg_img_2.jpg" alt />
+      <img src="../../assets/ulikecam/bg_img_2.jpg" alt />
     </div>
     <div class="section_common">
-      <img src="../assets/ulikecam/bg_img_3.jpg" alt />
+      <img src="../../assets/ulikecam/bg_img_3.jpg" alt />
     </div>
     <div class="section_common">
-      <img src="../assets/ulikecam/bg_img_4.jpg" alt />
+      <img src="../../assets/ulikecam/bg_img_4.jpg" alt />
     </div>
     <div class="section_common section_footer">
       <p class="desc">©️ 2018 深圳市脸萌科技有限公司</p>
@@ -63,7 +63,7 @@
   left: 21.79688%;
   width: 6.36719%;
   height: 6.2963%;
-  background: url(../assets/ulikecam/bg_logo.png) no-repeat center center;
+  background: url(../../assets/ulikecam/bg_logo.png) no-repeat center center;
   background-size: 100% auto;
 }
 
@@ -73,7 +73,7 @@
   left: 57.1875%;
   width: 14.53125%;
   height: 15.83333%;
-  background: url(../assets/ulikecam/bg_title.png) no-repeat center center;
+  background: url(../../assets/ulikecam/bg_title.png) no-repeat center center;
 }
 .section_top .title span {
   visibility: hidden;
@@ -120,7 +120,7 @@
   top: 0;
   left: 0;
   float: left;
-  background: url(../assets/ulikecam/bg_qrcode_default.png) no-repeat center
+  background: url(../../assets/ulikecam/bg_qrcode_default.png) no-repeat center
     center;
   transition: all 0.4s;
   cursor: pointer;
@@ -132,7 +132,7 @@
   float: left;
   width: 300%;
   height: 300%;
-  background: url(../assets/ulikecam/bg_qrcode_hover.png) no-repeat center
+  background: url(../../assets/ulikecam/bg_qrcode_hover.png) no-repeat center
     center;
   opacity: 1;
 }
@@ -141,24 +141,24 @@
   width: 40%;
   height: 100%;
   margin-left: 12%;
-  background: url(../assets/ulikecam/bg_appstore_default.png) no-repeat center
+  background: url(../../assets/ulikecam/bg_appstore_default.png) no-repeat center
     center;
   cursor: pointer;
 }
 .appstore_wrap:hover {
-  background: url(../assets/ulikecam/bg_appstore_hover.png) no-repeat center
+  background: url(../../assets/ulikecam/bg_appstore_hover.png) no-repeat center
     center;
 }
 .android_wrap {
   float: left;
   width: 35%;
   height: 110%;
-  background: url(../assets/ulikecam/bg_android_default.png) no-repeat center
+  background: url(../../assets/ulikecam/bg_android_default.png) no-repeat center
     center;
   cursor: pointer;
 }
 .android_wrap:hover {
-  background: url(../assets/ulikecam/bg_android_hover.png) no-repeat center
+  background: url(../../assets/ulikecam/bg_android_hover.png) no-repeat center
     center;
 }
 .section_footer {

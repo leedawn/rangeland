@@ -3,63 +3,63 @@
     <div class="homepage-large-image">
       <div class="drg-info">
         <div class="drg-image">
-          <img src="../assets/game/DRG-small.png" />
+          <img src="../../assets/game/DRG-small.png" />
         </div>
         <div class="drg-logo">
-          <img src="../assets/game/DRG-logo.png" />
+          <img src="../../assets/game/DRG-logo.png" />
         </div>
         <div class="download-DRG">
-          <img src="../assets/game/download-DRG.png" />
+          <img src="../../assets/game/download-DRG.png" />
         </div>
         <div class="purchase-DRG">
-          <img src="../assets/game/purchase-DRG.png" />
+          <img src="../../assets/game/purchase-DRG.png" />
         </div>
         <div class="drg-qr-code">
-          <img src="../assets/game/drg-qr-code.jpg" />
+          <img src="../../assets/game/drg-qr-code.jpg" />
         </div>
       </div>
       <div class="lighting-info">
-        <img src="../assets/game/lighting.png" />
+        <img src="../../assets/game/lighting.png" />
       </div>
       <div class="tt-info">
         <div class="tt-image">
           <a href="http://fever.163.com">
-            <img src="../assets/game/TT.png" />
+            <img src="../../assets/game/TT.png" />
           </a>
         </div>
         <div class="tt-logo">
-          <img src="../assets/game/TT-logo.png" />
+          <img src="../../assets/game/TT-logo.png" />
         </div>
         <div class="download-TT">
-          <img src="../assets/game/download-TT.png" />
+          <img src="../../assets/game/download-TT.png" />
         </div>
         <div class="purchase-TT">
-          <img src="../assets/game/purchase-TT.png" />
+          <img src="../../assets/game/purchase-TT.png" />
         </div>
         <div class="tt-qr-code">
-          <img src="../assets/game/tt-qr-code.jpg" />
+          <img src="../../assets/game/tt-qr-code.jpg" />
         </div>
       </div>
     </div>
     <div class="homepage-partner">
       <div class="homepage-partner-title">
-        <img src="../assets/parter/partner-title.png" />
+        <img src="../../assets/parter/partner-title.png" />
       </div>
       <div class="homepage-partner-content">
         <a href="https://uu.163.com/" target="_blank">
-          <img src="../assets/parter/partner-uu.png" />
+          <img src="../../assets/parter/partner-uu.png" />
         </a>
         <a href="http://game.163.com/" target="_blank">
-          <img src="../assets/parter/partner-netease.png" />
+          <img src="../../assets/parter/partner-netease.png" />
         </a>
         <a href="http://mumu.163.com/" target="_blank">
-          <img src="../assets/parter/partner-mumu.png" />
+          <img src="../../assets/parter/partner-mumu.png" />
         </a>
       </div>
     </div>
     <div class="homepage-footer">
       <div class="homepage-footer-logo">
-        <img src="../assets/footer/logo.png" usemap="#logomap" />
+        <img src="../../assets/footer/logo.png" usemap="#logomap" />
         <map name="logomap" id="logomap">
           <area href="https://163.com" shape="rectangle" coords="0, 0, 126, 31" target="_blank" />
           <area
@@ -193,7 +193,7 @@
   margin-top: 500px;
 }
 .tt-info a:hover {
-  background: url(../assets/game/DRG.png);
+  background: url(../../assets/game/DRG.png);
 }
 .homepage-partner {
   height: 300px;

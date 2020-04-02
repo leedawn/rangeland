@@ -35,32 +35,32 @@ export default {
         },
         {
           name: '提问',
-          path: '/ask',
+          path: '/index/ask',
           isNew: false
         },
         {
           name: '分享',
-          path: '/share',
+          path: '/index/share',
           isNew: false
         },
         {
           name: '讨论',
-          path: '/discuss',
+          path: '/index/discuss',
           isNew: false
         },
         {
           name: '建议',
-          path: '/advise',
+          path: '/index/advise',
           isNew: false
         },
         {
           name: '公告',
-          path: '/notice',
+          path: '/index/notice',
           isNew: false
         },
         {
           name: '动态',
-          path: '/dynamic',
+          path: '/index/dynamic',
           isNew: false
         }
       ]

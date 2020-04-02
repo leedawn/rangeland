@@ -2,11 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import moment from 'dayjs'
 
-import Home from '../views/Home.vue'
-import Demo from '../views/Demo.vue'
-import BlogHome from '../views/BlogHome'
-import BlogPost from '../views/BlogPost'
-import Fever from '../views/Fever'
+import Game from '../views/practice/Game.vue'
+import Demo from '../views/practice/Demo.vue'
+import BlogHome from '../views/practice/BlogHome'
+import BlogPost from '../views/practice/BlogPost'
+import Fever from '../views/practice/Fever'
+import Ulikecam from '../views/practice/Ulikecam'
+import SemanticHomePage from '../views/practice/SemanticHomePage'
+
 import ImoocIndex from '../views/channels/Index'
 import Template from '../views/channels/Template'
 import ImoocLogin from '../views/ImoocLogin'
@@ -14,8 +17,6 @@ import Imooc from '../views/Imooc'
 import ImoocRegister from '../views/ImoocRegister'
 import ImoocForget from '../views/ImoocForget'
 import Reset from '../views/Reset'
-import Ulikecam from '../views/Ulikecam'
-import SemanticHomePage from '../views/SemanticHomePage'
 
 import Center from '../views/Center'
 import UserCenter from '../components/user/Center'
@@ -38,11 +39,6 @@ import store from '../store/index'
 Vue.use(VueRouter)
 
 const myRoutes = [
-  {
-    path: '/home',
-    name: 'home',
-    component: Home
-  },
   // {
   //   path: '/imooc',
   //   name: 'imooc',
@@ -62,80 +58,50 @@ const myRoutes = [
         component: ImoocIndex
       },
       {
-        path: '/:catalog',
+        path: '/index/:catalog',
         name: 'catalog',
         component: Template
-      },
-      {
-        path: 'login',
-        name: 'login',
-        component: ImoocLogin
-      },
-      {
-        path: 'register',
-        name: 'register',
-        component: ImoocRegister,
-        beforeEnter: (to, from, next) => {
-          console.log(from)
-          if (from.path === '/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
-            next()
-          } else {
-            next('/login')
-          }
-        }
-      },
-      {
-        path: 'forget',
-        name: 'forget',
-        component: ImoocForget
-      },
-      {
-        path: 'reset',
-        name: 'reset',
-        component: Reset
-      },
-      {
-        path: '/add',
-        name: 'add',
-        component: Add
-      },
-      {
-        path: '/detail/:tid',
-        name: 'detail',
-        props: true,
-        component: Detail
       }
     ]
   },
   {
-    path: '/demo',
-    name: 'demo',
-    component: Demo
+    path: '/login',
+    name: 'login',
+    component: ImoocLogin
   },
   {
-    path: '/ulikecam',
-    name: 'ulikecam',
-    component: Ulikecam
+    path: '/register',
+    name: 'register',
+    component: ImoocRegister,
+    beforeEnter: (to, from, next) => {
+      console.log(from)
+      if (from.path === '/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
+        next()
+      } else {
+        next('/login')
+      }
+    }
   },
   {
-    path: '/semantic',
-    name: 'semantic',
-    component: SemanticHomePage
+    path: '/forget',
+    name: 'forget',
+    component: ImoocForget
   },
   {
-    path: '/blog',
-    name: 'blog-home',
-    component: BlogHome
+    path: '/reset',
+    name: 'reset',
+    component: Reset
   },
   {
-    path: '/blog/:slug',
-    name: 'blog-post',
-    component: BlogPost
+    path: '/add',
+    name: 'add',
+    component: Add
   },
   {
-    path: '/fever',
-    name: 'fever',
-    component: Fever
+    path: '/detail/:tid',
+    name: 'detail',
+    props: true,
+    component: Detail
   },
   {
     path: '/center',
@@ -199,6 +165,42 @@ const myRoutes = [
         ]
       }
     ]
+  },
+  // my demo
+  {
+    path: '/demo',
+    name: 'demo',
+    component: Demo
+  },
+  {
+    path: '/game',
+    name: 'game',
+    component: Game
+  },
+  {
+    path: '/ulikecam',
+    name: 'ulikecam',
+    component: Ulikecam
+  },
+  {
+    path: '/semantic',
+    name: 'semantic',
+    component: SemanticHomePage
+  },
+  {
+    path: '/blog',
+    name: 'blog-home',
+    component: BlogHome
+  },
+  {
+    path: '/blog/:slug',
+    name: 'blog-post',
+    component: BlogPost
+  },
+  {
+    path: '/fever',
+    name: 'fever',
+    component: Fever
   },
   {
     path: '/404',
