@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 
 const CommentsSchema = new Schema({
   tid: { type: String, ref: 'post' },
-  uid: { type: String, ref: 'user' },
-  cuid: { type: String, ref: 'user' },
+  uid: { type: String, ref: 'users' },
+  cuid: { type: String, ref: 'users' },
   content: { type: String },
   created: { type: Date },
   hands: { type: Number, default: 0 },
@@ -13,12 +13,6 @@ const CommentsSchema = new Schema({
   isRead: { type: String, default: '0' },
   isBest: { type: String, default: '0' }
 }, { toJSON: { virtuals: true } })
-
-CommentsSchema.virtual('user', {
-  ref: 'users',
-  localField: 'uid',
-  foreignField: '_id'
-})
 
 CommentsSchema.pre('save', function (next) {
   this.created = new Date()

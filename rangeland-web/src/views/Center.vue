@@ -3,7 +3,7 @@
     <div class="ui inverted vertical menu">
       <div v-for="(list,index) in lists" :key="'center'+index">
         <a class="item">
-          <router-link :active-class="semantic-this" :to="{name:list.link}">
+         <router-link :active-class="semantic-this" :to="{name:list.link}">  <!-- {name:list.link} -->
             <i :class="list.icon"></i>
             {{list.name}}
           </router-link>

@@ -35,4 +35,4 @@ UserCollectSchema.statics = {
 }
 const UserCollect = moogoose.model('user_collect', UserCollectSchema)
 
-export default UserCollect
+module.exports=UserCollect

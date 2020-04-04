@@ -1,6 +1,7 @@
 const { checkCode, getJWTPayload } = require('../common/Utils')
-const User = require('../model/User')
+// const User = require('../model/User')
 const Comments = require('../model/Comments')
+const Post = require('../model/Post')
 
 async function addComment (ctx) {
     const { body } = ctx.request
@@ -9,9 +10,18 @@ async function addComment (ctx) {
     const code = body.code
     const result = await checkCode(sid, code)
     if (result) {
+        const newComments = new Comments(body)
         const obj = await getJWTPayload(ctx.header.authorization)
-        const user = await User.findById({ _id: obj._id })
-        console.log("addPost -> user", user)
+        newComments.cuid = obj._id
+
+        const post = await Post.findOne({ _id: body.tid })
+        newComments.uid = post.uid
+        const comment = await newComments.save()
+        // const num = await Comments.getTotal(post.uid)
+
+        const updatePostresult = await Post.updateOne({ _id: body.tid }, { $inc: { answer: 1 } })
+
+        // const user = await User.findById({ _id: obj._id })
         // if(user.favs<body.fav) {
         //     ctx.body = {
         //         code:501,
@@ -21,13 +31,18 @@ async function addComment (ctx) {
         // } else {
         //     await User.updateOne({_id:obj._id},{$inc:{favs:-body.fav}})
         // }
-        const newComments = new Comments(body)
-        newComments.uid = obj._id
-        const result = await newComments.save()
-        ctx.body = {
-            code: 200,
-            msg: '成功发表评论',
-            date: result
+
+        if (comment._id && updatePostresult.ok === 1) {
+            ctx.body = {
+                code: 200,
+                msg: '成功发表评论',
+                date: comment
+            }
+        } else {
+            ctx.body = {
+                code: 500,
+                msg: '评论失败'
+            }
         }
     } else {
         ctx.body = {
@@ -40,8 +55,10 @@ async function addComment (ctx) {
 
 // 获取评论列表
 async function getComments (ctx) {
+    console.log('getComments')
     const params = ctx.query
     const tid = params.tid
+    console.log("getComments -> tid", tid)
     const page = params.page ? params.page : 0
     const limit = params.limit ? parseInt(params.limit) : 10
     let result = await Comments.getCommentsList(tid, page, limit)
@@ -64,7 +81,7 @@ async function getComments (ctx) {
     //         }
     //     }
     // }
-    const total = await Comment.queryCount(tid)
+    const total = await Comments.queryCount(tid)
     console.log("getComments -> total", total)
     ctx.body = {
         code: 200,

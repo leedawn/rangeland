@@ -54,6 +54,70 @@
         <div class="comments">
           <div class="comments-divider-line"></div>
           <div class="comments-title">回帖</div>
+
+          <ul class id>
+            <li class="jieda-daan" v-for="(item,index) in comments" :key="'commments' + index">
+              <div class="detail-about detail-about-reply">
+                <a class="fly-avatar" href>
+                  <img :src="item.cuid ? item.cuid.pic : '/img/bear-200-200.jpg'" alt=" " />
+                </a>
+                <div class="fly-detail-user">
+                  <a href class="fly-link">
+                    <cite>{{item.cuid? item.cuid.name :'imooc'}}</cite>
+                    <i
+                      v-if="item.cuid && item.cuid.isVip !=='0'?item.cuid.isVip : false "
+                      class="layui-badge fly-badge-vip"
+                    >VIP{{item.cuid.isVip}}</i>
+                  </a>
+
+                  <span v-if="index === 0">(楼主)</span>
+                </div>
+
+                <div class="detail-hits">
+                  <span>{{item.created | moment}}</span>
+                </div>
+
+                <i class="iconfont icon-caina" title="最佳答案" v-show="item.isBest === '1'"></i>
+              </div>
+              <div class="detail-body jieda-body photos" v-richtext="item.content"></div>
+              <div class="jieda-reply">
+                <span class="jieda-zan" :class="{'zanok' :item.handed === '1'}" type="zan">
+                  <i class="iconfont icon-zan"></i>
+                  <em>{{item.hands}}</em>
+                </span>
+                <span type="reply">
+                  <i class="iconfont icon-svgmoban53"></i>
+                  回复
+                </span>
+                <div class="jieda-admin">
+                  <span
+                    v-show="page.isEnd ==='0'"
+                    @click="editComment(item)"
+                  >编辑</span>
+                  <!-- <span type="del">删除</span>   &&item.cuid._id === user._id-->
+                  <span
+                    class="jieda-accept"
+                    v-show="page.isEnd ==='0'"
+                    @click="setBest(item)"
+                  >采纳</span>
+                </div>
+              </div>
+            </li>
+            <!-- 无数据时 -->
+            <li class="fly-none" v-if="comments.length === 0">消灭零回复</li>
+          </ul>
+          <imooc-page
+            :showType="'icon'"
+            :hasSelect="true"
+            :hasTotal="true"
+            :total="total"
+            :size="size"
+            :current="current"
+            :showEnd="true"
+            @changeCurrent="handleChange"
+            @changeLimit="handleLimit"
+          ></imooc-page>
+
           <form class="ui form">
             <ValidationObserver ref="observer" v-slot="{ validate }">
               <editor @changeContent="add" :initContent="content"></editor>
@@ -122,20 +186,20 @@
 <script>
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { getDetail } from '@/api/content'
-import { getComents, addComment } from '@/api/comments'
+import { getComments, addComment } from '@/api/comments'
 import Hotlist from '@/components/sidebar/HotList'
 import Ads from '@/components/sidebar/Ads'
 import Links from '@/components/sidebar/Links'
 import Panel from '@/components/Panel'
 import Editor from '../modules/editor/Index'
 import CodeMix from '@/mixin/code'
-// import Pagination from '@/components/modules/pagination/Index'
+import Pagination from '@/components/modules/pagination/Index'
 import { escapeHtml } from '@/util/escapeHtml'
 import { scrollToElem } from '@/util/common'
 export default {
   name: 'Detail',
   mixins: [CodeMix],
-  props: ['tid'],
+  props: ['tid'], // 路由传参
   components: {
     ValidationObserver,
     ValidationProvider,
@@ -143,8 +207,8 @@ export default {
     Ads,
     Links,
     Panel,
-    Editor
-    // 'imooc-page': Pagination
+    Editor,
+    'imooc-page': Pagination
   },
   data () {
     return {
@@ -182,14 +246,16 @@ export default {
       })
     },
     getCommentsList () {
-      getComents({
+      getComments({
         tid: this.tid,
         page: this.current,
         limit: this.size
       }).then(res => {
         if (res.code === 200) {
           this.comments = res.data
+          console.log('getCommentsList -> comments', this.comments)
           this.total = res.total
+          console.log('getCommentsList -> total', this.total)
         }
       })
     },

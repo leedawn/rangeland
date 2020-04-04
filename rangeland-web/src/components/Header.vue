@@ -19,20 +19,22 @@
           </div>
           <img :src="userInfo.pic" class="image" />
         </div>
-        <div class="dropdown-menu" v-show="isHover">
-          <div class="item hover-style">
-            <i class="cog icon"></i>个人设置
+        <transition name="fade">
+          <div class="dropdown-menu" v-show="isHover">
+            <div class="item hover-style">
+              <i class="cog icon"></i>个人设置
+            </div>
+            <div class="item hover-style">
+              <i class="bell outline icon"></i>我的消息
+            </div>
+            <div class="item hover-style">
+              <i class="home icon"></i>
+              <router-link :to="{name:'center'}" class="my-page">我的主页</router-link>
+            </div>
+            <div class="divider-line"></div>
+            <div class="item hover-style" href="javascript: void(0)" @click="logout()">退出</div>
           </div>
-          <div class="item hover-style">
-            <i class="bell outline icon"></i>我的消息
-          </div>
-          <div class="item hover-style">
-            <i class="home icon"></i>
-            <router-link :to="{name:'center'}" class="my-page">我的主页</router-link>
-          </div>
-          <div class="divider-line"></div>
-          <div class="item hover-style" href="javascript: void(0)" @click="logout()">退出</div>
-        </div>
+        </transition>
       </div>
     </template>
   </div>
@@ -175,5 +177,13 @@ export default {
 }
 .hover-style {
   cursor: pointer;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

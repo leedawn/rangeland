@@ -16,7 +16,7 @@ import ImoocLogin from '../views/ImoocLogin'
 import Imooc from '../views/Imooc'
 import ImoocRegister from '../views/ImoocRegister'
 import ImoocForget from '../views/ImoocForget'
-import Reset from '../views/Reset'
+// import Reset from '../views/Reset'
 
 import Center from '../views/Center'
 import UserCenter from '../components/user/Center'
@@ -36,6 +36,8 @@ import NotFound from '../views/NotFound'
 
 import store from '../store/index'
 
+const Reset = () => import(/* webpackChunkName:'reset‘ */ '../views/Reset')
+
 Vue.use(VueRouter)
 
 const myRoutes = [
@@ -44,7 +46,7 @@ const myRoutes = [
   //   name: 'imooc',
   //   // route level code-splitting
   //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
+  //   // which is lazy-loaded when the route is visited. 适合打包后 js 文件特别大的情况
   //   component: () => import(/* webpackChunkName: "about" */ '../views/Imooc.vue')
   // },
   {
@@ -107,7 +109,7 @@ const myRoutes = [
     path: '/center',
     name: 'center',
     component: Center,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true }, // 路由元信息
     linkActiveClass: 'semantic-this',
     children: [
       // {
@@ -123,7 +125,8 @@ const myRoutes = [
       {
         path: 'msg',
         name: 'msg',
-        component: Msg
+        component: Msg,
+        alias: '/test' // 设置别名之后，还需要修改路由跳转的地址。
       },
       {
         path: 'others',
