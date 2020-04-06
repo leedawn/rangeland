@@ -9,26 +9,25 @@
       <validation-observer ref="observer" v-slot="{validate}">
         <form class="ui form form-wrapper">
           <div class="classify">
-            <!-- <validation-provider name="catalog" rules="is_not:请选择" v-slot="{errors}"> -->
-            <div class="special-column">
-              <div class="text">所在专栏</div>
-              <select class="ui dropdown special" v-model="catalogs[cataIndex].text">
-                <option
-                  v-for="(catalog,index) in catalogs"
-                  :key="'catalog'+index"
-                  :value="catalog.value"
-                >{{catalog.text}}</option>
-              </select>
-              <!-- <span>{{errors[0]}}</span> -->
-            </div>
-            <!-- </validation-provider> -->
-            <!-- <validation-provider name="title" rules="required" v-slot="{errors}"> -->
-            <div class="title">
-              <div class="text">标题</div>
-              <input class="title-input" type="text" v-model="title" />
-              <!-- <span>{{errors[0]}}</span> -->
-            </div>
-            <!-- </validation-provider> -->
+            <validation-provider name="catalog" rules="is_not:请选择" v-slot="{errors}">
+              <div class="special-column">
+                <div class="text">所在专栏</div>
+                <select class="ui dropdown special" v-model="catalogs[cataIndex].value">
+                  <option
+                    v-for="(catalog,index) in catalogs"
+                    :key="'catalog'+index"
+                  >{{catalog.text}}</option>
+                </select>
+                <span class="catalog-error-message">{{errors[0]}}</span>
+              </div>
+            </validation-provider>
+            <validation-provider name="title" rules="required" v-slot="{errors}">
+              <div class="title">
+                <div class="text">标题</div>
+                <input class="title-input" type="text" v-model="title" />
+                <span class="title-error-message">{{errors[0]}}</span>
+              </div>
+            </validation-provider>
           </div>
           <editor @changeContent="add" :initContent="content"></editor>
           <div class="kiss">
@@ -38,20 +37,20 @@
             </select>
             <div class="description">发表后无法更改飞吻</div>
           </div>
-          <!-- <validation-provider
+          <validation-provider
             name="code"
             ref="codefield"
             rules="required|length:4"
             v-slot="{errors}"
-          >-->
-          <div class="code">
-            <div class="text">验证码</div>
-            <input class="code-input" type="text" name="code" v-model="code" placeholder="请输入验证码" />
-            <span class="svg" @click="_getCode()" v-html="svg"></span>
-            <!-- <span>{{errors[0]}}</span> -->
-          </div>
-          <!-- </validation-provider> -->
-          <button class="publish" @click="validate().then(submit)">立即发布</button>
+          >
+            <div class="code">
+              <div class="text">验证码</div>
+              <input class="code-input" type="text" name="code" v-model="code" placeholder="请输入验证码" />
+              <span class="svg" @click="_getCode()" v-html="svg"></span>
+              <span class="code-error-message">{{errors[0]}}</span>
+            </div>
+          </validation-provider>
+          <button class="publish" type="button" @click="validate().then(submit)">立即发布</button>
 
           <!-- <div class="dropdown-wrapper" @click="changeSelect()">
             <div class="dropdown-input">
@@ -114,36 +113,36 @@ export default {
     }
   },
   mounted () {
-    // const saveData = localStorage.getItem('addData')
-    // if (saveData && saveData !== '') {
-    //   this.$confirm(
-    //     '是否加在未编辑完的内容？',
-    //     () => {
-    //       const obj = JSON.parse(saveData)
-    //       this.content = obj.content
-    //       this.title = obj.title
-    //       this.cataIndex = obj.cataIndex
-    //       this.favIndex = obj.favIndex
-    //     },
-    //     () => {
-    //       localStorage.setItem('addData', '')
-    //     }
-    //   )
-    // }
+    const saveData = localStorage.getItem('addData')
+    if (saveData && saveData !== '') {
+      this.$confirm(
+        '是否加在未编辑完的内容？',
+        () => {
+          const obj = JSON.parse(saveData)
+          this.content = obj.content
+          this.title = obj.title
+          this.cataIndex = obj.cataIndex
+          this.favIndex = obj.favIndex
+        },
+        () => {
+          localStorage.setItem('addData', '')
+        }
+      )
+    }
   },
   methods: {
-    chooseCatalog (item, index) {
-      this.cataIndex = index
-    },
-    chooseFav (item, index) {
-      this.favIndex = index
-    },
-    changeSelect () {
-      this.isSelect = !this.isSelect
-    },
-    changeFav () {
-      this.isSelect_fav = !this.isSelect
-    },
+    // chooseCatalog (item, index) {
+    //   this.cataIndex = index
+    // },
+    // chooseFav (item, index) {
+    //   this.favIndex = index
+    // },
+    // changeSelect () {
+    //   this.isSelect = !this.isSelect
+    // },
+    // changeFav () {
+    //   this.isSelect_fav = !this.isSelect
+    // },
     add (val) {
       this.content = val
       const saveData = {
@@ -170,19 +169,21 @@ export default {
         'submit -> title',
         this.title,
         this.code,
-        this.$store.state.sid
+        this.$store.state.sid,
+        this.cataIndex,
+        this.catalogs[this.cataIndex].value,
+        this.favlist[this.favIndex]
       )
       addPost({
         title: this.title,
         catalog: this.catalogs[this.cataIndex].value,
         content: this.content,
-        fav: this.favList(this.favIndex),
+        fav: this.favlist[this.favIndex],
         code: this.code,
         sid: this.$store.state.sid
       })
         .then(res => {
           console.log('submit -> res', res)
-          debugger
           if (res.code === 200) {
             localStorage.setItem('addData', '')
             this.$alert('发帖成功～2s后跳转')
@@ -196,14 +197,13 @@ export default {
         .catch(err => {
           const data = err.response.data
           console.log('submit -> data', data)
-          debugger
         })
     }
   },
   computed: {
-    isHide () {
-      return this.$store.state.isHide
-    }
+    // isHide () {
+    //   return this.$store.state.isHide
+    // }
   }
 }
 </script>
@@ -251,6 +251,12 @@ export default {
   position: relative;
   top: 15px;
 }
+.catalog-error-message {
+  position: absolute;
+  top: 10px;
+  left: 280px;
+  color: red;
+}
 .text {
   position: absolute;
   border: 1px solid #e6e6e6;
@@ -278,6 +284,13 @@ export default {
   top: 1px;
   left: 120px;
 }
+.title-error-message {
+  position: absolute;
+  top: 10px;
+  left: 480px;
+  color: red;
+  white-space: nowrap;
+}
 .kiss {
   position: relative;
   top: 100px;
@@ -304,6 +317,13 @@ export default {
   position: absolute;
   top: 1px;
   left: 119px;
+}
+.code-error-message {
+  position: absolute;
+  top: 10px;
+  left: 450px;
+  white-space: nowrap;
+  color: red;
 }
 .svg {
   position: absolute;

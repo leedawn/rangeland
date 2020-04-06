@@ -7,7 +7,9 @@
       <div class="content-wrapper">
         <div class="header">
           <p class="post-catalog">{{item.catalog}}</p>
-          <p class="post-title">{{item.title}}</p>
+          <p class="post-title">
+            <router-link :to="'/detail/'+item._id">{{item.title}}</router-link>
+          </p>
           <div class="red-tag" v-show="item.tags.length>0">
             <span
               class="ui red label"
@@ -70,9 +72,6 @@ export default {
   computed: {
     items () {
       _.map(this.lists, item => {
-        console.log('items -> lists', this.lists)
-        console.log('items -> item', item)
-
         switch (item.catalog) {
           case 'ask':
             item.catalog = '提问'

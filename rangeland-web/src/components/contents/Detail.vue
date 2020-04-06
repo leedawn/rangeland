@@ -51,18 +51,18 @@
           <div class="post-content" v-html="content"></div>
         </div>
         <!-- 回帖模块 -->
-        <div class="comments">
+        <div class="comments-module">
           <div class="comments-divider-line"></div>
           <div class="comments-title">回帖</div>
 
-          <ul class id>
-            <li class="jieda-daan" v-for="(item,index) in comments" :key="'commments' + index">
-              <div class="detail-about detail-about-reply">
-                <a class="fly-avatar" href>
-                  <img :src="item.cuid ? item.cuid.pic : '/img/bear-200-200.jpg'" alt=" " />
+          <ul class="comments-detail">
+            <li class="comment-detial" v-for="(item,index) in comments" :key="'commments' + index">
+              <div class="comment-top">
+                <a class="user-avatar" href>
+                  <img :src="item.cuid ? item.cuid.pic : '/img/bear-200-200.jpg'" alt="用户头像" />
                 </a>
-                <div class="fly-detail-user">
-                  <a href class="fly-link">
+                <div class="comment-user-detail">
+                  <a href class="comment-user-link">
                     <cite>{{item.cuid? item.cuid.name :'imooc'}}</cite>
                     <i
                       v-if="item.cuid && item.cuid.isVip !=='0'?item.cuid.isVip : false "
@@ -70,57 +70,58 @@
                     >VIP{{item.cuid.isVip}}</i>
                   </a>
 
-                  <span v-if="index === 0">(楼主)</span>
+                  <span class="comment-user-info" v-if="index === 0">(楼主)</span>
                 </div>
 
-                <div class="detail-hits">
+                <div class="comment-created">
                   <span>{{item.created | moment}}</span>
                 </div>
 
                 <i class="iconfont icon-caina" title="最佳答案" v-show="item.isBest === '1'"></i>
               </div>
-              <div class="detail-body jieda-body photos" v-richtext="item.content"></div>
-              <div class="jieda-reply">
-                <span class="jieda-zan" :class="{'zanok' :item.handed === '1'}" type="zan">
-                  <i class="iconfont icon-zan"></i>
+              <div class="comment-body" v-html="item.content"></div>
+              <!--原来是 v-richtext-->
+              <div class="comment-bottom">
+                <span class="comment-zan" :class="{'zanok' :item.handed === '1'}" type="zan">
+                  <i class="thumbs up outline icon"></i>
                   <em>{{item.hands}}</em>
                 </span>
-                <span type="reply">
-                  <i class="iconfont icon-svgmoban53"></i>
+                <span class="comment-reply">
+                  <i class="comments outline icon"></i>
                   回复
                 </span>
-                <div class="jieda-admin">
+                <div class="comment-admin">
                   <span
+                    class="comment-edit"
                     v-show="page.isEnd ==='0'"
                     @click="editComment(item)"
                   >编辑</span>
                   <!-- <span type="del">删除</span>   &&item.cuid._id === user._id-->
-                  <span
-                    class="jieda-accept"
-                    v-show="page.isEnd ==='0'"
-                    @click="setBest(item)"
-                  >采纳</span>
+                  <span class="comment-accept" v-show="page.isEnd ==='0'" @click="setBest(item)">采纳</span>
                 </div>
               </div>
+              <div v-show="comments.length>0" class="ui divider comment-divider"></div>
             </li>
             <!-- 无数据时 -->
             <li class="fly-none" v-if="comments.length === 0">消灭零回复</li>
           </ul>
-          <imooc-page
-            :showType="'icon'"
-            :hasSelect="true"
-            :hasTotal="true"
-            :total="total"
-            :size="size"
-            :current="current"
-            :showEnd="true"
-            @changeCurrent="handleChange"
-            @changeLimit="handleLimit"
-          ></imooc-page>
+          <div class="comment-pagination">
+            <imooc-page
+              :showType="'icon'"
+              :hasSelect="true"
+              :hasTotal="true"
+              :total="total"
+              :size="size"
+              :current="current"
+              :showEnd="true"
+              @changeCurrent="handleChange"
+              @changeLimit="handleLimit"
+            ></imooc-page>
+          </div>
 
           <form class="ui form">
             <ValidationObserver ref="observer" v-slot="{ validate }">
-              <editor @changeContent="add" :initContent="content"></editor>
+              <editor @changeContent="addContent" :initContent="editInfo.content"></editor>
               <ValidationProvider
                 name="code"
                 ref="codefield"
@@ -140,7 +141,7 @@
                   <span class="error-message">{{errors[0]}}</span>
                 </div>
               </ValidationProvider>
-              <button class="submit" @click="validate().then(submit)">提交回复</button>
+              <button class="submit" @click="validate().then(submit)" type="button">提交回复</button>
             </ValidationObserver>
           </form>
         </div>
@@ -277,7 +278,6 @@ export default {
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
-        debugger
         return
       }
       const isLogin = this.$store.state.isLogin
@@ -291,21 +291,22 @@ export default {
       addComment(this.editInfo).then(res => {
         if (res.code === 200) {
           this.$pop('', '发表评论成功')
-          this.code = ''
-          this.editInfo.content = ''
-          const user = this.$store.state.userInfo
-          const cuid = {
-            _id: user._id,
-            pic: user.pic,
-            name: user.name,
-            isVip: user.isVip
-          }
-          res.data.cuid = cuid
-          this.comments.push(res.data)
-          requestAnimationFrame(() => {
-            this.$refs.observer && this.$refs.observer.reset()
-          })
-          this._getCode()
+          // this.code = ''
+          // this.editInfo.content = ''
+          // const user = this.$store.state.userInfo
+          // const cuid = {
+          //   _id: user._id,
+          //   pic: user.pic,
+          //   name: user.name,
+          //   isVip: user.isVip
+          // }
+          // res.data.cuid = cuid
+          // this.comments.push(res.data)
+          // requestAnimationFrame(() => {
+          //   this.$refs.observer && this.$refs.observer.reset()
+          // })
+          location.reload() // 还有更好的方法
+          // this._getCode()
         }
       })
     },
@@ -478,8 +479,80 @@ export default {
   top: 65px;
   width: 100%;
 }
+/* 评论列表 */
+.comments-detail {
+  position: relative;
+  top: 55px;
+  padding: 5px;
+}
+.comment-detial {
+  position: relative;
+  height: 160px;
+}
+.comment-top {
+  position: realtive;
+}
+.user-avatar {
+  position: relative;
+}
+.user-avatar img {
+  width: 60px;
+}
+.comment-user-detail {
+  position: absolute;
+  top: 1px;
+  left: 70px;
+}
+.comment-user-info {
+  position: relative;
+  left: 10px;
+  color: #999;
+}
+.comment-created {
+  position: absolute;
+  top: 44px;
+  left: 70px;
+  color: #999;
+}
+.comment-body {
+  position: relative;
+  top: 10px;
+}
+.comment-bottom {
+  position: relative;
+  top: 20px;
+  font-size: 16px;
+}
+.comment-zan {
+  position: relative;
+  color: #999;
+}
+.comment-reply {
+  position: absolute;
+  top: 1px;
+  left: 60px;
+  color: #999;
+}
+.comment-admin {
+  position: absolute;
+  top: 0px;
+  right: 40px;
+  color: #999;
+}
+.comment-edit {
+  position: relative;
+  left: -15px;
+}
+.comment-pagination {
+  position: relative;
+  top: 120px;
+}
+.comment-divider {
+  position: relative;
+  top: 18px;
+}
 /* 回帖模块 */
-.comments {
+.comments-module {
   position: relative;
   top: 25px;
   background-color: white;

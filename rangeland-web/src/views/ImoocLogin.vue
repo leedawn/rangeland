@@ -89,9 +89,6 @@ export default {
     this._getCode()
   },
   methods: {
-    test () {
-      console.log('hello')
-    },
     _getCode () {
       const sid = this.$store.state.sid
       console.log(sid)

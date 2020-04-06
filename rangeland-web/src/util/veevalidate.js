@@ -1,5 +1,5 @@
 import { extend, localize } from 'vee-validate'
-import { email, required, min, max, length, confirmed, regex } from 'vee-validate/dist/rules'
+import { email, required, min, max, length, confirmed, regex, is_not } from 'vee-validate/dist/rules'
 import zh from 'vee-validate/dist/locale/zh_CN.json'
 
 extend('required', required)
@@ -9,6 +9,7 @@ extend('max', max)
 extend('length', length)
 extend('confirmed', confirmed)
 extend('regex', regex)
+extend('is_not', is_not)
 
 localize('zh_CN', {
   messages: {
@@ -20,7 +21,9 @@ localize('zh_CN', {
     password: '密码',
     repassword: '确认密码',
     name: '昵称',
-    code: '验证码'
+    code: '验证码',
+    catalog: '专栏',
+    title: '标题'
   },
   fields: {
     username: {
@@ -43,6 +46,12 @@ localize('zh_CN', {
     code: {
       required: '请输入{_field_}!!!',
       length: '{_field_}的长度必须为4'
+    },
+    catalog: {
+      is_not: '专栏不能为空'
+    },
+    title: {
+      required: '请输入{_field_}!!!'
     }
   }
 })
