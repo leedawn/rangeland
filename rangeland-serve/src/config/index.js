@@ -13,5 +13,6 @@ const JWT_SECRET = 'onedaythisismyfuture'  // 本来是一个编码后的值，�
 //     DB_URL,
 //     REDIS
 // }
+const wsPort = 3001
 
-module.exports = { DB_URL, REDIS, uploadPath, JWT_SECRET, baseUrl }
+module.exports = { DB_URL, REDIS, uploadPath, JWT_SECRET, baseUrl, wsPort }

@@ -100,8 +100,8 @@ export default {
           })
           this.$alert('提交成功，请注意查收邮件')
           setTimeout(() => {
-            this.$router.push('/imooc/login')
-          }, 1000)
+            this.$router.push('/login')
+          }, 2000)
         } else {
           this.$refs.observer.setErrors(res.msg)
         }

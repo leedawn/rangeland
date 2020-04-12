@@ -1,18 +1,32 @@
 <template>
-  <div class="class-wrap">
-    <div class="editor">
-      <div class="function">
-        <i class="smile outline icon" @click="choose(0)"></i>
-        <i class="image outline icon" @click="choose(1)"></i>
-        <i class="linkify icon" @click="choose(2)"></i>
-        <i class="quote left icon" @click="choose(3)"></i>
-        <i class="code icon" @click="choose(4)"></i>
-        <span class="hr" @click="addHr()">hr</span>
-        <i class="eye icon" @click="choose(6)"></i>
+  <div class="editor-wrap">
+    <div class="editor-content">
+      <div class="editor-button" ref="icons">
+        <div class="editor-icon" @click="choose(0)">
+          <i class="smile outline icon"></i>
+        </div>
+        <div class="editor-icon extra-z">
+          <i class="image outline icon"></i>
+        </div>
+        <div class="editor-icon extra-z">
+          <i class="linkify icon" @click="choose(2)"></i>
+        </div>
+        <div class="editor-icon">
+          <i class="quote left icon" @click="choose(3)"></i>
+        </div>
+        <div class="editor-icon">
+          <i class="code icon" @click="choose(4)"></i>
+        </div>
+        <div class="editor-icon">
+          <span class="editor-icon-hr" @click="addHr()">hr</span>
+        </div>
+        <div class="editor-icon">
+          <i class="eye icon" @click="choose(6)"></i>
+        </div>
       </div>
       <textarea id="edit" v-model="content" class="textarea" @focus="focusEvent" @blur="blurEvent"></textarea>
     </div>
-    <div class="model">
+    <div class="editor-model" ref="modal">
       <face :isShow="current===0" @closeEvent="closeModal()" @addEvent="addFace"></face>
       <img-upload :isShow="current===1" @closeEvent="closeModal()" @addEvent="addPic"></img-upload>
       <link-add :isShow="current===2" @closeEvent="closeModal()" @addEvent="addLink"></link-add>
@@ -115,12 +129,14 @@ export default {
       this.pos += 5
     },
     choose (index) {
+      console.log('choose -> index', index)
       if (index === this.current) {
         this.closeModal()
       } else {
         this.current = index
       }
     },
+
     handleBodyClick (e) {
       e.stopPropagation()
       if (
@@ -132,6 +148,7 @@ export default {
         this.closeModal()
       }
     },
+
     insert (val) {
       if (typeof this.content === 'undefined') {
         return
@@ -144,28 +161,30 @@ export default {
 }
 </script>
 <style scoped>
-.function {
+.editor-button {
   position: relative;
   top: 80px;
   height: 50px;
   background-color: #fbfbfb;
   border: 1px solid #e6e6e6;
 }
+.editor-icon {
+  float: left;
+  margin: 15px 6px;
+}
 .icon {
   font-size: 20px;
-  position: relative;
-  top: 15px;
-  left: 10px;
-  padding-right: 35px;
+  /* position: relative; */
+  /* top: 15px; */
+  /* left: 10px; */
+  /* padding-right: 35px; */
   color: #009688;
+  cursor: pointer;
 }
-.hr {
+.editor-icon-hr {
   font-size: 20px;
-  position: relative;
-  top: 15px;
-  left: 10px;
-  padding-right: 15px;
   color: #009688;
+  cursor: pointer;
 }
 .textarea {
   position: relative;
@@ -174,3 +193,4 @@ export default {
   height: 250px;
 }
 </style>
+f

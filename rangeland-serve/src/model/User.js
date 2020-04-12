@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     favs: { type: Number,default:100 },
     gender: { type: String,default:'' },
     roles: { type: Array,default:['user'] },
-    pic: { type: String,default:'/img/header.png' },
+    pic: { type: String,default:'/img/bear-200-200.jpg' },  // 使用的是前端的图片地址
     mobile: { type: String,match:/^1[3-9](\d{9})$/,default:'' },
     status: { type: String,default:'0' },
     regmark: { type: String,default:'' },

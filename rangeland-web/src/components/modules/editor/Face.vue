@@ -28,27 +28,29 @@ export default {
 }
 </script>
 <style scoped>
-.model{
-    position:absolute;
-    top:230px;
-    left:55px;
-    width:382px;
-    background-color:white;
-    box-shadow:10px 10px 5px #e6e6e6;
-    border:1px solid #e6e6e6;
+.model {
+  position: absolute;
+  top: 138px;
+  left: 8px;
+  z-index: 1;
+  width: 382px;
+  background-color: white;
+  box-shadow: 10px 10px 5px #e6e6e6;
+  border: 1px solid #e6e6e6;
 }
-.face-lists{
-    position: relative;
-    right: 26px;
-    top: -4px;
-    list-style-type: none;
+.face-lists {
+  position: relative;
+  left: 0px;
+  top: 0px;
+  padding: 7px;
+  list-style-type: none;
 }
 .face-item {
-    display:inline-block;
-    border:1px solid #e6e6e6;
-    padding:2px;
+  display: inline-block;
+  border: 1px solid #e6e6e6;
+  padding: 2px;
 }
 .face-item:hover {
-    border:1px solid red;
+  border: 1px solid red;
 }
 </style>

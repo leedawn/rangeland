@@ -1,5 +1,6 @@
 const Router = require("koa-router")
-const { userSign, updateUserInfo, changePassword } = require('../../api/UserController')
+const { userSign, updateUserInfo, changePassword, getMsg, setMsg  } = require('../../api/UserController')
+const {getPostListByUid,deletePostByUid} =require('../../api/ContentController')
 
 const router = new Router()
 router.prefix('/user')
@@ -7,6 +8,12 @@ router.get('/fav', userSign)
 
 router.post('/basic', updateUserInfo)
 router.post('/changePassword', changePassword)
+
+router.get('/getMsg',getMsg)
+router.get('/setMsg',setMsg)
+
+router.get('/post',getPostListByUid)
+router.post('/deletePost',deletePostByUid)
 
 // router.get('/account',userController.userAccount)
 // router.get('/permission',userController.userPermission)

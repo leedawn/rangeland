@@ -161,5 +161,34 @@ async function getPostDetail (ctx) {
     }
 }
 
+async function getPostListByUid(ctx){
+    const params=ctx.query
+    const page=params.page?parseInt(params.page):0
+    const limit=params.limit?parseInt(params.limit):20
+    const obj=await getJWTPayload(ctx.header.authorization)
+    const userId=obj._id
 
-module.exports = { getPostList, uploadImg, addPost, getPostDetail }
+    const result=await Post.getListByUid(userId,page,limit)
+    const nums=await Post.countByUid(userId)
+
+    if(result.length>=0){
+        ctx.body={
+            code:200,
+            data:result,
+            nums,
+            msg:'成功获取用户的文章列表'
+        }
+    } else {
+        ctx.body={
+            code:500,
+            msg:'无法获取用户的文章'
+        }
+    }
+}
+
+async function deletePostByUid(){
+
+}
+
+
+module.exports = { getPostList, uploadImg, addPost, getPostDetail, getPostListByUid,deletePostByUid }

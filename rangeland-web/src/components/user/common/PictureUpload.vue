@@ -26,8 +26,9 @@ export default {
       pic:
         (this.$store.state.userInfo && this.$store.state.userInfo.pic)
           ? this.$store.state.userInfo.pic
-          : '../../../assets/logo.png',
-      formData: ''
+          : 'img/bear-200-200.jpg',
+      formData: '',
+      publicPath: process.env.BASE_URL
     }
   },
   methods: {

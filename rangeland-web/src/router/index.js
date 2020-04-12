@@ -25,12 +25,15 @@ import Others from '../components/user/Others'
 import Posts from '../components/user/Posts'
 import Setting from '../components/user/Setting.vue'
 import Add from '../components/contents/Add.vue'
+import Edit from '../components/contents/Edit.vue'
 import Detail from '../components/contents/Detail'
 
 import MyInfo from '../components/user/common/MyInfo'
 import PictureUpload from '../components/user/common/PictureUpload'
 import ChangePassword from '../components/user/common/ChangePassword'
 import AccountBinding from '../components/user/common/AccountBinding'
+import MyPost from '../components/user/common/MyPost'
+import MyCollect from '../components/user/common/MyCollect'
 
 import NotFound from '../views/NotFound'
 
@@ -63,107 +66,126 @@ const myRoutes = [
         path: '/index/:catalog',
         name: 'catalog',
         component: Template
-      }
-    ]
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: ImoocLogin
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: ImoocRegister,
-    beforeEnter: (to, from, next) => {
-      console.log(from)
-      if (from.path === '/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
-        next()
-      } else {
-        next('/login')
-      }
-    }
-  },
-  {
-    path: '/forget',
-    name: 'forget',
-    component: ImoocForget
-  },
-  {
-    path: '/reset',
-    name: 'reset',
-    component: Reset
-  },
-  {
-    path: '/add',
-    name: 'add',
-    component: Add
-  },
-  {
-    path: '/detail/:tid',
-    name: 'detail',
-    props: true,
-    component: Detail
-  },
-  {
-    path: '/center',
-    name: 'center',
-    component: Center,
-    meta: { requiresAuth: true }, // 路由元信息
-    linkActiveClass: 'semantic-this',
-    children: [
-      // {
-      //   path: '',
-      //   name: 'center',
-      //   component: Center
-      // },
-      {
-        path: 'center',
-        name: 'userCenter',
-        component: UserCenter
       },
       {
-        path: 'msg',
-        name: 'msg',
-        component: Msg,
-        alias: '/test' // 设置别名之后，还需要修改路由跳转的地址。
+        path: '/login',
+        name: 'login',
+        component: ImoocLogin
       },
       {
-        path: 'others',
-        name: 'others',
-        component: Others
+        path: '/register',
+        name: 'register',
+        component: ImoocRegister,
+        beforeEnter: (to, from, next) => {
+          console.log(from)
+          if (from.path === '/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
+            next()
+          } else {
+            next('/login')
+          }
+        }
       },
       {
-        path: 'posts',
-        name: 'posts',
-        component: Posts
+        path: '/forget',
+        name: 'forget',
+        component: ImoocForget
       },
       {
-        path: 'setting',
-        name: 'setting',
-        component: Setting,
-        redirect: { name: 'myInfo' },
-        linkActiveClass: 'active',
+        path: '/reset',
+        name: 'reset',
+        component: Reset
+      },
+      {
+        path: '/add',
+        name: 'add',
+        component: Add
+      },
+      {
+        path: '/edit/:tid',
+        name: 'edit',
+        props: true,
+        component: Edit
+      },
+      {
+        path: '/detail/:tid',
+        name: 'detail',
+        props: true,
+        component: Detail
+      },
+      {
+        path: '/center',
+        name: 'center',
+        component: Center,
+        meta: { requiresAuth: true }, // 路由元信息
+        linkActiveClass: 'semantic-this',
         children: [
+          // {
+          //   path: '',
+          //   name: 'center',
+          //   component: Center
+          // },
           {
-            path: 'myInfo',
-            name: 'myInfo',
-            component: MyInfo
+            path: 'center',
+            name: 'userCenter',
+            component: UserCenter
           },
           {
-            path: 'pictureUpload',
-            name: 'pictureUpload',
-            component: PictureUpload
+            path: 'msg',
+            name: 'msg',
+            component: Msg,
+            alias: '/test' // 设置别名之后，还需要修改路由跳转的地址。
           },
           {
-            path: 'changePassword',
-            name: 'changePassword',
-            component: ChangePassword
+            path: 'others',
+            name: 'others',
+            component: Others
           },
           {
-            path: 'accountBinding',
-            name: 'accountBinding',
-            component: AccountBinding
+            path: 'posts',
+            name: 'posts',
+            component: Posts,
+            redirect: { name: 'myPost' },
+            children: [
+              {
+                path: 'myPost',
+                name: 'myPost',
+                component: MyPost
+              },
+              {
+                path: 'myCollect',
+                name: 'myCollect',
+                component: MyCollect
+              }
+            ]
+          },
+          {
+            path: 'setting',
+            name: 'setting',
+            component: Setting,
+            redirect: { name: 'myInfo' },
+            linkActiveClass: 'active',
+            children: [
+              {
+                path: 'myInfo',
+                name: 'myInfo',
+                component: MyInfo
+              },
+              {
+                path: 'pictureUpload',
+                name: 'pictureUpload',
+                component: PictureUpload
+              },
+              {
+                path: 'changePassword',
+                name: 'changePassword',
+                component: ChangePassword
+              },
+              {
+                path: 'accountBinding',
+                name: 'accountBinding',
+                component: AccountBinding
+              }
+            ]
           }
         ]
       }
@@ -216,7 +238,7 @@ const myRoutes = [
 ]
 
 const router = new VueRouter({
-  linkExactActiveClass: 'semantic-this',
+  linkExactActiveClass: 'active', // 激活路由后的类名
   routes: myRoutes
 })
 
@@ -230,8 +252,10 @@ router.beforeEach((to, from, next) => {
       store.commit('setToken', token)
       store.commit('setUserInfo', userInfo)
       store.commit('setIsLogin', true)
+      if (!store.state.ws) {
+        store.commit('initWebSocket', {})
+      }
     } else {
-      debugger
       localStorage.clear()
     }
   }

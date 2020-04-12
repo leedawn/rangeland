@@ -12,13 +12,8 @@
             <validation-provider name="catalog" rules="is_not:请选择" v-slot="{errors}">
               <div class="special-column">
                 <div class="text">所在专栏</div>
-                <select class="ui dropdown special" v-model="selected">
-                  <!--本来是通过不增加变量来实现，可是失败了-->
-                  <option
-                    v-for="(catalog,index) in catalogs"
-                    :key="'catalog'+index"
-                    :value="catalog.value"
-                  >{{catalog.text}}</option>
+                <select class="ui dropdown special" disabled="disabled">
+                  <option value="page.catalog">{{page.catalog}}</option>
                 </select>
 
                 <span class="catalog-error-message">{{errors[0]}}</span>
@@ -32,7 +27,7 @@
               </div>-->
               <div class="ui labeled input title">
                 <div class="ui label">标题</div>
-                <input type="text" v-model="title" placeholder="请输入标题" />
+                <input type="text" v-model="title" placeholder="page.title" />
                 <span class="title-error-message">{{errors[0]}}</span>
               </div>
             </validation-provider>
@@ -40,8 +35,8 @@
           <editor @changeContent="add" :initContent="content"></editor>
           <div class="kiss">
             <div class="text">悬赏飞吻</div>
-            <select class="ui dropdown kiss" v-model="favlist[favIndex]">
-              <option v-for="(fav,index) in favlist" :key="'fav'+index" :value="fav">{{fav}}</option>
+            <select class="ui dropdown kiss" disabled="disabled">
+              <option value="page.fav">{{page.fav}}</option>
             </select>
             <div class="description">发表后无法更改飞吻</div>
           </div>
@@ -59,19 +54,6 @@
             </div>
           </validation-provider>
           <button class="publish" type="button" @click="validate().then(submit)">立即发布</button>
-
-          <!-- <div class="dropdown-wrapper" @click="changeSelect()">
-            <div class="dropdown-input">
-              <input type="text" placeholder="请选择" readonly v-model="catalogs[cataIndex].text" />
-            </div>
-            <dl class="dropdown-select" v-show="isSelect">
-              <dd
-                v-for="(item,index) in catalogs"
-                :key="'catalog'+index"
-                @click="chooseCatalog(item,index)"
-              >{{item.text}}</dd>
-            </dl>
-          </div>-->
         </form>
       </validation-observer>
     </div>
@@ -79,10 +61,11 @@
 </template>
 <script>
 import Editor from '../modules/editor/Index'
-import { addPost } from '@/api/content'
+import { addPost, getDetail } from '@/api/content'
 import CodeMix from '@/mixin/code'
 export default {
   name: 'add',
+  props: ['tid'],
   mixins: [CodeMix],
   components: {
     Editor
@@ -118,40 +101,22 @@ export default {
       ],
       favlist: [20, 30, 50, 60, 80],
       content: '',
-      title: ''
+      title: '',
+      page: {}
     }
   },
   mounted () {
-    const saveData = localStorage.getItem('addData')
-    if (saveData && saveData !== '') {
-      this.$confirm(
-        '是否加在未编辑完的内容？',
-        () => {
-          const obj = JSON.parse(saveData)
-          this.content = obj.content
-          this.title = obj.title
-          this.cataIndex = obj.cataIndex
-          this.favIndex = obj.favIndex
-        },
-        () => {
-          localStorage.setItem('addData', '')
-        }
-      )
-    }
+    this.getPostDetail()
   },
   methods: {
-    // chooseCatalog (item, index) {
-    //   this.cataIndex = index
-    // },
-    // chooseFav (item, index) {
-    //   this.favIndex = index
-    // },
-    // changeSelect () {
-    //   this.isSelect = !this.isSelect
-    // },
-    // changeFav () {
-    //   this.isSelect_fav = !this.isSelect
-    // },
+    getPostDetail () {
+      getDetail(this.tid).then(res => {
+        if (res.code === 200) {
+          this.page = res.data
+          console.log('getPostDetail -> this.page', this.page)
+        }
+      })
+    },
     add (val) {
       this.content = val
       const saveData = {

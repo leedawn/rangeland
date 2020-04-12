@@ -4,18 +4,21 @@ const statics=require('koa-static')
 const cors=require('@koa/cors')
 const JWT=require('koa-jwt')
 const compress=require('koa-compress')
-const router=require('./routes/routes')
 const path=require('path')
 const koaBody=require('koa-body')
 const jsonutil=require('koa-json')
 const compose=require('koa-compose')
+
+const router=require('./routes/routes')
 const config=require('./config/index')
 const errorHandle=require('./common/ErrorHandle')
+const WebSocketServer=require('./config/WebSocket')
 
 const app=new koa()
+const ws =new WebSocketServer()
 
-
-
+ws.init()
+global.ws=ws
 const isDevMode=process.env.NODE_ENV==='production'?false:true
 
 //除了公共路径，其他路径都需要鉴权

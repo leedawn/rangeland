@@ -13,14 +13,14 @@
     <template v-else>
       <div class="login-status" @mouseover="show()" @mouseleave="hide()">
         <div class="login-info">
-          <div class="user-info">
+          <div class="user-info" data-tooltip="您有3条未读消息" data-position="bottom left">
             {{userInfo.name}}
-            {{userInfo.isVip}}
+            <!-- {{userInfo.isVip}} -->
           </div>
-          <img :src="userInfo.pic" class="image" />
+          <img :src="userInfo.pic" class="user-image" />
         </div>
         <transition name="fade">
-          <div class="dropdown-menu" v-show="isHover">
+          <div class="dropdown-menu" v-show="false">
             <div class="item hover-style">
               <i class="cog icon"></i>个人设置
             </div>
@@ -35,11 +35,13 @@
             <div class="item hover-style" href="javascript: void(0)" @click="logout()">退出</div>
           </div>
         </transition>
+        <div class="my-message" v-show="num.message && num.message!==0">{{num.message}}</div>
       </div>
     </template>
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Header',
   data () {
@@ -80,7 +82,20 @@ export default {
         : this.$router.push('name:"index"')
     }
   },
+  watch: {
+    num (newval, oldval) {
+      if (newval.event && newval !== oldval) {
+        this.hasMsg = true
+        setTimeout(() => {
+          this.hasMsg = false
+        }, 2000)
+      }
+    }
+  },
   computed: {
+    ...mapState({
+      num: state => state.num
+    }),
     isShow () {
       return this.$store.state.isLogin
     },
@@ -136,7 +151,7 @@ export default {
   top: -7px;
   color: white;
 }
-.image {
+.user-image {
   position: relative;
   top: 5px;
   right: -20px;
@@ -185,5 +200,14 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.my-message {
+  position: absolute;
+  left: -35px;
+  top: 15px;
+  background-color: rgb(224, 113, 28);
+  padding: 2px 4px;
+  color: white;
 }
 </style>

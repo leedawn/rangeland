@@ -60,7 +60,8 @@ CommentsSchema.statics = {
   getMsgList: function (id, page, limit) {
     return this.find({
       uid: id,
-      cuid: { $ne: id },
+      // cuid: { $ne: id },
+      cuid:id,
       isRead: { $eq: '0' }, // 未读状态
       status: { $eq: '1' } // 是否显示
     })
@@ -80,6 +81,7 @@ CommentsSchema.statics = {
       .limit(limit)
       .sort({ created: -1 })
   },
+
   getTotal: function (id) {
     return this.find({ uid: id, isRead: '0', status: '1' }).countDocuments()
   }

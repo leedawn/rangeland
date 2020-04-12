@@ -36,7 +36,7 @@ function myFunction(){
         var t=0
         let cardInfoList=[]
         for (var i = 0; i < allCards.length; i++) {
-            if (allCards[i]["idMembers"] == "5c64deef2723716a568de136" && allCards[i]["idList"] == "5cc66abaa28c995ba47ab9f5") { // another list: 5cc66ab2d578c88e33d68c47  finish:5cc66abaa28c995ba47ab9f5 
+            if (allCards[i]["idMembers"] == "5c64deef2723716a568de136" && allCards[i]["idList"] == "5cc66ab2d578c88e33d68c47") { // another list: 5cc66ab2d578c88e33d68c47  finish:5cc66abaa28c995ba47ab9f5 
                     if (allCards[i]["due"] < (endDate+"T16:00:00.000Z") && allCards[i]["due"] > (startDate+"T16:00:00.000Z")) {
                         let cardInfoObject={}
                         console.log(allCards[i]["labels"][0]["name"],allCards[i]["name"]);

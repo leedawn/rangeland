@@ -31,6 +31,7 @@
           <div class="middle-wrapper">
             <a class="middle-image">
               <img :src="page.uid?page.uid.pic:'/img/bear-200-200.jpg'" />
+              <!-- 官方获取图片的方式使用了 publicPath, 方便打包-->
             </a>
             <div class="middle-top">
               <a class="uid">
@@ -44,7 +45,10 @@
             </div>
             <hr class="line" />
             <div class="right-buttons">
-              <a class="common-button extra-button" href>编辑</a>
+              <router-link
+                class="common-button extra-button"
+                :to="{name:'edit',params:{tid:tid}}"
+              >编辑</router-link>
               <a class="common-button" href>收藏</a>
             </div>
           </div>
@@ -107,9 +111,10 @@
           </ul>
           <div class="comment-pagination">
             <imooc-page
+              v-show="comments.length>0&&total>0"
               :showType="'icon'"
-              :hasSelect="true"
-              :hasTotal="true"
+              :hasSelect="false"
+              :hasTotal="false"
               :total="total"
               :size="size"
               :current="current"
@@ -118,8 +123,7 @@
               @changeLimit="handleLimit"
             ></imooc-page>
           </div>
-
-          <form class="ui form">
+          <form class="ui form comments-form">
             <ValidationObserver ref="observer" v-slot="{ validate }">
               <editor @changeContent="addContent" :initContent="editInfo.content"></editor>
               <ValidationProvider
@@ -222,7 +226,8 @@ export default {
         content: '',
         code: '',
         sid: ''
-      }
+      },
+      publicPath: process.env.BASE_URL
     }
   },
   mounted () {
@@ -232,7 +237,7 @@ export default {
   methods: {
     handleChange (val) {
       this.current = val
-      this.getCommentslist()
+      this.getCommentsList()
     },
     handleLimit (val) {
       this.size = val
@@ -242,7 +247,6 @@ export default {
       getDetail(this.tid).then(res => {
         if (res.code === 200) {
           this.page = res.data
-          console.log('getPostDetail -> res.data', res.data)
         }
       })
     },
@@ -254,9 +258,7 @@ export default {
       }).then(res => {
         if (res.code === 200) {
           this.comments = res.data
-          console.log('getCommentsList -> comments', this.comments)
           this.total = res.total
-          console.log('getCommentsList -> total', this.total)
         }
       })
     },
@@ -426,7 +428,7 @@ export default {
 /* 详细的帖子信息 */
 .middle-wrapper {
   position: relative;
-  top: 50px;
+  top: 60px;
   background-color: #f8f8f8;
   height: 130px;
 }
@@ -545,7 +547,8 @@ export default {
 }
 .comment-pagination {
   position: relative;
-  top: 120px;
+  top: 70px;
+  z-index: 1;
 }
 .comment-divider {
   position: relative;
@@ -572,6 +575,10 @@ export default {
   background-color: white;
   font-size: 22px;
   color: #999;
+}
+.ui.form {
+  position: relative;
+  top: 10px;
 }
 .code {
   position: relative;

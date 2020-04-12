@@ -1,9 +1,9 @@
 <template>
-  <dic class="ui grid my_center">
+  <div class="ui grid my-center">
     <div class="ui inverted vertical menu">
       <div v-for="(list,index) in lists" :key="'center'+index">
         <a class="item">
-         <router-link :active-class="semantic-this" :to="{name:list.link}">  <!-- {name:list.link} -->
+         <router-link :to="{name:list.link}">  <!-- {name:list.link} -->
             <i :class="list.icon"></i>
             {{list.name}}
           </router-link>
@@ -13,11 +13,11 @@
     <div class="content">
       <router-view></router-view>
     </div>
-  </dic>
+  </div>
 </template>
 <script>
 export default {
-  name: 'menu',
+  name: 'my-center',
   data () {
     return {
       lists: [
@@ -57,7 +57,7 @@ export default {
 }
 </script>
 <style scoped>
-.my_center {
+.my-center {
   background-color: darkgray;
   width: 100%;
   height: 1000px;

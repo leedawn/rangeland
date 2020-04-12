@@ -52,7 +52,7 @@ async function main() {
         <div>
             <p>Hi all:</p>
             <br>
-            <p>这是我上周（20200323-20200327）的工作周报，内容如下：</p>
+            <p>这是我上周（20200330-20200403）的工作周报，内容如下：</p>
             <b>一、A15 QA 工作量统计数据：</b>
             <table>
                 <thead>
@@ -74,11 +74,11 @@ async function main() {
                         <td>6</td>
                         <td>10</td>
                         <td>2</td>
-                        <td>17</td>
-                        <td>8.5</td>
-                        <td>1</td>
-                        <td>0.5</td>
-                        <td>0.06</td>
+                        <td>10</td>
+                        <td>5</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
                     </tr>
                 </tbody>
             </table>
@@ -104,66 +104,38 @@ async function main() {
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>oddish</td>
-                        <td>test the function oddish only displays the game in the channel.</td>
+                        <td>others</td>
+                        <td>delivery the test materials of coin reward game.</td>
                         <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
+                        <td>30 Mar-5 Apr 2020</td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>others</td>
-                        <td>add 12 accounts under 8 years old.</td>
+                        <td>oddish</td>
+                        <td>testing the system adujustments for mournting activities in staging env.</td>
                         <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
+                        <td>30 Mar-5 Apr 2020</td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>oddish</td>
-                        <td>regression test the oddish games in censor env.</td>
+                        <td>skills</td>
+                        <td>study the acknowledge of mixins and filters.</td>
                         <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
+                        <td>30 Mar-5 Apr 2020</td>
                     </tr>
                     <tr>
                         <td>4</td>
                         <td>oddish</td>
-                        <td>test the new GUI  in censor env.</td>
+                        <td>testing the system adujustments for mournting activities in release env.</td>
                         <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
+                        <td>30 Mar-5 Apr 2020</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>oddish</td>
-                        <td>test the game of drg in release env.</td>
-                        <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
-                    </tr>
-                     <tr>
-                        <td>6</td>
-                        <td>others</td>
-                        <td>test the page slip of jiwan.</td>
-                        <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>oddish</td>
-                        <td>test the page of realname-authentication and find a bug.</td>
-                        <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
                         <td>skills</td>
-                        <td>study the basic tutorial of vue.</td>
+                        <td>study the knowledge of Vue Router.</td>
                         <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>skills</td>
-                        <td>study the css style in w3chool.</td>
-                        <td>李黎明</td>
-                        <td>23-27 mar 2020</td>
+                        <td>30 Mar-5 Apr 2020</td>
                     </tr>
                 </tbody>
             </table>

@@ -4,6 +4,8 @@ const Utils = require('../common/Utils')
 const { setValue } = require('../config/RedisConfig')
 const { send } = require('../config/MailConfig')
 const config = require('../config/index')
+const { getJWTPayload } = require('../common/Utils')
+const Comments = require('../model/Comments')
 
 const moment = require('dayjs')
 const uuid = require('uuid/v4')
@@ -167,9 +169,9 @@ async function changePassword (ctx) {
     console.log("changePassword -> user", user)
     let msg = ''
     if (await bcrypt.compare(body.oldPassword, user.password)) {
-        body.newPassword=await bcrypt.hash(body.newPassword,5)
-        console.log("changePassword ->  body.newPassword",  body.newPassword)
-        const result = await User.updateOne({ _id: obj._id }, {password:body.newPassword})
+        body.newPassword = await bcrypt.hash(body.newPassword, 5)
+        console.log("changePassword ->  body.newPassword", body.newPassword)
+        const result = await User.updateOne({ _id: obj._id }, { password: body.newPassword })
         console.log("result", result)
         if (result.n === 1 && result.ok === 1) {
             ctx.body = {
@@ -192,5 +194,49 @@ async function changePassword (ctx) {
 
 }
 
+async function getMsg (ctx) {
+    const params = ctx.query
+    const page = params.page ? params.page : 0
+    const limit = params.limit ? parseInt(params.limit) : 0
 
-module.exports = { userSign, updateUserInfo, changePassword }
+    const obj = await getJWTPayload(ctx.header.authorization)
+    const result = await Comments.getMsgList(obj._id, page, limit)
+    const num = await Comments.getTotal(obj._id)
+
+    console.log("getMsg -> result", result)
+
+    ctx.body = {
+        code: 200,
+        data: result,
+        total: num
+    }
+}
+
+async function setMsg (ctx) {
+    const params = ctx.query
+    if (params.id) {
+        const result = await Comments.updateOne(
+            { _id: params.id },
+            { isRead: '1' }
+        )
+        if (result.ok === 1) {
+            ctx.body = {
+                code: 200
+            }
+        }
+    } else {
+        const obj = await getJWTPayload(ctx.header.authorization)
+        const result = await Comments.updateMany(
+            { uid: obj._id },
+            { isRead: '1' }
+        )
+        if (result.ok === 1) {
+            ctx.body = {
+                code: 200
+            }
+        }
+    }
+}
+
+
+module.exports = { userSign, updateUserInfo, changePassword, getMsg, setMsg }

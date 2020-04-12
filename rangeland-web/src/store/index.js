@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import WebSocketClient from '../util/websocket'
 
 Vue.use(Vuex)
 
@@ -8,9 +9,15 @@ export default new Vuex.Store({
     sid: '',
     isLogin: false,
     token: '',
-    userInfo: {}
+    userInfo: {},
+    ws: null,
+    num: 0
   },
   mutations: {
+    initWebSocket (state, config) {
+      state.ws = new WebSocketClient(config)
+      state.ws.init()
+    },
     setSid (state, value) {
       state.sid = value
     },
@@ -25,9 +32,15 @@ export default new Vuex.Store({
     },
     setIsLogin (state, value) {
       state.isLogin = value
+    },
+    setMessage (state, value) {
+      state.num = value
     }
   },
   actions: {
+    message ({ commit }, msg) {
+      commit('setMessage', msg)
+    }
   },
   modules: {
   }
