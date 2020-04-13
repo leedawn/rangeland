@@ -1,10 +1,15 @@
-const Router=require('koa-router')
-const contentController=require('../../api/ContentController')
+const Router = require('koa-router')
+const contentController = require('../../api/ContentController')
 
-const router=new Router()
+const router = new Router()
 router.prefix('/content')
 
-router.post('/upload',contentController.uploadImg)
+router.post('/upload', contentController.uploadImg)
 
-router.post('/add',contentController.addPost)
-module.exports=router
+router.post('/add', contentController.addPost)
+
+router.post('/update', contentController.updatePost)
+
+router.get('/detail', contentController.getPostDetail)
+
+module.exports = router

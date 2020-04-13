@@ -12,7 +12,7 @@
             <validation-provider name="catalog" rules="is_not:请选择" v-slot="{errors}">
               <div class="special-column">
                 <div class="text">所在专栏</div>
-                <select class="ui dropdown special" disabled="disabled">
+                <select class="ui disabled dropdown special">
                   <option value="page.catalog">{{page.catalog}}</option>
                 </select>
 
@@ -20,14 +20,9 @@
               </div>
             </validation-provider>
             <validation-provider name="title" rules="required" v-slot="{errors}">
-              <!-- <div class="title">
-                <div class="text">标题</div>
-                <input class="title-input" type="text" v-model="title" />
-                <span class="title-error-message">{{errors[0]}}</span>
-              </div>-->
               <div class="ui labeled input title">
                 <div class="ui label">标题</div>
-                <input type="text" v-model="title" placeholder="page.title" />
+                <input type="text" v-model="title" placeholder="请输入标题" />
                 <span class="title-error-message">{{errors[0]}}</span>
               </div>
             </validation-provider>
@@ -35,7 +30,7 @@
           <editor @changeContent="add" :initContent="content"></editor>
           <div class="kiss">
             <div class="text">悬赏飞吻</div>
-            <select class="ui dropdown kiss" disabled="disabled">
+            <select class="ui disabled dropdown kiss">
               <option value="page.fav">{{page.fav}}</option>
             </select>
             <div class="description">发表后无法更改飞吻</div>
@@ -61,11 +56,11 @@
 </template>
 <script>
 import Editor from '../modules/editor/Index'
-import { addPost, getDetail } from '@/api/content'
+import { updatePost } from '@/api/content'
 import CodeMix from '@/mixin/code'
 export default {
   name: 'add',
-  props: ['tid'],
+  props: ['tid', 'page'],
   mixins: [CodeMix],
   components: {
     Editor
@@ -101,22 +96,28 @@ export default {
       ],
       favlist: [20, 30, 50, 60, 80],
       content: '',
-      title: '',
-      page: {}
+      title: ''
     }
   },
   mounted () {
-    this.getPostDetail()
+    if (this.page) {
+      const saveData = {
+        content: this.page.content,
+        title: this.page.title,
+        favIndex: this.page.favIndex,
+        cataIndex: this.page.cataIndex
+      }
+      localStorage.setItem('addData', JSON.stringify(saveData))
+    } else {
+      const result = localStorage.getItem('editData')
+      if (result) {
+        // 不知道怎么写
+      } else {
+        localStorage.setItem('editData', '')
+      }
+    }
   },
   methods: {
-    getPostDetail () {
-      getDetail(this.tid).then(res => {
-        if (res.code === 200) {
-          this.page = res.data
-          console.log('getPostDetail -> this.page', this.page)
-        }
-      })
-    },
     add (val) {
       this.content = val
       const saveData = {
@@ -126,7 +127,11 @@ export default {
         favIndex: this.favIndex
       }
       if (this.title.trim() !== '' && this.content.trim() !== '') {
-        localStorage.setItem('addData', JSON.stringify(saveData))
+        let editData = JSON.parse(localStorage.getItem('editData'))
+        if (editData && editData !== '') {
+          editData = { ...saveData, ...editData }
+          localStorage.setItem('editData', JSON.stringify(editData))
+        }
       }
     },
     async submit () {
@@ -139,32 +144,20 @@ export default {
         this.$alert('文章内容不得为空！')
         return
       }
-      console.log(
-        'submit -> title',
-        this.title,
-        this.code,
-        this.$store.state.sid,
-        this.cataIndex,
-        // this.catalogs[this.cataIndex].value,
-        this.selected,
-        this.favlist[this.favIndex]
-      )
-      addPost({
+      updatePost({
+        tid: this.tid,
         title: this.title,
-        catalog: this.selected,
         content: this.content,
-        fav: this.favlist[this.favIndex],
         code: this.code,
         sid: this.$store.state.sid
       })
         .then(res => {
-          console.log('submit -> res', res)
           if (res.code === 200) {
-            localStorage.setItem('addData', '')
-            this.$alert('发帖成功～2s后跳转')
+            localStorage.setItem('editData', '')
+            this.$alert('帖子更新成功！')
             setTimeout(() => {
-              this.$router.push({ name: 'index' })
-            }, 2000)
+              this.$router.push({ name: 'detail', params: { tid: this.tid } })
+            }, 1000)
           } else {
             this.$alert(res.msg)
           }

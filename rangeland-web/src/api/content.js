@@ -21,7 +21,9 @@ const uploadImg = (formData) => axios.post('/content/upload', formData)
 
 const addPost = (data) => axios.post('/content/add', { ...data })
 
-const getDetail = (tid) => axios.get('/public/content/detail?tid=' + tid)
+const updatePost = (data) => axios.post('/content/update', { ...data })
+
+const getDetail = (tid) => axios.get('/content/detail?tid=' + tid)
 
 export {
   getList,
@@ -30,5 +32,6 @@ export {
   getLinks,
   uploadImg,
   addPost,
+  updatePost,
   getDetail
 }

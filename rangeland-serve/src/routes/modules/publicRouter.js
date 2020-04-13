@@ -10,8 +10,6 @@ router.get('/getCaptcha',publicController)
 
 router.get('/list', contentController.getPostList)
 
-router.get('/content/detail',contentController.getPostDetail)
-
 router.get('/comments',commentController.getComments)
 
 module.exports=router

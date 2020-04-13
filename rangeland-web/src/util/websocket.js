@@ -37,7 +37,6 @@ class WebSocketClient {
   }
 
   onMessage (event) {
-    // 当用户未进入聊天室，则不接收消息
     if (this.isShow) {
       return
     }
@@ -57,7 +56,7 @@ class WebSocketClient {
         }))
         break
       default:
-        store.dispatch(obj.event, obj)
+        store.dispatch(obj.event, obj) // 提交数据，含有异步操作
     }
   }
 
@@ -79,7 +78,7 @@ class WebSocketClient {
     this.handle = setTimeout(() => {
       this.onClose()
       this.onError()
-    // 设置1ms的时延，调试在服务器测未及时响应时，客户端的反应
+      // 设置1ms的时延，调试在服务器测未及时响应时，客户端的反应
     }, this.timeInterval + 1000)
   }
 }

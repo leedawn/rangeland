@@ -39,7 +39,7 @@ export default new Vuex.Store({
   },
   actions: {
     message ({ commit }, msg) {
-      commit('setMessage', msg)
+      commit('setMessage', msg) // websocket使用的操作
     }
   },
   modules: {

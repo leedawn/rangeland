@@ -118,6 +118,42 @@ async function addPost (ctx) {
     }
 }
 
+async function updatePost (ctx) {
+    const { body } = ctx.request
+    const sid = body.sid
+    const code = body.code
+    const result = await checkCode(sid, code)
+    if (result) {
+        const obj = await getJWTPayload(ctx.header.authorization)
+        const post = await Post.findById(body.tid)
+        if (post.uid === obj._id && post.isEnd === '0') {
+            const result = await Post.updateOne({ _id: post._id }, body)
+            if (result) {
+                ctx.body = {
+                    code: 200,
+                    msg: '更新帖子成功'
+                }
+            } else {
+                ctx.body = {
+                    code: 500,
+                    msg: '更新帖子失败'
+                }
+            }
+        } else {
+            ctx.body = {
+                code: 500,
+                msg: '没有编辑帖子的权限'
+            }
+        }
+    } else {
+        ctx.body = {
+            code: 500,
+            msg: '图片验证码验证失败'
+
+        }
+    }
+}
+
 async function getPostDetail (ctx) {
     const params = ctx.query
     if (!params.tid) {
@@ -161,34 +197,62 @@ async function getPostDetail (ctx) {
     }
 }
 
-async function getPostListByUid(ctx){
-    const params=ctx.query
-    const page=params.page?parseInt(params.page):0
-    const limit=params.limit?parseInt(params.limit):20
-    const obj=await getJWTPayload(ctx.header.authorization)
-    const userId=obj._id
+async function getPostListByUid (ctx) {
+    const params = ctx.query
+    const page = params.page ? parseInt(params.page) : 0
+    const limit = params.limit ? parseInt(params.limit) : 20
+    const obj = await getJWTPayload(ctx.header.authorization)
+    const userId = obj._id
 
-    const result=await Post.getListByUid(userId,page,limit)
-    const nums=await Post.countByUid(userId)
+    const result = await Post.getListByUid(userId, page, limit)
+    const nums = await Post.countByUid(userId)
 
-    if(result.length>=0){
-        ctx.body={
-            code:200,
-            data:result,
+    if (result.length >= 0) {
+        ctx.body = {
+            code: 200,
+            data: result,
             nums,
-            msg:'成功获取用户的文章列表'
+            msg: '成功获取用户的文章列表'
         }
     } else {
-        ctx.body={
-            code:500,
-            msg:'无法获取用户的文章'
+        ctx.body = {
+            code: 500,
+            msg: '无法获取用户的文章'
         }
     }
 }
 
-async function deletePostByUid(){
+async function addCollect (ctx) {
+    const { body } = ctx.request
+    const obj = await getJWTPayload(ctx.header.authorization)
+    if (body.isFav) {
+        await UserCollect.deleteOne({ uid: obj._id, tid: body.tid })
+        ctx.body = {
+            code: 200,
+            msg: '帖子已经取消收藏！'
+        }
+    } else {
+        const userCollect = new UserCollect({
+            uid: obj._id,
+            tid: body.tid,
+            title: body.title
+        })
+        const result = await userCollect.save()
+        if (result.uid) {
+            ctx.body = {
+                code: 200,
+                msg: '帖子收藏成功！'
+            }
+        }
+
+    }
+}
+
+
+async function deletePostByUid () {
 
 }
 
 
-module.exports = { getPostList, uploadImg, addPost, getPostDetail, getPostListByUid,deletePostByUid }
+
+module.exports = { getPostList, uploadImg, addPost, updatePost, getPostDetail, getPostListByUid, addCollect, deletePostByUid }

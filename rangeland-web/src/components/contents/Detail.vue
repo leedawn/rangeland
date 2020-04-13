@@ -47,9 +47,9 @@
             <div class="right-buttons">
               <router-link
                 class="common-button extra-button"
-                :to="{name:'edit',params:{tid:tid}}"
+                :to="{name:'edit',params:{tid:tid,page:page}}"
               >编辑</router-link>
-              <a class="common-button" href>收藏</a>
+              <a class="common-button" @click="setCollect">收藏</a>
             </div>
           </div>
           <div class="post-content" v-html="content"></div>
@@ -192,6 +192,7 @@
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { getDetail } from '@/api/content'
 import { getComments, addComment } from '@/api/comments'
+import { addCollect } from '@/api/user'
 import Hotlist from '@/components/sidebar/HotList'
 import Ads from '@/components/sidebar/Ads'
 import Links from '@/components/sidebar/Links'
@@ -325,6 +326,25 @@ export default {
         },
         () => {}
       )
+    },
+    setCollect () {
+      const isLogin = this.$store.state.isLogin
+      if (isLogin) {
+        addCollect({
+          tid: this.tid,
+          title: this.page.title,
+          isFav: this.page.isFav
+        }).then(res => {
+          if (res.code === 200) {
+            console.log('setCollect -> res.code', res.code)
+            this.page.isFav = !this.page.isFav
+            console.log('setCollect -> res.code', this.page.isFav)
+            this.$pop('', this.page.isFav ? '帖子收藏成功' : '帖子已取消收藏')
+          }
+        })
+      } else {
+        this.$pop('shake', '请先登录')
+      }
     }
   },
   computed: {
