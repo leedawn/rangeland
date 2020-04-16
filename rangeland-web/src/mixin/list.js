@@ -50,8 +50,6 @@ export default {
           if (res.data.length < this.limit) {
             this.isEnd = true
           }
-          console.log('_getLists -> res.data.length', res.data.length)
-          console.log('_getLists -> this.limit', this.limit)
           if (this.lists.length === 0) {
             this.lists = res.data
           } else {

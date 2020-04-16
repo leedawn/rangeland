@@ -1,6 +1,6 @@
 <template>
-  <div class="topbar">
-    <div class="ui secondary menu">
+  <div class="topbar-container">
+    <div class="ui secondary menu topbar-menu">
       <div v-for="(list,index) in lists" :key="'panel'+index">
         <router-link class="item" :to="list.path">{{list.name}}</router-link>
       </div>
@@ -30,46 +30,40 @@ export default {
       lists: [
         {
           name: '首页',
-          path: '/',
-          isNew: false
+          path: '/'
         },
         {
           name: '提问',
-          path: '/index/ask',
-          isNew: false
+          path: '/index/ask'
         },
         {
           name: '分享',
-          path: '/index/share',
-          isNew: false
+          path: '/index/share'
         },
         {
           name: '讨论',
-          path: '/index/discuss',
-          isNew: false
+          path: '/index/discuss'
         },
         {
           name: '建议',
-          path: '/index/advise',
-          isNew: false
-        },
-        {
-          name: '公告',
-          path: '/index/notice',
-          isNew: false
-        },
-        {
-          name: '动态',
-          path: '/index/dynamic',
-          isNew: false
+          path: '/index/advise'
         }
+        // },
+        // {
+        //   name: '公告',
+        //   path: '/index/notice'
+        // },
+        // {
+        //   name: '动态',
+        //   path: '/index/dynamic'
+        // }
       ]
     }
   }
 }
 </script>
 <style scoped>
-.topbar {
+.topbar-container {
   position: absolute;
   background-color: white;
   top: 60px;
@@ -77,6 +71,15 @@ export default {
   width: 100%;
   height: 60px;
   padding: 0px 15px;
+}
+.topbar-menu {
+  position: absolute;
+  left: 7%;
+  top: 6px;
+}
+.right.menu {
+  position: relative;
+  left: 68%;
 }
 .post-new-post {
   margin-right: 30px;

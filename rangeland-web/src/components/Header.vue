@@ -13,14 +13,15 @@
     <template v-else>
       <div class="login-status" @mouseover="show()" @mouseleave="hide()">
         <div class="login-info">
-          <div class="user-info" data-tooltip="您有3条未读消息" data-position="bottom left">
+          <div class="user-info">
             {{userInfo.name}}
             <!-- {{userInfo.isVip}} -->
           </div>
           <img :src="userInfo.pic" class="user-image" />
+          <div class="my-popup" v-show="hasMsg">您有{{num.message}}条未读消息</div>
         </div>
         <transition name="fade">
-          <div class="dropdown-menu" v-show="false">
+          <div class="dropdown-menu" v-show="isHover">
             <div class="item hover-style">
               <i class="cog icon"></i>个人设置
             </div>
@@ -47,7 +48,8 @@ export default {
   data () {
     return {
       isHover: false,
-      hoverCtrl: {}
+      hoverCtrl: {},
+      hasMsg: false
     }
   },
   methods: {
@@ -123,7 +125,7 @@ export default {
 .goback-button {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 7%;
 }
 .default-status {
   position: absolute;
@@ -138,10 +140,13 @@ export default {
 .login-status {
   position: absolute;
   top: 5px;
-  right: 40px;
+  right: 7%;
   display: block;
+  width: 150px;
 }
 .login-info {
+  position: relative;
+  left: 10px;
   transition: all 10s;
 }
 .user-info {
@@ -167,6 +172,29 @@ export default {
   background-color: #e6e6e6;
 }
 
+.my-popup {
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  left: -13%;
+  top: 68px;
+}
+.my-popup::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent;
+}
+
 .dropdown-menu {
   position: relative;
   top: 20px;
@@ -175,6 +203,7 @@ export default {
   text-align: center;
   background-color: white;
   width: 140px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 /* .login-info:hover + .dropdown-menu {
   visibility: visible;

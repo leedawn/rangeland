@@ -58,7 +58,7 @@ export default {
       this.init()
     },
     $route (newval, oldval) {
-      const catalog = this.$route.params['catalog ']
+      const catalog = this.$route.params.catalog // 和推荐的写法不一样
       if (typeof catalog !== 'undefined' && catalog !== '') {
         this.catalog = catalog
       }

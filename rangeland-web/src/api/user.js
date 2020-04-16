@@ -13,6 +13,10 @@ const setMsg = (data) => axios.get('/user/setMsg?' + qs.stringify(data))
 
 const addCollect = (data) => axios.post('/user/setCollect', data)
 
+const getCollect = (data) => axios.get('/user/collect', qs.stringify(data))
+
 const getPostListByUid = (data) => axios.get('/user/post?' + qs.stringify(data))
 
-export { userSign, updateUserInfo, changePassword, getMsg, setMsg, addCollect, getPostListByUid }
+const deletePostByUid = (data) => axios.post('/user/deletePost', data)
+
+export { userSign, updateUserInfo, changePassword, getMsg, setMsg, addCollect, getCollect, getPostListByUid, deletePostByUid }

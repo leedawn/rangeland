@@ -20,14 +20,17 @@
           <td>{{post.isEnd=="0"?"未结":"已结"}}</td>
           <td>{{post.created|dateFormat}}</td>
           <td>{{post.reads}}阅/{{post.answer}}答</td>
-          <td>编辑 删除</td>
+          <td>
+            <router-link :to="{name:'edit',params:{tid:post._id,page:post}}">编辑</router-link>
+            <a @click.prevent="deletePost(post)">删除</a>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 <script>
-import { getPostListByUid } from '../../../api/user'
+import { getPostListByUid, deletePostByUid } from '../../../api/user'
 import moment from 'moment'
 export default {
   name: 'myPost',
@@ -48,6 +51,28 @@ export default {
           this.list = res.data
         }
       })
+    },
+    // const tid=0,
+    deletePost (post) {
+      this.$confirm(
+        '确定删除该帖子吗？',
+        () => {
+          if (post.isEnd === '0') {
+            deletePostByUid({ tid: post._id })
+              .then(res => {
+                if (res.code === 200) {
+                  this.getPostList()
+                }
+              })
+              .catch(err => {
+                this.$alert(err)
+              })
+          } else {
+            this.$alert('已经结贴，不能删除')
+          }
+        },
+        () => {}
+      )
     }
   },
   filters: {

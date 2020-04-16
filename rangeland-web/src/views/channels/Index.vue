@@ -59,11 +59,11 @@ export default {
 .post-list {
   position: absolute;
   left: 5%;
-  width: 56%;
+  width: 66%;
 }
 .sidebar {
   position: absolute;
-  right: 0%;
-  width: 36%;
+  left: 73%;
+  width: 33%;
 }
 </style>
