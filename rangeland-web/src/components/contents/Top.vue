@@ -1,10 +1,9 @@
 <template>
   <div class="top-wrapper" v-show="lists.length > 0">
-    <div class="menu">
+    <div class="top-menu">
       <label>置顶</label>
       <!-- <a href="#signin">去签到</a> -->
     </div>
-    <div class="ui divider"></div>
     <list-item :lists="lists" :isShow="false"></list-item>
   </div>
 </template>
@@ -30,11 +29,12 @@ export default {
   background-color: white;
   width: 100%;
 }
-.menu {
+.top-menu {
   position: relative;
   top: 12px;
   font-size: 15px;
   margin-left: 20px;
+  height: 30px;
 }
 .ui.divider {
   position: relative;

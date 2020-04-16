@@ -64,9 +64,9 @@ export default {
 </script>
 <style scoped>
 .topbar-container {
-  position: absolute;
+  position: relative;
   background-color: white;
-  top: 60px;
+  top: 0px;
   left: 0%;
   width: 100%;
   height: 60px;

@@ -223,14 +223,17 @@ export default {
 </script>
 <style scoped>
 .add-post {
-  width: 2560px;
-  height: 850px;
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 100%;
   background-color: #e6e6e6;
 }
 .container {
-  position: absolute;
+  position: relative;
+  top: 30px;
   left: 5%;
-  top: 90px;
+  margin-bottom: 40px;
   padding: 30px 20px;
   width: 90%;
   height: 680px;

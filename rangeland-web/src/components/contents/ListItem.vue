@@ -1,6 +1,7 @@
 <template>
   <div class="list-item">
     <div class="post-wrapper" v-for="(item,index) in items" :key="'listitem'+index">
+      <div class="ui divider"></div>
       <div class="item-pic">
         <img :src="item.uid.pic" alt="贤心" />
       </div>
@@ -36,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div v-show="isShow">
+    <div v-show="isShow" class="list-bottom">
       <div v-if="!isEnd">
         <a class="more-answer" @click.prevent="more()">更多求解</a>
       </div>
@@ -122,9 +123,13 @@ export default {
 .post-wrapper {
   position: relative;
 }
+.ui.divider {
+  position: relative;
+  top: 0px;
+}
 .item-pic {
   position: relative;
-  padding: 10px;
+  padding: 0px 10px 8px;
 }
 .item-pic img {
   width: 50px;
@@ -132,7 +137,7 @@ export default {
 
 .content-wrapper {
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 80px;
   width: 100%;
 }
@@ -183,8 +188,11 @@ export default {
 .answer {
   position: absolute;
   top: 2px;
-  left: 440px;
+  left: 80%;
   color: #999;
+}
+.list-bottom {
+  height: 58px;
 }
 .more-answer {
   position: relative;

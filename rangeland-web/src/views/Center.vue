@@ -3,7 +3,8 @@
     <div class="ui inverted vertical menu">
       <div v-for="(list,index) in lists" :key="'center'+index">
         <a class="item">
-         <router-link :to="{name:list.link}">  <!-- {name:list.link} -->
+          <router-link :to="{name:list.link}">
+            <!-- {name:list.link} -->
             <i :class="list.icon"></i>
             {{list.name}}
           </router-link>
@@ -58,15 +59,19 @@ export default {
 </script>
 <style scoped>
 .my-center {
-  background-color: darkgray;
+  position: relative;
+  top: -20px;
+  height: 100%;
+  background-color: #e6e6e6;
+  margin-bottom: 160px;
   width: 100%;
-  height: 1000px;
   margin-top: 1px;
 }
 .menu {
   position: absolute;
-  left: 3%;
-  top: 16%;
+  top: 50px;
+  left: 7%;
+  width: 15%;
   height: 100%;
   text-align: center;
   font-size: 20px;
@@ -77,9 +82,9 @@ i {
 }
 .content {
   position: absolute;
-  left: 20%;
-  top: 16%;
-  width: 75%;
+  left: 25%;
+  top: 50px;
+  width: 68%;
   height: 100%;
   background-color: white;
 }

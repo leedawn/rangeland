@@ -1,19 +1,17 @@
 <template>
-  <div class="detail">
-    <imooc-panel></imooc-panel>
+  <div class="index-content">
+    <panel></panel>
     <div class="post-content">
-      <div class="main-content">
-        <div class="post-list">
-          <imooc-top></imooc-top>
-          <imooc-list></imooc-list>
-        </div>
-        <div class="sidebar">
-          <imooc-tips></imooc-tips>
-          <imooc-sign></imooc-sign>
-          <imooc-hotlist></imooc-hotlist>
-          <imooc-ads></imooc-ads>
-          <imooc-links></imooc-links>
-        </div>
+      <div class="post-list">
+        <top></top>
+        <list></list>
+      </div>
+      <div class="sidebar">
+        <tips></tips>
+        <sign></sign>
+        <hotlist></hotlist>
+        <ads></ads>
+        <links></links>
       </div>
     </div>
   </div>
@@ -31,28 +29,30 @@ import List from '../../components/contents/List'
 export default {
   name: 'detail',
   components: {
-    'imooc-panel': Panel,
-    'imooc-ads': Ads,
-    'imooc-hotlist': HotList,
-    'imooc-links': Links,
-    'imooc-sign': Sign,
-    'imooc-tips': Tips,
-    'imooc-top': Top,
-    'imooc-list': List
+    panel: Panel,
+    ads: Ads,
+    hotlist: HotList,
+    links: Links,
+    sign: Sign,
+    tips: Tips,
+    top: Top,
+    list: List
   },
   computed: {},
   methods: {}
 }
 </script>
 <style>
-.detail {
+.index-content {
   position: relative;
-  height: 1000px;
   background-color: #e6e6e6;
+  height: 100%;
+  width: 100%;
 }
 .post-content {
-  position: absolute;
-  top: 135px;
+  height: 100%;
+  position: relative;
+  top: 20px;
   width: 86%;
   left: 2.5%;
 }
@@ -60,6 +60,7 @@ export default {
   position: absolute;
   left: 5%;
   width: 66%;
+  height: 100%;
 }
 .sidebar {
   position: absolute;

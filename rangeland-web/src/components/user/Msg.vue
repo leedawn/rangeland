@@ -22,7 +22,7 @@
         </li>
       </ul>
       <div class="pagination">
-        <imooc-page
+        <pagination
           v-show="total > 0"
           :total="total"
           :current="page"
@@ -30,7 +30,7 @@
           :hasTotal="true"
           :hasSelect="true"
           @changeCurrent="handleChange"
-        ></imooc-page>
+        ></pagination>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@ import Pagination from '@/components/modules/pagination/Index'
 export default {
   name: 'message',
   components: {
-    'imooc-page': Pagination
+    pagination: Pagination
   },
   data () {
     return {

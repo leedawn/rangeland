@@ -10,12 +10,12 @@ import Fever from '../views/practice/Fever'
 import Ulikecam from '../views/practice/Ulikecam'
 import SemanticHomePage from '../views/practice/SemanticHomePage'
 
-import ImoocIndex from '../views/channels/Index'
+import Index from '../views/channels/Index'
 import Template from '../views/channels/Template'
-import ImoocLogin from '../views/ImoocLogin'
-import Imooc from '../views/Imooc'
-import ImoocRegister from '../views/ImoocRegister'
-import ImoocForget from '../views/ImoocForget'
+import Login from '../views/Login'
+import Home from '../views/Home'
+import Register from '../views/Register'
+import Forget from '../views/Forget'
 // import Reset from '../views/Reset'
 
 import Center from '../views/Center'
@@ -45,22 +45,22 @@ Vue.use(VueRouter)
 
 const myRoutes = [
   // {
-  //   path: '/imooc',
-  //   name: 'imooc',
+  //   path: '/home',
+  //   name: 'home',
   //   // route level code-splitting
   //   // this generates a separate chunk (about.[hash].js) for this route
   //   // which is lazy-loaded when the route is visited. 适合打包后 js 文件特别大的情况
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/Imooc.vue')
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue')
   // },
   {
     path: '/', // 嵌套路由需要两级router-view
-    name: 'imooc',
-    component: Imooc,
+    name: 'home',
+    component: Home,
     children: [
       {
         path: '',
         name: 'index',
-        component: ImoocIndex
+        component: Index
       },
       {
         path: '/index/:catalog',
@@ -70,12 +70,12 @@ const myRoutes = [
       {
         path: '/login',
         name: 'login',
-        component: ImoocLogin
+        component: Login
       },
       {
         path: '/register',
         name: 'register',
-        component: ImoocRegister,
+        component: Register,
         beforeEnter: (to, from, next) => {
           console.log(from)
           if (from.path === '/login') { // 将 from 的值打印出来，就可以分析那个值是需要的
@@ -88,7 +88,7 @@ const myRoutes = [
       {
         path: '/forget',
         name: 'forget',
-        component: ImoocForget
+        component: Forget
       },
       {
         path: '/reset',

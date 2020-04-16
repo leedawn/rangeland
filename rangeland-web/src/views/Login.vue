@@ -59,7 +59,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import uuid from 'uuid/v4'
 
 export default {
-  name: 'imooc',
+  name: 'login',
   components: {
     ValidationProvider,
     ValidationObserver
@@ -122,10 +122,6 @@ export default {
               this.$refs.observer.reset()
             })
             this.$router.push({ name: 'index' })
-
-            // setTimeout(() => {
-            //   this.$router.push('/imooc')
-            // }, 1000)
           } else if (res.code === 401) {
             this.$refs.codefield.setErrors([res.msg])
           } else if (res.code === 404) {

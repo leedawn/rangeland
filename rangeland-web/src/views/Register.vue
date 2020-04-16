@@ -88,7 +88,7 @@ import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import uuid from 'uuid/v4'
 
 export default {
-  name: 'imooc',
+  name: 'register',
   components: {
     ValidationProvider,
     ValidationObserver

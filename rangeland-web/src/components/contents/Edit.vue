@@ -1,8 +1,8 @@
 <template>
-  <div class="add-post">
+  <div class="edit-post">
     <div class="container">
       <div class="top-menu">
-        <div class="post-tab">发表新帖</div>
+        <div class="post-tab">编辑帖子</div>
       </div>
       <hr class="selected-line" />
       <hr class="cutting-line" />
@@ -180,17 +180,17 @@ export default {
 }
 </script>
 <style scoped>
-.add-post {
-  width: 2560px;
+.edit-post {
+  width: 100%;
   height: 850px;
   background-color: #e6e6e6;
 }
 .container {
-  position: absolute;
-  left: 5%;
-  top: 90px;
+  position: relative;
+  top: 25px;
+  left: 7%;
+  width: 84%;
   padding: 30px 20px;
-  width: 90%;
   height: 680px;
   background-color: #fff;
 }

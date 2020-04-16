@@ -2,10 +2,10 @@
   <div class="online-course">
     <h3>服务器部署的系统</h3>
     <div class="ui divider"></div>
-    <div class="imooc-course-name">
+    <div class="course-name">
       <a href="http://47.99.202.255:13500/">ShowDoc</a>
     </div>
-    <div class="imooc-course-name">
+    <div class="course-name">
       <a href="http://47.99.202.255:10040/html/web/controller/console/console.html">DOClever</a>
     </div>
   </div>
@@ -21,7 +21,7 @@
 .online-course h3 {
   margin: 4px 15px;
 }
-.imooc-course-name {
+.course-name {
   position: relative;
   background-color: #5fb878;
   height: 50px;
@@ -29,7 +29,7 @@
   text-align: center;
   padding: 15px;
 }
-.imooc-course-name a {
+.course-name a {
   color: white;
   font-size: 20px;
 }

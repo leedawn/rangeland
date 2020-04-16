@@ -7,25 +7,24 @@
       <div class="tag divider-line"></div>
 
       <div class="tag">
-        <a :class="{'layui-this': status === '0'}" @click.prevent="search(0)">未结</a>
+        <a @click.prevent="search(0)">未结</a>
       </div>
       <div class="tag divider-line"></div>
       <div class="tag">
-        <a :class="{'layui-this': status === '1'}" @click.prevent="search(1)">已结</a>
+        <a @click.prevent="search(1)">已结</a>
       </div>
       <div class="tag divider-line"></div>
       <div class="tag">
-        <a :class="{'layui-this': status === '' && tag === '精华'}" @click.prevent="search(2)">精华</a>
+        <a @click.prevent="search(2)">精华</a>
       </div>
       <div class="right-tag">
-        <a :class="{'layui-this': sort === 'created'}" @click.prevent="search(3)">按最新</a>
+        <a @click.prevent="search(3)">按最新</a>
       </div>
       <div class="right-tag divider-line"></div>
       <div class="right-tag">
-        <a :class="{'layui-this': sort === 'answer'}" @click.prevent="search(4)">按热议</a>
+        <a @click.prevent="search(4)">按热议</a>
       </div>
     </div>
-    <div class="ui divider"></div>
     <list-item :lists="lists" :isEnd="isEnd" @nextpage="nextPage()"></list-item>
   </div>
 </template>
@@ -104,12 +103,14 @@ export default {
 .container {
   background-color: white;
   position: relative;
-  top: 15px;
+  top: 20px;
   width: 100%;
+  height: auto;
+  margin-bottom: 50px;
 }
 .top-menu {
   position: relative;
-  padding: 20px;
+  padding: 20px 12px 15px;
 }
 .tag {
   float: left;
@@ -118,8 +119,9 @@ export default {
 }
 .divider-line {
   background-color: #999;
-  height: 18px;
   width: 1px;
+  margin-top: -2px;
+  height: 15px;
 }
 .right-tag {
   float: right;

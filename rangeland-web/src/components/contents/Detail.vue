@@ -35,7 +35,7 @@
             </a>
             <div class="middle-top">
               <a class="uid">
-                <cite>{{page.uid?page.uid.name:'imooc'}}</cite>
+                <cite>{{page.uid?page.uid.name:'echo'}}</cite>
                 <i v-if="page.uid&&page.uid.isVip!=='0'?page.uid.isVip:false">VIP{{page.uid.isVip}}</i>
               </a>
               <span class="create-time">{{page.created|moment}}</span>
@@ -67,7 +67,7 @@
                 </a>
                 <div class="comment-user-detail">
                   <a href class="comment-user-link">
-                    <cite>{{item.cuid? item.cuid.name :'imooc'}}</cite>
+                    <cite>{{item.cuid? item.cuid.name :'echo'}}</cite>
                     <i
                       v-if="item.cuid && item.cuid.isVip !=='0'?item.cuid.isVip : false "
                       class="layui-badge fly-badge-vip"
@@ -110,7 +110,7 @@
             <li class="fly-none" v-if="comments.length === 0">消灭零回复</li>
           </ul>
           <div class="comment-pagination">
-            <imooc-page
+            <pagination
               v-show="comments.length>0&&total>0"
               :showType="'icon'"
               :hasSelect="false"
@@ -121,7 +121,7 @@
               :showEnd="true"
               @changeCurrent="handleChange"
               @changeLimit="handleLimit"
-            ></imooc-page>
+            ></pagination>
           </div>
           <form class="ui form comments-form">
             <ValidationObserver ref="observer" v-slot="{ validate }">
@@ -163,7 +163,7 @@
                 </a>
                 <div>
                   <a href>
-                    <cite>{{item.cuid?item.cuid.name:'imooc'}}</cite>
+                    <cite>{{item.cuid?item.cuid.name:'echo'}}</cite>
                     <i
                       v-if="item.cuid&&item.cuid.isVip!=='0'?item.cuid.isVip:false"
                     >VIP{{item.cuid.isVip}}</i>
@@ -182,8 +182,6 @@
         <hotlist></hotlist>
         <ads></ads>
         <links></links>
-        <!-- <imooc-edit></imooc-edit> -->
-        <!-- <imooc-page></imooc-page> -->
       </div>
     </div>
   </div>
@@ -214,7 +212,7 @@ export default {
     Links,
     Panel,
     Editor,
-    'imooc-page': Pagination
+    pagination: Pagination
   },
   data () {
     return {
@@ -366,24 +364,27 @@ export default {
 <style scoped>
 .container {
   width: 100%;
-  height: 1200px;
+  height: 100%;
   background-color: #e6e6e6;
 }
 .detail-info {
-  position: absolute;
-  top: 130px;
-  left: 2.5%;
-  width: 95%;
+  position: relative;
+  top: 20px;
+  left: 7%;
+  width: 90%;
+  height: 100%;
 }
 .post-left {
   position: absolute;
-  width: 66%;
+  margin-bottom: 60px;
+  width: 64%;
   padding: 15px;
 }
 .post-right {
-  position: absolute;
-  left: 67%;
+  position: relative;
+  top: -25px;
   width: 33%;
+  left: 65%;
 }
 .post-detail {
   height: 450px;

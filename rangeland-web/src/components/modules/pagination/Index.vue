@@ -60,7 +60,7 @@
     </div>
     <!-- <div class="total" v-if="hasTotal">
       到第
-      <input type="text" class="imooc-input text-center" @keyup.enter="jumpTo" />
+      <input type="text" class="input text-center" @keyup.enter="jumpTo" />
       页 共 {{totalPages}} 页
     </div>-->
     <!-- <div v-if="hasSelect">
