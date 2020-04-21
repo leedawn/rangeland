@@ -12,7 +12,7 @@
     </label>
 
     <p class="advise">建议尺寸168*168，支持jpg,png,gif,最大不能超过50KB</p>
-    <img  :src="pic" class="ui small circular image head_photo" />
+    <img :src="pic" class="ui small circular image head_photo" />
   </div>
 </template>
 <script>
@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       pic:
-        (this.$store.state.userInfo && this.$store.state.userInfo.pic)
+        this.$store.state.userInfo && this.$store.state.userInfo.pic
           ? this.$store.state.userInfo.pic
           : 'img/bear-200-200.jpg',
       formData: '',
@@ -38,12 +38,9 @@ export default {
       var formData = new FormData()
       if (file.length > 0) {
         formData.append('file', file[0])
-        console.log('upload -> formData', formData)
-        console.log('upload -> file[0]', file[0])
         this.formData = formData
       }
       uploadImg(formData).then(res => {
-        debugger
         if (res.code === 200) {
           const baseUrl =
             process.env.NODE_ENV === 'production'
@@ -51,9 +48,9 @@ export default {
               : config.baseUrl.dev
           this.pic = baseUrl + res.data
           console.log('upload -> pic', this.pic)
-          updateUserInfo({ pic: this.pic }).then(res => {
+          updateUserInfo({ pic: res.data }).then(res => {
+            // 存储图片的相对路径
             console.log('upload -> res', res)
-            debugger
             if (res.code === 200) {
               const user = this.$store.state.userInfo
               user.pic = this.pic
@@ -95,8 +92,8 @@ export default {
   left: 25%;
 }
 .head_photo {
-    position:relative;
-    top:90px;
-    left:90px;
+  position: relative;
+  top: 90px;
+  left: 90px;
 }
 </style>

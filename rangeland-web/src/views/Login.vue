@@ -1,59 +1,59 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-content">
-      <div class="tab">
-        <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
-        <router-link :to="{name:'register'}" class="tab-register">注册</router-link>
-        <hr class="selected-line" />
-        <hr class="normal-line" />
-      </div>
-      <ValidationObserver ref="observer" v-slot="{ validate }">
-        <form method="post" class="ui form">
-          <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
-            <div class="field">
-              <label>用户名</label>
-              <input type="text" v-model="username" placeholder="请输入用户名" />
-            </div>
-            <div class="error-message">
-              <p>{{ errors[0] }}</p>
-            </div>
-          </ValidationProvider>
-
-          <ValidationProvider name="password" rules="required|max:16|min:6" v-slot="{ errors }">
-            <div class="field">
-              <label>密码</label>
-              <input type="password" v-model="password" placeholder="请输入密码" />
-            </div>
-            <div class="error-message">
-              <p>{{ errors[0] }}</p>
-            </div>
-          </ValidationProvider>
-
-          <ValidationProvider
-            name="code"
-            ref="codefield"
-            rules="required|length:4"
-            v-slot="{ errors }"
-          >
-            <div class="field">
-              <label>验证码</label>
-              <input type="text" v-model="code" placeholder="请再次验证码" />
-            </div>
-            <div class="error-message extra-length">
-              <p>{{ errors[0] }}</p>
-            </div>
-            <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
-          </ValidationProvider>
-
-          <button type="button" class="ui green button" @click="validate().then(submit)">立即登录</button>
-          <router-link :to="{name:'forget'}" class="forget-password">忘记密码</router-link>
-        </form>
-      </ValidationObserver>
+  <div class="wrapper background-white">
+    <div class="tab font-black">
+      <router-link :to="{name:'login'}" class="tab-left font-green">登录</router-link>
+      <router-link :to="{name:'register'}" class="tab-right font-black">注册</router-link>
+      <hr class="selected-line" />
+      <hr class="normal-line" />
     </div>
+    <ValidationObserver ref="observer" v-slot="{ validate }">
+      <form method="post" class="ui form">
+        <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
+          <div class="field">
+            <label>用户名</label>
+            <input type="text" v-model="username" placeholder="请输入用户名" />
+          </div>
+          <div class="error-message font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider name="password" rules="required|max:16|min:6" v-slot="{ errors }">
+          <div class="field">
+            <label>密码</label>
+            <input type="password" v-model="password" placeholder="请输入密码" />
+          </div>
+          <div class="error-message font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider
+          name="code"
+          ref="codefield"
+          rules="required|length:4"
+          v-slot="{ errors }"
+        >
+          <div class="field">
+            <label>验证码</label>
+            <input type="text" v-model="code" placeholder="请再次验证码" />
+          </div>
+          <div class="error-message extra-length font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+          <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
+        </ValidationProvider>
+
+        <button type="button" class="ui green button main-button" @click="validate().then(submit)">立即登录</button>
+        <router-link :to="{name:'forget'}" class="forget-password-button font-black">忘记密码</router-link>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 <script>
 import { getCode, login } from '@/api/login'
+import addPicURL from '@/util/addPicURL'
+
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 // import Alert from '@/components/modules/alert/Alert'
 import uuid from 'uuid/v4'
@@ -112,6 +112,8 @@ export default {
         .then(res => {
           console.log(res.data)
           if (res.code === 200) {
+            res.data.pic = addPicURL(res.data.pic)
+            console.log('submit -> res.data.pic', res.data.pic)
             this.$store.commit('setUserInfo', res.data)
             this.$store.commit('setIsLogin', true)
             this.$store.commit('setToken', res.token)
@@ -149,85 +151,4 @@ export default {
 </script>
 
 <style scoped>
-.login-wrapper {
-  position: absolute;
-  top: 60px;
-  background-color: #e6e6e6;
-  width: 100%;
-  height: 100%;
-}
-.login-content {
-  position: absolute;
-  top: 40px;
-  left: 5%;
-  background-color: white;
-  width: 90%;
-  padding: 10px;
-  height: 420px;
-}
-.tab {
-  position: relative;
-  padding: 14px 20px;
-  color: black;
-  font-size: 17px;
-}
-.tab-login {
-  position: relative;
-  color: #009688;
-  left: 18px;
-}
-.tab-register {
-  position: relative;
-  left: 80px;
-  color: black;
-}
-.selected-line {
-  position: absolute;
-  top: 45px;
-  width: 70px;
-  border: 1px solid #009688;
-  z-index: 1;
-  cursor: default;
-}
-.normal-line {
-  position: relative;
-  top: 12px;
-  border: 1px solid #e6e6e6;
-}
-.field {
-  position: relative;
-  top: 40px;
-  left: 40px;
-  width: 300px;
-}
-.error-message {
-  position: absolute;
-  left: 380px;
-  color: red;
-}
-.extra-length {
-  left: 540px;
-}
-
-.extra-message {
-  position: absolute;
-  top: 75px;
-  left: 360px;
-}
-.code-message {
-  position: relative;
-  top: -20px;
-  left: 350px;
-}
-.ui.green.button {
-  position: relative;
-  top: 40px;
-  padding: 15px;
-}
-.forget-password {
-  position: relative;
-  top: 40px;
-  left: 60px;
-  color: black;
-}
 </style>

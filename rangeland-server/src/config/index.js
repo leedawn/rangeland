@@ -6,7 +6,7 @@ const REDIS = {
     port: 15001,
     password: '123456'
 }
-const baseUrl = process.env.NODE_ENV === 'production' ? 'none' : 'http://localhost:8080'
+const baseUrl = process.env.NODE_ENV === 'production' ? 'http://47.99.202.255:8080' : 'http://localhost:8080'
 const uploadPath = process.env.NODE_ENV === 'production' ? '/app/public' : path.join(path.resolve(__dirname), '../../public')
 const JWT_SECRET = 'onedaythisismyfuture'  // 本来是一个编码后的值，这里使用了随机写的字母
 // export default {

@@ -1,84 +1,86 @@
 <template>
-  <div class="register-wrapper">
-    <div class="register-content">
-      <div class="tab">
-        <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
-        <router-link :to="{name:'register'}" class="tab-register">注册</router-link>
-        <hr class="selected-line" />
-        <hr class="normal-line" />
-      </div>
-      <ValidationObserver ref="observer" v-slot="{ validate }">
-        <form class="ui form" method="post">
-          <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
-            <div class="field">
-              <label>用户名</label>
-              <input type="text" v-model="username" placeholder="请输入用户名" />
-            </div>
-            <div class="error-message extra-length">
-              <p>{{ errors[0] }}</p>
-            </div>
-            <div class="extra-message">该用户名作为唯一登录名</div>
-          </ValidationProvider>
-
-          <ValidationProvider name="name" rules="required" v-slot="{ errors }">
-            <div class="field">
-              <label>昵称</label>
-              <input type="text" v-model="name" placeholder="请输入昵称" />
-            </div>
-            <div class="error-message">
-              <p>{{ errors[0] }}</p>
-            </div>
-          </ValidationProvider>
-
-          <ValidationProvider
-            name="password"
-            rules="required|max:16|min:6|confirmed:confirmation"
-            v-slot="{ errors }"
-          >
-            <div class="field">
-              <label>密码</label>
-              <input type="password" v-model="password" placeholder="请输入密码" />
-            </div>
-            <div class="error-message">
-              <p>{{ errors[0] }}</p>
-            </div>
-          </ValidationProvider>
-
-          <ValidationProvider
-            name="repassword"
-            vid="confirmation"
-            rules="required"
-            v-slot="{ errors }"
-          >
-            <div class="field">
-              <label>确认密码</label>
-              <input type="password" v-model="passwordConfirmation" placeholder="请再次输入密码" />
-            </div>
-            <div class="error-message">
-              <p>{{ errors[0] }}</p>
-            </div>
-          </ValidationProvider>
-
-          <ValidationProvider
-            name="code"
-            ref="codefield"
-            rules="required|length:4"
-            v-slot="{ errors }"
-          >
-            <div class="field">
-              <label>验证码</label>
-              <input type="text" v-model="code" placeholder="请再次验证码" />
-            </div>
-            <div class="error-message extra-length">
-              <p>{{ errors[0] }}</p>
-            </div>
-            <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
-          </ValidationProvider>
-
-          <button type="button" class="ui green button" @click="validate().then(submit)">立即注册</button>
-        </form>
-      </ValidationObserver>
+  <div class="wrapper background-white">
+    <div class="tab">
+      <router-link :to="{name:'login'}" class="tab-left font-black">登录</router-link>
+      <router-link :to="{name:'register'}" class="tab-right font-green">注册</router-link>
+      <hr class="selected-line extra-line-right" />
+      <hr class="normal-line" />
     </div>
+    <ValidationObserver ref="observer" v-slot="{ validate }">
+      <form class="ui form" method="post">
+        <ValidationProvider name="username" rules="required|email" v-slot="{ errors }">
+          <div class="field">
+            <label>用户名</label>
+            <input type="text" v-model="username" placeholder="请输入用户名" />
+          </div>
+          <div class="error-message extra-length font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+          <div class="extra-message">该用户名作为唯一登录名</div>
+        </ValidationProvider>
+
+        <ValidationProvider name="name" rules="required" v-slot="{ errors }">
+          <div class="field">
+            <label>昵称</label>
+            <input type="text" v-model="name" placeholder="请输入昵称" />
+          </div>
+          <div class="error-message font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider
+          name="password"
+          rules="required|max:16|min:6|confirmed:confirmation"
+          v-slot="{ errors }"
+        >
+          <div class="field">
+            <label>密码</label>
+            <input type="password" v-model="password" placeholder="请输入密码" />
+          </div>
+          <div class="error-message font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider
+          name="repassword"
+          vid="confirmation"
+          rules="required"
+          v-slot="{ errors }"
+        >
+          <div class="field">
+            <label>确认密码</label>
+            <input type="password" v-model="passwordConfirmation" placeholder="请再次输入密码" />
+          </div>
+          <div class="error-message font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <ValidationProvider
+          name="code"
+          ref="codefield"
+          rules="required|length:4"
+          v-slot="{ errors }"
+        >
+          <div class="field">
+            <label>验证码</label>
+            <input type="text" v-model="code" placeholder="请再次验证码" />
+          </div>
+          <div class="error-message extra-length font-red">
+            <p>{{ errors[0] }}</p>
+          </div>
+          <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
+        </ValidationProvider>
+
+        <button
+          type="button"
+          class="ui green button main-button"
+          @click="validate().then(submit)"
+        >立即注册</button>
+      </form>
+    </ValidationObserver>
   </div>
 </template>
 <script>
@@ -162,80 +164,10 @@ export default {
 </script>
 
 <style scoped>
-.register-wrapper {
-  position: absolute;
-  top: 60px;
-  background-color: #e6e6e6;
-  width: 100%;
-  height: 730px;
+.wrapper {
+  height: 578px;
 }
-.register-content {
-  position: absolute;
-  top: 40px;
-  left: 5%;
-  background-color: white;
-  width: 90%;
-  padding: 10px;
-  height: 600px;
-}
-.tab {
-  position: relative;
-  padding: 14px 20px;
-  color: black;
-  font-size: 17px;
-}
-.tab-login {
-  position: relative;
-  color: black;
-  left: 18px;
-}
-.tab-register {
-  position: relative;
-  left: 80px;
-  color: #009688;
-}
-.selected-line {
-  position: absolute;
-  top: 45px;
+.extra-line-right {
   left: 115px;
-  width: 70px;
-  border: 1px solid #009688;
-  z-index: 1;
-  cursor: default;
-}
-.normal-line {
-  position: relative;
-  top: 12px;
-  border: 1px solid #e6e6e6;
-}
-.field {
-  position: relative;
-  top: 40px;
-  left: 40px;
-  width: 300px;
-}
-.error-message {
-  position: absolute;
-  left: 380px;
-  color: red;
-}
-.extra-length {
-  left: 540px;
-}
-
-.extra-message {
-  position: absolute;
-  top: 75px;
-  left: 360px;
-}
-.code-message {
-  position: relative;
-  top: -20px;
-  left: 350px;
-}
-.ui.green.button {
-  position: relative;
-  top: 40px;
-  padding: 15px;
 }
 </style>

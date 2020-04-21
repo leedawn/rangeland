@@ -20,7 +20,7 @@ Object.keys(filters).forEach((key) => {
 
 Vue.config.productionTip = false // 阻止 vue 在启动时产生生产提示。
 
-axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : '47.99.202.255:3000' //  node 提供的全局变量
+axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000' : 'http://47.99.202.255:3000' //  node 提供的全局变量
 
 new Vue({
   router,

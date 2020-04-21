@@ -107,11 +107,8 @@ async function userSign (ctx) {
 
 async function updateUserInfo (ctx) {
     const { body } = ctx.request
-    console.log("updateUserInfo -> body", body)
     const obj = await Utils.getJWTPayload(ctx.header.authorization)
-    console.log("updateUserInfo -> obj", obj)
     const user = await User.findOne({ _id: obj._id })
-    console.log("updateUserInfo -> user", user)
     let msg = ''
     if (body.username && body.username !== user.username) {
         const tmpUser = await User.findOne({ username: body.username })

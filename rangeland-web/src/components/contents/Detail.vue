@@ -200,6 +200,7 @@ import CodeMix from '@/mixin/code'
 import Pagination from '@/components/modules/pagination/Index'
 import { escapeHtml } from '@/util/escapeHtml'
 import { scrollToElem } from '@/util/common'
+import addPicURL from '@/util/addPicURL'
 export default {
   name: 'Detail',
   mixins: [CodeMix],
@@ -245,6 +246,7 @@ export default {
     getPostDetail () {
       getDetail(this.tid).then(res => {
         if (res.code === 200) {
+          res.data.uid.pic = addPicURL(res.data.uid.pic)
           this.page = res.data
         }
       })
@@ -256,6 +258,9 @@ export default {
         limit: this.size
       }).then(res => {
         if (res.code === 200) {
+          for (const temp of res.data) {
+            temp.cuid.pic = addPicURL(temp.cuid.pic)
+          }
           this.comments = res.data
           this.total = res.total
         }
@@ -487,7 +492,8 @@ export default {
 .right-buttons {
   position: relative;
   top: 20px;
-  left: 580px;
+  left: 80%;
+  width: 120px;
 }
 .common-button {
   padding: 10px 12px;

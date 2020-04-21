@@ -22,7 +22,7 @@
       :hasSelect="false"
       :hasTotal="false"
       :total="total"
-      :size="limit"
+      :size="size"
       :current="current"
       :showEnd="true"
       @changeCurrent="handleChange"
@@ -38,8 +38,7 @@ export default {
   name: 'myCollect',
   data () {
     return {
-      page: 1,
-      limit: 10,
+      size: 10,
       list: [],
       total: 0,
       current: 0
@@ -53,7 +52,7 @@ export default {
   },
   methods: {
     getCollectList () {
-      getCollect(this.page, this.limit).then(res => {
+      getCollect({ page: this.current, limit: this.size }).then(res => {
         if (res.code === 200) {
           this.list = res.data
           this.total = res.nums

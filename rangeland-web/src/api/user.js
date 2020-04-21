@@ -13,7 +13,7 @@ const setMsg = (data) => axios.get('/user/setMsg?' + qs.stringify(data))
 
 const addCollect = (data) => axios.post('/user/setCollect', data)
 
-const getCollect = (data) => axios.get('/user/collect', qs.stringify(data))
+const getCollect = (data) => axios.get('/user/collect?' + qs.stringify(data))
 
 const getPostListByUid = (data) => axios.get('/user/post?' + qs.stringify(data))
 

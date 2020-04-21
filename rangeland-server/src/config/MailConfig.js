@@ -37,7 +37,7 @@ async function send (sendInfo) {
       sendInfo.user !== '' && sendInfo.type !=='email'
         ? `你好开发者，${sendInfo.user}！《慕课网前端全栈实践》注册码`
         : '论坛系统密码确认修改链接', // Subject line
-    text: `您在《慕课网前端全栈实践》课程中注册，您的邀请码是${
+    text: `您的邀请码是${
       sendInfo.code
       },邀请码的过期时间: ${sendInfo.expire}`, // plain text body
     html: `

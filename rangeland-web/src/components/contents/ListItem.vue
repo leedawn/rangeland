@@ -49,6 +49,7 @@
 <script>
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+import addPicURL from '@/util/addPicURL'
 
 import _ from 'lodash'
 export default {
@@ -73,6 +74,7 @@ export default {
   computed: {
     items () {
       _.map(this.lists, item => {
+        item.uid.pic = addPicURL(item.uid.pic)
         switch (item.catalog) {
           case 'ask':
             item.catalog = '提问'

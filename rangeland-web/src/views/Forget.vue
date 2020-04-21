@@ -1,10 +1,9 @@
 <template>
-  <div class="forget-wrapper">
-    <div class="forget-content">
-      <div class="tab">
-        <router-link :to="{name:'login'}" class="tab-login">登录</router-link>
-        <router-link :to="{name:'forget'}" class="tab-forget">找回密码</router-link>
-        <hr class="selected-line" />
+  <div class="wrapper background-white">
+      <div class="tab font-black">
+        <router-link :to="{name:'login'}" class="tab-left font-black">登录</router-link>
+        <router-link :to="{name:'forget'}" class="tab-right font-green">找回密码</router-link>
+        <hr class="selected-line extra-line-right" />
         <hr class="normal-line" />
       </div>
       <ValidationObserver ref="observer" v-slot="{ validate }">
@@ -14,7 +13,7 @@
               <label>用户名</label>
               <input type="text" v-model="username" placeholder="请输入用户名" />
             </div>
-            <div class="error-message">
+            <div class="error-message font-red">
               <p>{{ errors[0] }}</p>
             </div>
           </ValidationProvider>
@@ -29,17 +28,16 @@
               <label>验证码</label>
               <input type="text" v-model="code" placeholder="请输入验证码" />
             </div>
-            <div class="error-message extra-length">
+            <div class="error-message extra-length font-red">
               <p>{{ errors[0] }}</p>
             </div>
             <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
           </ValidationProvider>
 
-          <button type="button" class="ui green button" @click="validate().then(submit)">提交</button>
+          <button type="button" class="ui green button main-button" @click="validate().then(submit)">提交</button>
         </form>
       </ValidationObserver>
     </div>
-  </div>
 </template>
 <script>
 import { getCode, forget } from '@/api/login'
@@ -113,80 +111,7 @@ export default {
 </script>
 
 <style scoped>
-.forget-wrapper {
-  position: absolute;
-  top: 60px;
-  background-color: #e6e6e6;
-  width: 100%;
-  height: 100%;
-}
-.forget-content {
-  position: absolute;
-  top: 40px;
-  left: 5%;
-  background-color: white;
-  width: 90%;
-  padding: 10px;
-  height: 400px;
-}
-.tab {
-  position: relative;
-  padding: 14px 20px;
-  color: black;
-  font-size: 17px;
-}
-.tab-login {
-  position: relative;
-  color: black;
-  left: 18px;
-}
-.tab-forget {
-  position: relative;
-  left: 63px;
-  color: #009688;
-}
-.selected-line {
-  position: absolute;
-  top: 45px;
-  left: 115px;
-  width: 70px;
-  border: 1px solid #009688;
-  z-index: 1;
-  cursor: default;
-}
-.normal-line {
-  position: relative;
-  top: 12px;
-  border: 1px solid #e6e6e6;
-}
-.field {
-  position: relative;
-  top: 40px;
-  left: 40px;
-  width: 300px;
-}
-.error-message {
-  position: absolute;
-  left: 380px;
-  color: red;
-}
-.extra-length {
-  left: 540px;
-}
-
-.extra-message {
-  position: absolute;
-  top: 75px;
-  left: 360px;
-}
-.code-message {
-  position: relative;
-  top: -20px;
-  left: 350px;
-}
-.ui.green.button {
-  position: relative;
-  top: 40px;
-  padding: 15px;
+.extra-line-right {
+  left: 125px;
 }
 </style>
