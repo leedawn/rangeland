@@ -65,10 +65,24 @@
 // var f = a.fn
 // f()
 
-for (var i = 0; i < 5; i++) {
-  (function (j) {
-    setTimeout(function () {
-      console.log(j)
-    }, 1000)
-  })(i)
+// for (var i = 0; i < 5; i++) {
+//   (function (j) {
+//     setTimeout(function () {
+//       console.log(j)
+//     }, 1000)
+//   })(i)
+// }
+
+var removeDuplicates = function (nums) {
+  var j = 0
+  var n = nums.length
+  for (let i = 1; i < n; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      j++
+      nums[j] = nums[i]
+    }
+    console.log(j)
+  }
+  return j + 1
 }
+removeDuplicates([1, 1, 2, 3])

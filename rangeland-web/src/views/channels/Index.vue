@@ -1,5 +1,5 @@
 <template>
-  <div class="index-content">
+  <div class="homepage-wrapper background-gray">
     <panel></panel>
     <div class="post-content">
       <div class="post-list">
@@ -42,29 +42,5 @@ export default {
   methods: {}
 }
 </script>
-<style>
-.index-content {
-  position: relative;
-  background-color: #e6e6e6;
-  height: 100%;
-  width: 100%;
-}
-.post-content {
-  height: 100%;
-  position: relative;
-  top: 20px;
-  width: 86%;
-  left: 2.5%;
-}
-.post-list {
-  position: absolute;
-  left: 5%;
-  width: 66%;
-  height: 100%;
-}
-.sidebar {
-  position: absolute;
-  left: 73%;
-  width: 33%;
-}
+<style scoped>
 </style>

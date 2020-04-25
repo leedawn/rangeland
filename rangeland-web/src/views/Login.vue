@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper background-white">
+  <div class="login-wrapper background-white">
     <div class="tab font-black">
       <router-link :to="{name:'login'}" class="tab-left font-green">登录</router-link>
       <router-link :to="{name:'register'}" class="tab-right font-black">注册</router-link>
@@ -44,60 +44,33 @@
           <label class="code-message" @click="_getCode()" v-html="svg">{{svg}}</label>
         </ValidationProvider>
 
-        <button type="button" class="ui green button main-button" @click="validate().then(submit)">立即登录</button>
+        <button
+          type="button"
+          class="ui green button main-button"
+          @click="validate().then(submit)"
+        >立即登录</button>
         <router-link :to="{name:'forget'}" class="forget-password-button font-black">忘记密码</router-link>
       </form>
     </ValidationObserver>
   </div>
 </template>
 <script>
-import { getCode, login } from '@/api/login'
+import { login } from '@/api/login'
 import addPicURL from '@/util/addPicURL'
-
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
-// import Alert from '@/components/modules/alert/Alert'
-import uuid from 'uuid/v4'
+import codeMix from '@/mixin/code'
 
 export default {
   name: 'login',
-  components: {
-    ValidationProvider,
-    ValidationObserver
-    // Alert
-  },
   data () {
     return {
-      svg: '',
       username: '',
       password: '',
-      code: '',
       errorMsg: [],
       value: ''
     }
   },
-  mounted () {
-    // window.vue = this
-    let sid = ''
-    if (localStorage.getItem('sid')) {
-      sid = localStorage.getItem('sid')
-    } else {
-      sid = uuid()
-      localStorage.setItem('sid', sid)
-    }
-    this.$store.commit('setSid', sid)
-    console.log(sid)
-    this._getCode()
-  },
+  mixins: [codeMix], // 获取验证码
   methods: {
-    _getCode () {
-      const sid = this.$store.state.sid
-      console.log(sid)
-      getCode(sid).then(res => {
-        if (res.code === 200) {
-          this.svg = res.data
-        }
-      })
-    },
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
@@ -127,7 +100,6 @@ export default {
           } else if (res.code === 401) {
             this.$refs.codefield.setErrors([res.msg])
           } else if (res.code === 404) {
-            // 觉得复制的代码有问题，因为这个状态服务端有返回
             this.$alert('用户名或密码错误')
           }
         })
@@ -144,9 +116,7 @@ export default {
         })
     }
   },
-  created () {
-    // console.log(uuid)
-  }
+  created () {}
 }
 </script>
 

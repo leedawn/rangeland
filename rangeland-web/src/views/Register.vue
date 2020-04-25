@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper background-white">
+  <div class="login-wrapper background-white">
     <div class="tab">
       <router-link :to="{name:'login'}" class="tab-left font-black">登录</router-link>
       <router-link :to="{name:'register'}" class="tab-right font-green">注册</router-link>
@@ -84,50 +84,23 @@
   </div>
 </template>
 <script>
-import { getCode, reg } from '@/api/login'
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
-// import Alert from '@/components/modules/alert/Alert'
-import uuid from 'uuid/v4'
+import { reg } from '@/api/login'
+import codeMix from '@/mixin/code'
 
 export default {
   name: 'register',
-  components: {
-    ValidationProvider,
-    ValidationObserver
-    // Alert
-  },
+  mixins: [codeMix],
   data () {
     return {
-      svg: '',
       name: '',
       password: '',
-      code: '',
       errorMsg: [],
       value: '',
       username: '',
       passwordConfirmation: ''
     }
   },
-  mounted () {
-    let sid = ''
-    if (localStorage.getItem('sid')) {
-      sid = localStorage.getItem('sid')
-    } else {
-      sid = uuid()
-      localStorage.setItem('sid', sid)
-    }
-    this.$store.commit('setSid', sid)
-    this._getCode()
-  },
   methods: {
-    _getCode () {
-      const sid = this.$store.state.sid
-      getCode(sid).then(res => {
-        if (res.code === 200) {
-          this.svg = res.data
-        }
-      })
-    },
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
@@ -146,7 +119,7 @@ export default {
           this.password = ''
           this.repassword = ''
           this.code = ''
-          requestAnimationFrame(() => {
+          requestAnimationFrame((m) => {
             this.$refs.observer.reset()
           })
           this.$alert('注册成功')
@@ -164,7 +137,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.login-wrapper {
   height: 578px;
 }
 .extra-line-right {

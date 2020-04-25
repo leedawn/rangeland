@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper background-white">
+  <div class="login-wrapper background-white">
     <div class="tab">
       <router-link :to="{name:'login'}" class="tab-left font-black">登录</router-link>
       <router-link :to="{name:'reset'}" class="tab-right font-green">重置密码</router-link>
@@ -73,20 +73,13 @@
   </div>
 </template>
 <script>
-import { getCode, reset } from '@/api/login'
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
-import uuid from 'uuid/v4'
+import { reset } from '@/api/login'
+import codeMix from '@/mixin/code'
 
 export default {
   name: 'reset',
-  components: {
-    ValidationProvider,
-    ValidationObserver
-  },
   data () {
     return {
-      svg: '',
-      code: '',
       errorMsg: [],
       value: '',
       username: '',
@@ -94,26 +87,8 @@ export default {
       passwordConfirmation: ''
     }
   },
-  mounted () {
-    let sid = ''
-    if (localStorage.getItem('sid')) {
-      sid = localStorage.getItem('sid')
-    } else {
-      sid = uuid()
-      localStorage.setItem('sid', sid)
-    }
-    this.$store.commit('setSid', sid)
-    this._getCode()
-  },
+  mixins: [codeMix],
   methods: {
-    _getCode () {
-      const sid = this.$store.state.sid
-      getCode(sid).then(res => {
-        if (res.code === 200) {
-          this.svg = res.data
-        }
-      })
-    },
     async submit () {
       const isValid = await this.$refs.observer.validate()
       if (!isValid) {
@@ -153,7 +128,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.login-wrapper {
   height: 508px;
 }
 .extra-line-right {

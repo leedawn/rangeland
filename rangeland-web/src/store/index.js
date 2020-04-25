@@ -11,7 +11,8 @@ export default new Vuex.Store({
     token: '',
     userInfo: {},
     ws: null,
-    num: 0
+    num: 0,
+    info: ''
   },
   mutations: {
     initWebSocket (state, config) {
@@ -35,11 +36,17 @@ export default new Vuex.Store({
     },
     setMessage (state, value) {
       state.num = value
+    },
+    setGreet (state, value) {
+      state.info = value
     }
   },
   actions: {
     message ({ commit }, msg) {
       commit('setMessage', msg) // websocket使用的操作
+    },
+    greeting ({ commit }, msg) {
+      commit('setGreet', msg)
     }
   },
   modules: {

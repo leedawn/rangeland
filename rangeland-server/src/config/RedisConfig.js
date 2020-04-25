@@ -1,21 +1,12 @@
-// for es5: const => var
-
 const redis = require("redis")
 // import redis from 'redis'
-// const config = require("./index")
+const config = require("./index")
 var Promise = require('bluebird')
 
-var DB_URL='mongodb://test:123456@47.99.202.255:15001/testdb'
-var REDIS = {
-    host: '47.99.202.255',
-    port: 15001,
-    password: '123456'
-}
-
 var options = {
-    host: REDIS.host,
-    port: REDIS.port,
-    password: REDIS.password,
+    host: config.REDIS.host,
+    port: config.REDIS.port,
+    password: config.REDIS.password,
     detect_buffers: true,
     retry_strategy: function (options) {
         if (options.error && options.error.code === 'ECONNREFUSED') {
@@ -55,8 +46,6 @@ function setValue (key, value, time) {
     }
 }
 
-// setValue('id','24')
-
 function getValue (key) {
     return client.getAsync(key)
 }
@@ -75,11 +64,4 @@ var delValue = (key) => {
     })
 }
 
-// export {
-//     client,
-//     setValue,
-//     getValue,
-//     getHValue,
-//     delValue
-// }
 module.exports={client,setValue,getValue,getHValue,delValue}

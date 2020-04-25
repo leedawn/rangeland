@@ -8,11 +8,8 @@ var getJWTPayload = function (token) {
 }
 
 async function checkCode (key, value) {
-    console.log("checkCode -> checkCode", checkCode)
     const redisData = await redisConfig.getValue(key)
-    console.log("checkCode -> redisData", redisData)
     if (redisData != null) {
-        debugger
         if (redisData.toLowerCase() === value.toLowerCase()) {
             return true
         } else {
@@ -23,5 +20,6 @@ async function checkCode (key, value) {
     }
 }
 
-exports.getJWTPayload = getJWTPayload;
-exports.checkCode = checkCode;
+// exports.getJWTPayload = getJWTPayload;
+// exports.checkCode = checkCode;
+module.exports={getJWTPayload,checkCode}

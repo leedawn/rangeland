@@ -1,29 +1,16 @@
 <template>
-  <div class="container">
-    <div class="top-menu">
-      <div class="tag">
-        <a @click.prevent="search()">综合</a>
-      </div>
-      <div class="tag divider-line"></div>
-
-      <div class="tag">
-        <a @click.prevent="search(0)">未结</a>
-      </div>
-      <div class="tag divider-line"></div>
-      <div class="tag">
-        <a @click.prevent="search(1)">已结</a>
-      </div>
-      <div class="tag divider-line"></div>
-      <div class="tag">
-        <a @click.prevent="search(2)">精华</a>
-      </div>
-      <div class="right-tag">
-        <a @click.prevent="search(3)">按最新</a>
-      </div>
-      <div class="right-tag divider-line"></div>
-      <div class="right-tag">
-        <a @click.prevent="search(4)">按热议</a>
-      </div>
+  <div class="list-container">
+    <div class="list-menu">
+      <a class="item" @click.prevent="search()">综合</a>
+      <span class="vertical-line"></span>
+      <a class="item" @click.prevent="search(0)">未结</a>
+      <span class="vertical-line"></span>
+      <a class="item" @click.prevent="search(1)">已结</a>
+      <span class="vertical-line"></span>
+      <a class="item" @click.prevent="search(2)">精华</a>
+      <a class="item item-right" @click.prevent="search(3)">按最新</a>
+      <span class="vertical-line item-right"></span>
+      <a class="item item-right" @click.prevent="search(4)">按热议</a>
     </div>
     <list-item :lists="lists" :isEnd="isEnd" @nextpage="nextPage()"></list-item>
   </div>
@@ -100,32 +87,5 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-.container {
-  background-color: white;
-  position: relative;
-  top: 20px;
-  width: 100%;
-  height: auto;
-  margin-bottom: 50px;
-}
-.top-menu {
-  position: relative;
-  padding: 20px 12px 15px;
-}
-.tag {
-  float: left;
-  margin-left: 9px;
-  cursor: pointer;
-}
-.divider-line {
-  background-color: #999;
-  width: 1px;
-  margin-top: -2px;
-  height: 15px;
-}
-.right-tag {
-  float: right;
-  margin-left: 9px;
-  cursor: pointer;
-}
+
 </style>

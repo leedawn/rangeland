@@ -1,17 +1,17 @@
 <template>
-  <div class="list-item">
-    <div class="post-wrapper" v-for="(item,index) in items" :key="'listitem'+index">
+  <div class="item-wrapper">
+    <div class="item-top" v-for="(item,index) in items" :key="'listitem'+index">
       <div class="ui divider"></div>
       <div class="item-pic">
         <img :src="item.uid.pic" alt="贤心" />
       </div>
-      <div class="content-wrapper">
-        <div class="header">
+      <div class="item-right-wrapper">
+        <div class="item-header">
           <p class="post-catalog">{{item.catalog}}</p>
           <p class="post-title">
             <router-link :to="'/detail/'+item._id">{{item.title}}</router-link>
           </p>
-          <div class="red-tag" v-show="item.tags.length>0">
+          <div class="post-tag" v-show="item.tags.length>0">
             <span
               class="ui red label"
               v-for="(tag,index) in item.tags"
@@ -19,11 +19,9 @@
             >{{tag.name}}</span>
           </div>
         </div>
-        <div class="description">
-          <a href link>
-            <cite class="name">{{item.uid.name}}</cite>
-            <i v-if="item.uid.isVip!=='0'">{{'VIP' + item.uid.isVip}}</i>
-          </a>
+        <div class="item-description">
+          <cite class="name">{{item.uid.name}}</cite>
+          <i v-if="item.uid.isVip!=='0'">{{'VIP' + item.uid.isVip}}</i>
           <span class="time">{{item.created | moment}}</span>
           <span class="fav">
             <i class="heart outline icon"></i>
@@ -37,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div v-show="isShow" class="list-bottom">
+    <div v-show="isShow" class="item-bottom">
       <div v-if="!isEnd">
         <a class="more-answer" @click.prevent="more()">更多求解</a>
       </div>
@@ -118,98 +116,4 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.list_item {
-  position: relative;
-  top: 20px;
-}
-.post-wrapper {
-  position: relative;
-}
-.ui.divider {
-  position: relative;
-  top: 0px;
-}
-.item-pic {
-  position: relative;
-  padding: 0px 10px 8px;
-}
-.item-pic img {
-  width: 50px;
-}
-
-.content-wrapper {
-  position: absolute;
-  top: 20px;
-  left: 80px;
-  width: 100%;
-}
-.header {
-  position: relative;
-}
-.post-catalog {
-  position: relative;
-  color: #5fb878;
-  border: 1px solid #5fb878;
-  width: 40px;
-  padding: 2px 5px;
-}
-.post-title {
-  position: absolute;
-  top: 1px;
-  left: 60px;
-  font-size: 15px;
-}
-.red-tag {
-  position: absolute;
-  top: 1px;
-  right: 18%;
-}
-.description {
-  position: relative;
-  top: 9px;
-}
-.name {
-  position: relative;
-  color: gray;
-}
-.time {
-  position: relative;
-  left: 8px;
-  color: #999;
-}
-.tag {
-  position: relative;
-  top: -30px;
-  left: 83%;
-}
-.fav {
-  position: absolute;
-  left: 160px;
-  color: red;
-}
-.answer {
-  position: absolute;
-  top: 2px;
-  left: 80%;
-  color: #999;
-}
-.list-bottom {
-  height: 58px;
-}
-.more-answer {
-  position: relative;
-  left: 45%;
-  top: 15px;
-  padding: 10px;
-  border: 1px solid #009e94;
-  color: black;
-  cursor: pointer;
-}
-.no-more {
-  position: relative;
-  left: 45%;
-  top: 15px;
-  padding: 10px;
-  color: #999;
-}
 </style>

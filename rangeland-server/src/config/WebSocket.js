@@ -56,6 +56,10 @@ class WebSocketServer {
                             event: 'message',
                             message: num
                         }))
+                        ws.send(JSON.stringify({
+                            event:'greeting',
+                            message:'hello'
+                        }))
                     }
                 } catch (error) {
                     ws.send(JSON.stringify({

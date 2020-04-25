@@ -16,7 +16,7 @@ import Login from '../views/Login'
 import Home from '../views/Home'
 import Register from '../views/Register'
 import Forget from '../views/Forget'
-// import Reset from '../views/Reset'
+import Reset from '../views/Reset'
 
 import Center from '../views/Center'
 import UserCenter from '../components/user/Center'
@@ -39,7 +39,7 @@ import NotFound from '../views/NotFound'
 
 import store from '../store/index'
 
-const Reset = () => import(/* webpackChunkName:'reset‘ */ '../views/Reset')
+// const Reset = () => import(/* webpackChunkName:'reset‘ */ '../views/Reset')
 
 Vue.use(VueRouter)
 

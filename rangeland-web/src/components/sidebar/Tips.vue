@@ -1,6 +1,6 @@
 <template>
-  <div class="tips">
-    <div class="title">
+  <div class="tips-wrapper">
+    <div class="sidebar-title">
       <h3>温馨通道</h3>
     </div>
     <div class="ui divider"></div>
@@ -31,13 +31,5 @@ export default {
 }
 </script>
 <style scoped>
-.tips {
-  position: relative;
-  top: 0px;
-  background-color: white;
-  padding: 10px 0px;
-}
-.title {
-  margin: 4px 15px;
-}
+
 </style>

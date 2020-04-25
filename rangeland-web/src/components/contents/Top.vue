@@ -24,20 +24,4 @@ export default {
 }
 </script>
 <style scoped>
-.top-wrapper {
-  position: relative;
-  background-color: white;
-  width: 100%;
-}
-.top-menu {
-  position: relative;
-  top: 12px;
-  font-size: 15px;
-  margin-left: 20px;
-  height: 30px;
-}
-.ui.divider {
-  position: relative;
-  top: 13px;
-}
 </style>

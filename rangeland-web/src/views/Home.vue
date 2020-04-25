@@ -17,7 +17,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
 /* home */
 .home {
   height: 100%;
@@ -44,7 +44,7 @@ export default {
   color: #000;
 }
 .font-red {
-  color: red;
+  color: #ff5722;
 }
 .background-gray {
   background-color: #e6e6e6;
@@ -55,7 +55,7 @@ export default {
 /* end color */
 
 /* login/register/forget/reset wrapper */
-.wrapper {
+.login-wrapper {
   position: absolute;
   top: 40px;
   left: 5%;
@@ -123,4 +123,269 @@ export default {
   left: 60px;
 }
 /* login/register/forget/reset wrapper */
+
+/* homepage panel/sidebar wrapper */
+.homepage-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.post-content {
+  height: 100%;
+  position: relative;
+  top: 20px;
+  width: 86%;
+  left: 2.5%;
+}
+.post-list {
+  position: absolute;
+  left: 5%;
+  width: 66%;
+  height: 100%;
+}
+.sidebar {
+  position: absolute;
+  left: 73%;
+  width: 33%;
+}
+
+.topbar-container {
+  position: relative;
+  top: 0px;
+  left: 0%;
+  width: 100%;
+  height: 60px;
+  padding: 0px 15px;
+}
+.topbar-menu {
+  position: relative;
+  left: 7%;
+  top: 6px;
+  width: 90%;
+}
+.topbar-right-menu {
+  position: absolute;
+  left: 60%;
+  width: 40%;
+}
+.search-input {
+  position: relative;
+  top: 1px;
+}
+.new-post {
+  position: relative;
+  left: 0%;
+  top: 6px;
+}
+
+.tips-wrapper {
+  position: relative;
+  top: 0px;
+  background-color: white;
+  padding: 10px 0px;
+}
+.sidebar-title {
+  margin: 4px 15px;
+}
+.signin-wrapper {
+  position: relative;
+  top: 20px;
+  background-color: white;
+  padding: 10px 0px;
+}
+.signin-menu {
+  position: relative;
+}
+.vertical-line {
+  position: relative;
+  top: 3px;
+  border: 0.5px solid #999;
+}
+.signin-days {
+  position: absolute;
+  top: 4px;
+  right: 7px;
+  color: #999;
+}
+.signin-info {
+  position: relative;
+  padding: 10px 0px 12px;
+}
+.signin-today {
+  position: relative;
+  top: 5px;
+  left: 90px;
+}
+.signin-kiss {
+  position: absolute;
+  top: 25px;
+  left: 200px;
+}
+.hot-discussion-wrapper {
+  position: relative;
+  top: 40px;
+  padding: 10px 0px;
+  background-color: white;
+  width: 100%;
+}
+.sidebar-title {
+  margin: 4px 15px;
+}
+.ads-wrapper {
+  position: relative;
+  top: 60px;
+  padding: 10px 0px;
+  width: 100%;
+  background-color: white;
+}
+.ads-bottom {
+  position: relative;
+  text-align: center;
+}
+.ads-title {
+  display: block;
+  position: relative;
+  margin: 7px 15px;
+  padding: 15px;
+  height: 50px;
+  background-color: #5fb878;
+  color: white;
+  font-size: 20px;
+}
+.link-wrapper {
+  position: relative;
+  top: 80px;
+  padding: 10px 0px;
+  background-color: white;
+  width: 100%;
+}
+.link-bottom {
+  margin: 4px 15px;
+}
+.link-info {
+  margin-right: 10px;
+}
+/* end homepage panel/sidebar wrapper */
+
+/* homepage list wrapper */
+.top-wrapper {
+  position: relative;
+  background-color: white;
+  width: 100%;
+}
+.top-menu {
+  position: relative;
+  top: 12px;
+  font-size: 15px;
+  margin-left: 20px;
+  height: 30px;
+}
+.list-container {
+  background-color: white;
+  position: relative;
+  top: 20px;
+  width: 100%;
+  height: auto;
+  margin-bottom: 50px;
+}
+.list-menu {
+  position: relative;
+  padding: 8px 0px 6px;
+  height:30px;
+}
+.item-right {
+  left: 40%;
+}
+
+.item-wrapper {
+  position: relative;
+  top: 0px;
+}
+.item-top {
+  position: relative;
+}
+.item-pic {
+  position: relative;
+  padding: 0px 10px 8px;
+  img {
+    width: 50px;
+  }
+}
+
+.item-right-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 80px;
+  width: 100%;
+}
+.item-header {
+  position: relative;
+  .post-catalog {
+    position: relative;
+    color: #5fb878;
+    border: 1px solid #5fb878;
+    width: 40px;
+    padding: 2px 5px;
+  }
+  .post-title {
+    position: absolute;
+    top: 1px;
+    left: 60px;
+    font-size: 15px;
+  }
+  .post-tag {
+    position: absolute;
+    top: 1px;
+    right: 18%;
+  }
+}
+.item-description {
+  position: relative;
+  top: 9px;
+  .name {
+    position: relative;
+    color: gray;
+  }
+  .time {
+    position: relative;
+    left: 8px;
+    color: #999;
+  }
+  .tag {
+    position: relative;
+    top: -30px;
+    left: 83%;
+  }
+  .fav {
+    position: absolute;
+    left: 160px;
+    color: red;
+  }
+  .answer {
+    position: absolute;
+    top: 2px;
+    left: 80%;
+    color: #999;
+  }
+}
+.item-bottom {
+  height: 58px;
+}
+.more-answer {
+  position: relative;
+  left: 45%;
+  top: 15px;
+  padding: 10px;
+  border: 1px solid #009e94;
+  color: black;
+  cursor: pointer;
+}
+.no-more {
+  position: relative;
+  left: 45%;
+  top: 15px;
+  padding: 10px;
+  color: #999;
+}
+/* end homepage list wrapper */
 </style>

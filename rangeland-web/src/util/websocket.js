@@ -56,7 +56,8 @@ class WebSocketClient {
         }))
         break
       default:
-        store.dispatch(obj.event, obj) // 提交数据，含有异步操作
+        console.log('store.dispatch', obj.event, obj)
+        store.dispatch(obj.event, obj) // event:message; message:num
     }
   }
 
