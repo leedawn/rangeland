@@ -1,14 +1,21 @@
 import axios from '@/libs/api.request'
 
 export const getCode = (sid) => {
-  return axios.get('/public/getCaptcha', { params: { sid: sid } })
+  return axios.request({
+    url: '/public/getCaptcha',
+    params: {
+      sid: sid
+    },
+    method: 'get'
+  })
 }
 
-export const login = ({ userName, password, code }) => {
+export const login = ({ userName, password, code, sid }) => {
   const data = {
     userName,
     password,
-    code
+    code,
+    sid
   }
   return axios.request({
     url: 'login/login',

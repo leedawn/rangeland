@@ -83,7 +83,9 @@ export default {
       return new Promise((resolve, reject) => {
         login({
           userName,
-          password
+          password,
+          code,
+          sid
         }).then(res => {
           const data = res.data
           commit('setToken', data.token)

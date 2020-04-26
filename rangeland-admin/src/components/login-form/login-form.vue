@@ -17,9 +17,9 @@
     <FormItem prop="code">
       <Input v-model="form.code" placeholder="请输入验证码">
         <span slot="prepend">
-          <Icon :size="12" type="android-image"></Icon>
+          <Icon :size="12" type="md-image"></Icon>
         </span>
-        <span slot="append" v-html="svg">{{svg}}</span>
+        <span slot="append" v-html="svg" class="code-svg" @click.prevent="code"></span>
       </Input>
     </FormItem>
     <FormItem>
@@ -33,7 +33,7 @@ export default {
   props: {
     svg: {
       type: String,
-      default: () => {}
+      default: () => 'ha'
     },
 
     userNameRules: {
@@ -57,6 +57,9 @@ export default {
         return [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
       }
     }
+  },
+  mounted () {
+    console.log('svg', svg)
   },
   data () {
     return {
@@ -83,11 +86,21 @@ export default {
           this.$emit('on-success-valid', {
             userName: this.form.userName,
             password: this.form.password,
-            code: this.form.code
+            code: this.form.code,
+            sid: this.$store.state.sid
           })
         }
       })
+    },
+    code () {
+      this.$emit('getCode')
     }
   }
 }
 </script>
+<style scoped>
+.code-svg svg {
+  width: 80px !important;
+  height: 20px !important;
+}
+</style>

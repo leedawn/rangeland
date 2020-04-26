@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-wrap">
+  <div class="editor-wrapper">
     <div class="editor-content">
       <div class="editor-button" ref="icons">
         <div class="editor-icon" @click="choose(0)">
@@ -161,6 +161,11 @@ export default {
 }
 </script>
 <style scoped>
+.editor-wrapper {
+  position: relative;
+  width: 90%;
+  left: 2%;
+}
 .editor-button {
   position: relative;
   top: 80px;
@@ -178,12 +183,12 @@ export default {
   /* top: 15px; */
   /* left: 10px; */
   /* padding-right: 35px; */
-  color: #009688;
+  color: #21ba45;
   cursor: pointer;
 }
 .editor-icon-hr {
   font-size: 20px;
-  color: #009688;
+  color: #21ba45;
   cursor: pointer;
 }
 .textarea {
@@ -193,4 +198,3 @@ export default {
   height: 250px;
 }
 </style>
-f

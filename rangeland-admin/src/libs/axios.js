@@ -47,8 +47,9 @@ class HttpRequest {
     // 响应拦截
     instance.interceptors.response.use(res => {
       this.destroy(url)
-      const { data, status } = res
-      return { data, status }
+      // const { data, status } = res
+      // return { data, status }
+      return res.data // 修改了拦截响应的形式
     }, error => {
       this.destroy(url)
       let errorInfo = error.response
@@ -71,22 +72,22 @@ class HttpRequest {
     return instance(options)
   }
 
-  get (url, config) {
-    const options = Object.assign({
-      method: 'get',
-      url: url
-    }, config)
-    console.log('HttpRequest -> get -> options', options)
-    return this.request(options)
-  }
+  // get (url, config) {
+  //   const options = Object.assign({
+  //     method: 'get',
+  //     url: url
+  //   }, config)
+  //   console.log('HttpRequest -> get -> options', options)
+  //   return this.request(options)
+  // }
 
-  post (url, data) {
-    return this.request({
-      method: 'post',
-      url: url,
-      data: data
+  // post (url, data) {
+  //   return this.request({
+  //     method: 'post',
+  //     url: url,
+  //     data: data
 
-    })
-  }
+  //   })
+  // }
 }
 export default HttpRequest

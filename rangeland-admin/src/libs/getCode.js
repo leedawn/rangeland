@@ -4,7 +4,7 @@
  * @description 如果该newRoute已经存在则不再添加
  */
 export const getCode = () => {
-  let sid = ''
+//   let sid = ''
 
   const { name, path, meta } = newRoute
   let newList = [...list]

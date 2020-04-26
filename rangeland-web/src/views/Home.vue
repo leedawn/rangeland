@@ -77,8 +77,8 @@ export default {
   left: 80px;
 }
 .selected-line {
-  position: absolute;
-  top: 45px;
+  position: relative;
+  top: 14px;
   width: 80px;
   border: 1px solid #21ba45;
   z-index: 1;
@@ -291,7 +291,7 @@ export default {
 .list-menu {
   position: relative;
   padding: 8px 0px 6px;
-  height:30px;
+  height: 30px;
 }
 .item-right {
   left: 40%;
@@ -388,4 +388,137 @@ export default {
   color: #999;
 }
 /* end homepage list wrapper */
+
+/** add post wrapper */
+.add-container {
+  position: relative;
+  top: 30px;
+  left: 5%;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  width: 90%;
+  height: 740px;
+  background-color: #fff;
+}
+.post-tab {
+  position: relative;
+  left: 0px;
+  font-size: 18px;
+  padding: 4px;
+}
+.form-wrapper {
+  position: relative;
+  top: 30px;
+}
+.text {
+  position: absolute;
+  width: 120px;
+  font-size: 15px;
+  padding: 10px 18px;
+  text-align: center;
+}
+.classify {
+  position: relative;
+  top: 50px;
+  z-index: 1;
+  .special-column {
+    position: relative;
+  }
+
+  .ui.dropdown.special {
+    position: absolute;
+    top: 2px;
+    left: 120px;
+    width: 150px;
+  }
+  .catalog-error-message {
+    position: absolute;
+    top: 10px;
+    left: 280px;
+    color: red;
+  }
+  .title {
+    position: relative;
+    left: 400px;
+  }
+
+  input {
+    position: relative;
+    left: 100px;
+    width: 30%;
+  }
+  .title-error-message {
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    color: red;
+    white-space: nowrap;
+  }
+}
+
+.kiss {
+  position: relative;
+  top: 100px;
+  .ui.dropdown.kiss {
+    position: absolute;
+    top: 2px;
+    left: 120px;
+    width: 150px;
+    background-color: white;
+  }
+  .description {
+    position: absolute;
+    top: 13px;
+    left: 290px;
+    color: #999;
+  }
+}
+
+.code-wrapper {
+  position: relative;
+  top: 170px;
+  width: 160px;
+  .code-input {
+    position: absolute;
+    top: 1px;
+    left: 119px;
+  }
+  .code-error-message {
+    position: absolute;
+    top: 10px;
+    left: 450px;
+    white-space: nowrap;
+    color: red;
+  }
+  .svg {
+    position: absolute;
+    top: -10px;
+    left: 280px;
+  }
+}
+
+.publish {
+  position: relative;
+  top: 270px;
+  left: 3%;
+  background-color: #21ba45;
+  padding: 15px;
+  color: white;
+}
+
+.dropdown-wrapper {
+  position: relative;
+  top: 250px;
+}
+.dropdown-input {
+  position: absolute;
+}
+.dropdown-select {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  border: 1px solid rgb(230, 230, 230);
+  width: 170px;
+}
+/** end add post wrapper */
 </style>
