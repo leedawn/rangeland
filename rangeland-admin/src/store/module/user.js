@@ -11,6 +11,8 @@ import {
 } from '@/api/user'
 import { setToken, getToken } from '@/libs/util'
 
+import { Message } from 'iview'
+
 export default {
   state: {
     userName: '',
@@ -78,7 +80,7 @@ export default {
   },
   actions: {
     // 登录
-    handleLogin ({ commit }, { userName, password }) {
+    handleLogin ({ commit }, { userName, password, code, sid }) {
       userName = userName.trim()
       return new Promise((resolve, reject) => {
         login({
@@ -87,9 +89,18 @@ export default {
           code,
           sid
         }).then(res => {
-          const data = res.data
-          commit('setToken', data.token)
-          resolve()
+          console.log('handleLogin -> res', res)
+          if (res.code === 200) {
+            // const data = res.data
+            console.log(res)
+            commit('setToken', res.token)
+            console.log('handleLogin -> res.token', res.token)
+
+            resolve(res)
+          } else {
+            // this.$Message.loading(res.msg)  引入失败
+            Message.error(res.msg)
+          }
         }).catch(err => {
           reject(err)
         })

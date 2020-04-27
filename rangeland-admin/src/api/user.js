@@ -12,7 +12,7 @@ export const getCode = (sid) => {
 
 export const login = ({ userName, password, code, sid }) => {
   const data = {
-    userName,
+    username: userName,
     password,
     code,
     sid

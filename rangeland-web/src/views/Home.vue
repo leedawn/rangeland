@@ -130,7 +130,7 @@ export default {
   height: 100%;
   width: 100%;
 }
-.post-content {
+.post-content-wrapper {
   height: 100%;
   position: relative;
   top: 20px;
@@ -180,7 +180,7 @@ export default {
 
 .tips-wrapper {
   position: relative;
-  top: 0px;
+  margin-bottom: 20px;
   background-color: white;
   padding: 10px 0px;
 }
@@ -189,7 +189,7 @@ export default {
 }
 .signin-wrapper {
   position: relative;
-  top: 20px;
+  margin-bottom: 20px;
   background-color: white;
   padding: 10px 0px;
 }
@@ -223,7 +223,7 @@ export default {
 }
 .hot-discussion-wrapper {
   position: relative;
-  top: 40px;
+  margin-bottom: 20px;
   padding: 10px 0px;
   background-color: white;
   width: 100%;
@@ -233,7 +233,7 @@ export default {
 }
 .ads-wrapper {
   position: relative;
-  top: 60px;
+  margin-bottom: 20px;
   padding: 10px 0px;
   width: 100%;
   background-color: white;
@@ -254,7 +254,7 @@ export default {
 }
 .link-wrapper {
   position: relative;
-  top: 80px;
+  margin-bottom: 20px;
   padding: 10px 0px;
   background-color: white;
   width: 100%;
@@ -389,7 +389,7 @@ export default {
 }
 /* end homepage list wrapper */
 
-/** add post wrapper */
+/** add/edit post wrapper */
 .add-container {
   position: relative;
   top: 30px;
@@ -505,20 +505,270 @@ export default {
   padding: 15px;
   color: white;
 }
+/** end add/edit post wrapper */
 
-.dropdown-wrapper {
+/** post detail wrapper */
+.post-detail {
+  height: 450px;
+  background-color: white;
+  padding: 15px;
+  .title {
+    position: relative;
+    top: 10px;
+    font-size: 24px;
+  }
+}
+
+/* 帖子相关信息 */
+.post-info {
   position: relative;
-  top: 250px;
+  top: 30px;
+  .catalog {
+    padding: 5px 10px;
+    background-color: #21ba45;
+    color: white;
+    width: 50px;
+    font-size: 14px;
+  }
+  .isEnd {
+    position: absolute;
+    top: 0px;
+    left: 60px;
+    padding: 5px 10px;
+    background-color: #999999;
+    color: white;
+  }
+  .isTop {
+    position: absolute;
+    top: 0px;
+    left: 120px;
+    padding: 5px 10px;
+    color: white;
+    background-color: black;
+  }
+  .right-info {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 20px;
+  }
+  .comment.outline.icon {
+    color: #999999;
+    position: relative;
+    right: 30px;
+  }
+  .answer {
+    color: black;
+    position: relative;
+    right: 28px;
+  }
+  .eye.icon {
+    color: #999999;
+  }
+  .reads {
+    color: black;
+  }
 }
-.dropdown-input {
-  position: absolute;
+
+/* 详细的帖子信息 */
+.middle-wrapper {
+  position: relative;
+  top: 60px;
+  background-color: #f8f8f8;
+  height: 130px;
+  .middle-image {
+    position: relative;
+    top: 15px;
+    left: 15px;
+  }
+  .middle-image img {
+    width: 45px;
+  }
+  .middle-top {
+    position: absolute;
+    top: 15px;
+    left: 72px;
+  }
+  .uid {
+    color: #00aaed;
+  }
+  .create-time {
+    position: relative;
+    left: 10px;
+  }
+  .middle-bottom {
+    position: relative;
+    top: -10px;
+    left: 70px;
+    color: #ff7200;
+  }
+  .line {
+    position: relative;
+    top: 5px;
+    border: 1px solid #e6e6e6;
+  }
+  .right-buttons {
+    position: relative;
+    top: 20px;
+    left: 80%;
+    width: 120px;
+  }
+  .common-button {
+    padding: 10px 12px;
+    background-color: #21ba45;
+    color: white;
+  }
+  .extra-button {
+    margin-right: 10px;
+  }
 }
-.dropdown-select {
-  position: absolute;
-  top: 35px;
-  left: 10px;
-  border: 1px solid rgb(230, 230, 230);
-  width: 170px;
+.post-content {
+  position: relative;
+  top: 65px;
+  width: 100%;
 }
-/** end add post wrapper */
+
+/* 评论列表 */
+.comments-detail {
+  position: relative;
+  top: 55px;
+  padding: 5px;
+  .comment-detial {
+    position: relative;
+    height: 160px;
+  }
+  .comment-top {
+    position: realtive;
+  }
+  .user-avatar {
+    position: relative;
+  }
+  .user-avatar img {
+    width: 60px;
+  }
+  .comment-user-detail {
+    position: absolute;
+    top: 1px;
+    left: 70px;
+  }
+  .comment-user-info {
+    position: relative;
+    left: 10px;
+    color: #999;
+  }
+  .comment-created {
+    position: absolute;
+    top: 44px;
+    left: 70px;
+    color: #999;
+  }
+  .comment-body {
+    position: relative;
+    top: 10px;
+  }
+  .comment-bottom {
+    position: relative;
+    top: 20px;
+    font-size: 16px;
+  }
+  .comment-zan {
+    position: relative;
+    color: #999;
+  }
+  .comment-reply {
+    position: absolute;
+    top: 1px;
+    left: 60px;
+    color: #999;
+  }
+  .comment-admin {
+    position: absolute;
+    top: 0px;
+    right: 40px;
+    color: #999;
+  }
+  .comment-edit {
+    position: relative;
+    left: -15px;
+  }
+  .comment-divider {
+    position: relative;
+    top: 18px;
+  }
+}
+.comment-pagination {
+  position: relative;
+  top: 70px;
+  z-index: 1;
+}
+
+/* 回帖模块 */
+.comments-module {
+  position: relative;
+  top: 25px;
+  background-color: white;
+  height:800px;
+  padding: 15px;
+  margin-bottom:40px;
+  .comments-divider-line {
+    position: relative;
+    top: 20px;
+    background-color: #e6e6e6;
+    height: 1px;
+  }
+  .comments-title {
+    position: absolute;
+    top: 25px;
+    left: 45%;
+    padding: 1px 10px;
+    background-color: white;
+    font-size: 22px;
+    color: #999;
+  }
+  .ui.form {
+    position: relative;
+    top: 10px;
+  }
+  // .code-wrapper {
+  //   position: relative;
+  //   top: 100px;
+  //   width: 100%;
+  // }
+  // .code-text {
+  //   position: absolute;
+  //   border: 1px solid #e6e6e6;
+  //   background-color: #fbfbfb;
+  //   width: 120px;
+  //   font-size: 15px;
+  //   padding: 10px 18px;
+  //   text-align: center;
+  // }
+  // .ui.form input {
+  //   position: absolute;
+  //   top: 1px;
+  //   left: 119px;
+  //   width: 20%;
+  // }
+  // .code-svg {
+  //   position: absolute;
+  //   top: -10px;
+  //   left: 280px;
+  // }
+  // .submit {
+  //   position: relative;
+  //   top: 150px;
+  //   background-color: #21ba45;
+  //   padding: 15px;
+  //   color: white;
+  //   margin: 30px 0px 200px;
+  // }
+  // .error-message {
+  //   position: absolute;
+  //   top: 10px;
+  //   left: 450px;
+  //   color: red;
+  //   font-size: 16px;
+  // }
+}
+/** end post detail wrapper */
 </style>

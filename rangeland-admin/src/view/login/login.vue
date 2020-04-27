@@ -45,14 +45,15 @@ export default {
     console.log('svg', this.svg)
   },
   methods: {
-    ...mapActions(['handleLogin', 'getUserInfo']),
+    ...mapActions(['handleLogin']), // getUserInfo
     handleSubmit ({ userName, password, code, sid }) {
       this.handleLogin({ userName, password, code, sid }).then(res => {
-        this.getUserInfo().then(res => {
-          this.$router.push({
-            name: this.$config.homeName
-          })
+        console.log('handleSubmit -> res', res)
+        // this.getUserInfo().then(res => {
+        this.$router.push({
+          name: this.$config.homeName
         })
+        // })
       })
     },
     _getCode () {

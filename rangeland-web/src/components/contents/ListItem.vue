@@ -3,7 +3,7 @@
     <div class="item-top" v-for="(item,index) in items" :key="'listitem'+index">
       <div class="ui divider"></div>
       <div class="item-pic">
-        <img :src="item.uid.pic" alt="贤心" />
+        <img :src="item.uid.pic" alt="头像" />
       </div>
       <div class="item-right-wrapper">
         <div class="item-header">
@@ -73,6 +73,7 @@ export default {
     items () {
       _.map(this.lists, item => {
         item.uid.pic = addPicURL(item.uid.pic)
+        console.log('items ->  item.uid.pic', item.uid.pic)
         switch (item.catalog) {
           case 'ask':
             item.catalog = '提问'

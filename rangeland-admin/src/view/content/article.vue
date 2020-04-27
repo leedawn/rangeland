@@ -18,11 +18,19 @@ export default {
   data () {
     return {
       columns: [
-        { title: 'Name', key: 'name', sortable: true },
-        { title: 'Email', key: 'email', editable: true },
-        { title: 'Create-Time', key: 'createTime' },
+        { title: '标题', key: 'title', sortable: true },
+        { title: '创建时间', key: 'created', editable: true },
+        { title: '作者', key: 'uid.name' },
+        { title: '分类', key: 'sort' },
+        { title: '积分', key: 'fav' },
+        { title: '标签', key: 'tags' },
+        { title: '是否结束', key: 'isEnd' },
+        { title: '阅读记数', key: 'reads' },
+        { title: '回答记数', key: 'answer' },
+        { title: '状态', key: 'status' },
+        { title: '是否置顶', key: 'isTop' },
         {
-          title: 'Handle',
+          title: '设置',
           key: 'handle',
           options: ['delete'],
           button: [

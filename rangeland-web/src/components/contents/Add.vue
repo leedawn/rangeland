@@ -25,7 +25,7 @@
           <validation-provider name="title" rules="required" v-slot="{errors}">
             <div class="ui input title">
               <div class="text">标题</div>
-              <input type="input" v-model="title" placeholder="请输入标题" />
+              <input type="text" v-model="title" placeholder="请输入标题" />
               <span class="title-error-message">{{errors[0]}}</span>
             </div>
           </validation-provider>

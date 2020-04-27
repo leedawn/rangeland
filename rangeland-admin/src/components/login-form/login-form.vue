@@ -58,9 +58,6 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log('svg', svg)
-  },
   data () {
     return {
       form: {
@@ -87,7 +84,7 @@ export default {
             userName: this.form.userName,
             password: this.form.password,
             code: this.form.code,
-            sid: this.$store.state.sid
+            sid: this.$store.state.user.sid
           })
         }
       })
@@ -99,8 +96,16 @@ export default {
 }
 </script>
 <style scoped>
+.code-svg {
+  display: inline-block;
+  height: 20px;
+  overflow: hidden;
+  vertical-align: middle;
+  width: 120px;
+}
 .code-svg svg {
-  width: 80px !important;
-  height: 20px !important;
+  position: relative;
+  top: -25px;
+  left: -10px;
 }
 </style>

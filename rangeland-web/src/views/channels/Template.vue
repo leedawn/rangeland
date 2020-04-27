@@ -1,7 +1,7 @@
 <template>
   <div class="homepage-wrapper background-gray">
     <panel></panel>
-    <div class="post-content">
+    <div class="post-content-wrapper">
       <div class="post-list">
         <list></list>
       </div>
