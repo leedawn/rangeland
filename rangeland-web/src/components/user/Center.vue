@@ -1,21 +1,21 @@
 <template>
-  <div class="container">
-    <div class="welcome">Hi,Admin,您已经是我们的正式会员！</div>
+  <div class="right-content-container">
+    <div class="user-welcome">Hi,Admin,您已经是我们的正式会员！</div>
     <div class="ui card vip">
-      <div class="content">我的会员信息</div>
+      <div class="user-content">我的会员信息</div>
       <div class="extra content">
         <p>
           积分经验值：
-          <b class="red_font">60</b>
+          <b class="font-red">60</b>
         </p>
         <p>
           您当前为：
-          <b class="red_font">非VIP</b>
+          <b class="font-red">非VIP</b>
         </p>
       </div>
     </div>
-    <div class="ui card sign_in">
-      <div class="content">
+    <div class="ui card sign-in">
+      <div class="user-content">
         <p class="tab">
           <a>签到</a>｜
           <a>说明</a>｜
@@ -23,14 +23,14 @@
         </p>
         <p class="days" v-show="isSign||isLogin">
           已连续签到
-          <b class="red_font">{{count}}</b>天
+          <b class="font-red">{{count}}</b>天
         </p>
       </div>
-      <div class="extra content today_info">
-        <button class="ui red button today_sign_in" @click="sign()">今日签到</button>
+      <div class="extra content today-info">
+        <button class="ui red button today-sign-in" @click="sign()">今日签到</button>
         <p class="kiss">
           可获得
-          <b class="red_font">{{favs}}</b>飞吻
+          <b class="font-red">{{favs}}</b>飞吻
         </p>
       </div>
     </div>
@@ -137,61 +137,5 @@ export default {
 }
 </script>
 <style scoped>
-.container {
-  padding: 3%;
-}
-.welcome {
-  position: absolute;
-  background-color: beige;
-  padding: 1%;
-  width: 90%;
-}
-.vip {
-  position: absolute;
-  top: 14%;
-}
-.red_font {
-  color: red;
-  /* padding:0.5%; */
-}
-.sign_in {
-  position: absolute;
-  top: 14%;
-  left: 50%;
-}
-.tab {
-  position: relative;
-  float: left;
-}
-.days {
-  position: relative;
-  float: left;
-  left: 10%;
-}
-.today_info {
-  text-align: center;
-}
-.ui.red.button.today_sign_in {
-  position: relative;
-  left: 25%;
-  padding: 5%;
-  float: left;
-}
-p.kiss {
-  position: relative;
-  left: 28%;
-  padding: 3%;
-  float: left;
-}
-.shortcut {
-  position: absolute;
-  top: 40%;
-  width: 90%;
-}
-.ui.massive.image.my_image {
-  position: relative;
-  background-color: green;
-  padding: 1%;
-  width: 5%;
-}
+
 </style>

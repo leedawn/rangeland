@@ -1,6 +1,6 @@
 <template>
   <div class="ui grid my-center">
-    <div class="ui inverted vertical menu">
+    <div class="ui inverted vertical menu center-menu">
       <div v-for="(list,index) in lists" :key="'center'+index">
         <a class="item">
           <router-link :to="{name:list.link}">
@@ -11,7 +11,7 @@
         </a>
       </div>
     </div>
-    <div class="content">
+    <div class="center-content-wrapper">
       <router-view></router-view>
     </div>
   </div>
@@ -58,34 +58,5 @@ export default {
 }
 </script>
 <style scoped>
-.my-center {
-  position: relative;
-  top: -20px;
-  height: 100%;
-  background-color: #e6e6e6;
-  margin-bottom: 160px;
-  width: 100%;
-  margin-top: 1px;
-}
-.menu {
-  position: absolute;
-  top: 50px;
-  left: 7%;
-  width: 15%;
-  height: 100%;
-  text-align: center;
-  font-size: 20px;
-}
-i {
-  position: relative;
-  left: -2%;
-}
-.content {
-  position: absolute;
-  left: 25%;
-  top: 50px;
-  width: 68%;
-  height: 100%;
-  background-color: white;
-}
+
 </style>

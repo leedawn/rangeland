@@ -23,10 +23,12 @@
         <transition name="fade">
           <div class="dropdown-menu" v-show="isHover">
             <div class="item hover-style">
-              <i class="cog icon"></i>个人设置
+              <i class="cog icon"></i>
+              <router-link :to="{name:'setting'}">个人设置</router-link>
             </div>
             <div class="item hover-style">
-              <i class="bell outline icon"></i>我的消息
+              <i class="bell outline icon"></i>
+              <router-link :to="{name:'msg'}">我的消息</router-link>
             </div>
             <div class="item hover-style">
               <i class="home icon"></i>

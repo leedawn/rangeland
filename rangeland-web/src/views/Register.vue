@@ -141,6 +141,6 @@ export default {
   height: 578px;
 }
 .extra-line-right {
-  left: 115px;
+  left: 90px;
 }
 </style>

@@ -36,7 +36,7 @@ export default {
 }
 /* endHome */
 
-/* color */
+/* commone */
 .font-green {
   color: #21ba45;
 }
@@ -52,7 +52,10 @@ export default {
 .background-white {
   background-color: #fff;
 }
-/* end color */
+.item {
+  cursor: pointer;
+}
+/* end common */
 
 /* login/register/forget/reset wrapper */
 .login-wrapper {
@@ -707,9 +710,9 @@ export default {
   position: relative;
   top: 25px;
   background-color: white;
-  height:800px;
+  height: 800px;
   padding: 15px;
-  margin-bottom:40px;
+  margin-bottom: 40px;
   .comments-divider-line {
     position: relative;
     top: 20px;
@@ -729,46 +732,99 @@ export default {
     position: relative;
     top: 10px;
   }
-  // .code-wrapper {
-  //   position: relative;
-  //   top: 100px;
-  //   width: 100%;
-  // }
-  // .code-text {
-  //   position: absolute;
-  //   border: 1px solid #e6e6e6;
-  //   background-color: #fbfbfb;
-  //   width: 120px;
-  //   font-size: 15px;
-  //   padding: 10px 18px;
-  //   text-align: center;
-  // }
-  // .ui.form input {
-  //   position: absolute;
-  //   top: 1px;
-  //   left: 119px;
-  //   width: 20%;
-  // }
-  // .code-svg {
-  //   position: absolute;
-  //   top: -10px;
-  //   left: 280px;
-  // }
-  // .submit {
-  //   position: relative;
-  //   top: 150px;
-  //   background-color: #21ba45;
-  //   padding: 15px;
-  //   color: white;
-  //   margin: 30px 0px 200px;
-  // }
-  // .error-message {
-  //   position: absolute;
-  //   top: 10px;
-  //   left: 450px;
-  //   color: red;
-  //   font-size: 16px;
-  // }
 }
 /** end post detail wrapper */
+
+/**  center wrapper */
+.my-center {
+  position: relative;
+  top: -20px;
+  height: 100%;
+  background-color: #e6e6e6;
+  margin-bottom: 160px;
+  width: 100%;
+  margin-top: 1px;
+}
+.center-menu {
+  position: absolute;
+  top: 50px;
+  left: 7%;
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+.center-content-wrapper {
+  position: absolute;
+  left: 25%;
+  top: 50px;
+  width: 68%;
+  height: 100%;
+  background-color: white;
+}
+/**  end center wrapper */
+/** user center wrapper */
+.right-content-container {
+  padding: 20px;
+}
+.user-welcome {
+  position: relative;
+  padding: 15px;
+  width: 100%;
+  background-color: beige;
+}
+.vip {
+  position: relative;
+  top: 20px;
+}
+.user-content {
+  font-size: 16px;
+  padding: 10px;
+}
+.ui.card.sign-in {
+  position: absolute;
+  top: 85px;
+  left: 50%;
+  .tab {
+    position: relative;
+    float: left;
+    margin: -10px -15px;
+  }
+  .days {
+    position: absolute;
+    top: 16px;
+    left: 65%;
+    font-size: 14px;
+    float: left;
+  }
+  .today-info {
+    text-align: center;
+  }
+  .ui.red.button.today-sign-in {
+    position: relative;
+    left: 25%;
+    padding: 5%;
+    float: left;
+  }
+  .kiss {
+    position: relative;
+    left: 24%;
+    top: 6px;
+    padding: 3%;
+    float: left;
+  }
+}
+
+.ui.card.shortcut {
+  position: relative;
+  top: 50px;
+  width: 90%;
+}
+.ui.massive.image.my_image {
+  position: relative;
+  background-color: green;
+  padding: 1%;
+  width: 5%;
+}
+/** end user center wrapper */
 </style>

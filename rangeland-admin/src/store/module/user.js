@@ -89,12 +89,9 @@ export default {
           code,
           sid
         }).then(res => {
-          console.log('handleLogin -> res', res)
           if (res.code === 200) {
             // const data = res.data
-            console.log(res)
             commit('setToken', res.token)
-            console.log('handleLogin -> res.token', res.token)
 
             resolve(res)
           } else {

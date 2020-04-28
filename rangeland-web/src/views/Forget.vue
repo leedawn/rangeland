@@ -93,6 +93,6 @@ export default {
 
 <style scoped>
 .extra-line-right {
-  left: 125px;
+  left: 105px;
 }
 </style>

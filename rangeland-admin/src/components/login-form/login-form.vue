@@ -100,12 +100,12 @@ export default {
   display: inline-block;
   height: 20px;
   overflow: hidden;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   width: 120px;
 }
-.code-svg svg {
+.code-svg >>> svg {
   position: relative;
-  top: -25px;
-  left: -10px;
+  width: 120px;
+  top: -20px;
 }
 </style>

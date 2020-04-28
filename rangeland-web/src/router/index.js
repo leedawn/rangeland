@@ -54,7 +54,7 @@ const myRoutes = [
   // },
   {
     path: '/', // 嵌套路由需要两级router-view
-    name: 'home',
+    // name: 'home',
     component: Home,
     children: [
       {
