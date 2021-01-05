@@ -9,7 +9,7 @@
     "push": "npm run build && scp -r dist/* root@47.99.202.255:/var/www/rangeland-web"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "buttercms": "^1.2.1",
     "core-js": "^3.6.4",
     "dayjs": "^1.8.22",
